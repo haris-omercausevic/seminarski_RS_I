@@ -19,7 +19,7 @@ namespace SrednjeSkoleApp.Data.Models
         public string Prebivaliste { get; set; ***REMOVED***
 
         public virtual KorisnikKontakt Kontakt { get; set; ***REMOVED***
-        public virtual List<KorisnikUloga> KorisniciUloge { get; set; ***REMOVED***
+        public virtual List<KorisniciUloge> KorisniciUloge { get; set; ***REMOVED***
         public virtual List<Obavijest> Obavijesti { get; set; ***REMOVED***
 ***REMOVED***
 ***REMOVED***

@@ -11,7 +11,10 @@ namespace SrednjeSkoleApp.Data.Models
         public DateTime Datum {get; set;***REMOVED***
         public string Naslov {get; set;***REMOVED***
         public string opis {get; set;***REMOVED***
-        public Izostanak Izostanak {get; set;***REMOVED***
-        public Nastavnik Nastavnik {get; set;***REMOVED***
+        
+        public int NastavnikId { get; set; ***REMOVED***
+        public virtual Nastavnik Nastavnik { get; set; ***REMOVED***
+        public virtual List<UcenikCasovi> UcenikCasovi { get; set; ***REMOVED***
+        public virtual List<Izostanak> Izostanci { get; set; ***REMOVED***
 ***REMOVED***
 ***REMOVED***

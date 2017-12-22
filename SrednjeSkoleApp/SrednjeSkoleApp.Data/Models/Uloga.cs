@@ -14,7 +14,7 @@ namespace SrednjeSkoleApp.Data.Models
         public bool Ucenik{ get; set; ***REMOVED***
         public bool Roditelj { get; set; ***REMOVED***
 
-        public virtual List<KorisnikUloga> KorisniciUloge { get; set; ***REMOVED***
+        public virtual List<KorisniciUloge> KorisniciUloge { get; set; ***REMOVED***
 
 ***REMOVED***
 ***REMOVED***

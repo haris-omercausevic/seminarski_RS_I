@@ -4,14 +4,14 @@ using System.Text;
 
 namespace SrednjeSkoleApp.Data.Models
 {
-    public class Smjer
+    public class Materijal
     {
-        public int SmjerId { get; set; ***REMOVED***
+        public int MaterijalId { get; set; ***REMOVED***
         public string Naziv { get; set; ***REMOVED***
-        public string Opis{ get; set; ***REMOVED***
-
+        public string Napomena { get; set; ***REMOVED***
         public SkolskaGodina SkolskaGodina { get; set; ***REMOVED***
-        public virtual List<Ucenik> Ucenici { get; set; ***REMOVED***
 
+        public int NastavnikId{ get; set; ***REMOVED***
+        public virtual Nastavnik Nastavnik{ get; set; ***REMOVED***
 ***REMOVED***
 ***REMOVED***

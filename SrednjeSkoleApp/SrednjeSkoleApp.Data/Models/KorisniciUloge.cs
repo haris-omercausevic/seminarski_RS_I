@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SrednjeSkoleApp.Data.Models
 {
-    public class KorisnikUloga
+    public class KorisniciUloge
     {
-        public int KorisnikUlogaID{ get; set; ***REMOVED***
+        public int KorisniciUlogeId { get; set; ***REMOVED***
         public int UlogaID { get; set; ***REMOVED***
         public int KorisnikID { get; set; ***REMOVED***
 
