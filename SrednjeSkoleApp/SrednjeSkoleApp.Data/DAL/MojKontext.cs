@@ -35,7 +35,6 @@ namespace SrednjeSkoleApp.Data.Models
         public DbSet<Uloga> Uloge { get; set; ***REMOVED***
 
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            optionsBuilder.UseSqlServer("Server=localhost;Database=deploy1;Trusted_Connection=True;MultipleActiveResultSets=true;User ID=;Password=");

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SrednjeSkoleApp.Web
+namespace SrednjeSkoleApp.Data
 {
     public class Startup
     {

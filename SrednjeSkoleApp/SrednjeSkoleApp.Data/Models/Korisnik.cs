@@ -12,7 +12,7 @@ namespace SrednjeSkoleApp.Data.Models
         public string Prezime { get; set; ***REMOVED***
         public string Lozinka { get; set; ***REMOVED***
         public bool Aktivan { get; set; ***REMOVED***
-        public char Spol { get; set; ***REMOVED***
+        public string Spol { get; set; ***REMOVED***
         public DateTime DatumRodjenja { get; set; ***REMOVED***
         public string MjestoRodjenja { get; set; ***REMOVED***
         public string JMBG { get; set; ***REMOVED***
