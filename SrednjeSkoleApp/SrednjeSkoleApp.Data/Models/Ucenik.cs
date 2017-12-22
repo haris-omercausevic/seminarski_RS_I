@@ -8,9 +8,12 @@ namespace SrednjeSkoleApp.Data.Models
 {
     public class Ucenik:Korisnik
     {
+        public Ucenik()
+        {
+                
+    ***REMOVED***
         public string ImeRoditelja { get; set; ***REMOVED***
         public int GodinaUpisa { get; set; ***REMOVED***
-
 
         public int SmjerId { get; set; ***REMOVED***
         public virtual Smjer Smjer { get; set; ***REMOVED***

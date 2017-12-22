@@ -1,17 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+using SrednjeSkoleApp.Data.Models;
 
-namespace SrednjeSkoleApp.Data.Models
+namespace SrednjeSkoleApp.Data.EF
 {
-
-   
     public class MojKontext : DbContext
     {
-        
+        public MojKontext(DbContextOptions<MojKontext> options)
+            : base(options)
+        {
+    ***REMOVED***
         public DbSet<Korisnik> Korisnici { get; set; ***REMOVED***
         public DbSet<Nastavnik> Nastavnici { get; set; ***REMOVED***
         public DbSet<Ucenik> Ucenici { get; set; ***REMOVED***
@@ -35,11 +32,36 @@ namespace SrednjeSkoleApp.Data.Models
         public DbSet<Uloga> Uloge { get; set; ***REMOVED***
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           optionsBuilder.UseSqlServer("Server=localhost;Database=deploy1;Trusted_Connection=True;MultipleActiveResultSets=true;User ID=;Password=");
-    ***REMOVED***        
+            modelBuilder.Entity<Izostanak>()
+                .HasOne(x => x.Ucenik)
+                .WithMany()
+                .HasForeignKey(x => x.UcenikId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-***REMOVED***
+            modelBuilder.Entity<UcenikCasovi>()
+                .HasOne(x => x.Ucenik)
+                .WithMany()
+                .HasForeignKey(x => x.UcenikId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<UcenikCasovi>()
+                .HasOne(x => x.Cas)
+                .WithMany()
+                .HasForeignKey(x => x.CasId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //  ===disable all cascade delete===
+            //var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+            //    .SelectMany(t => t.GetForeignKeys())
+            //    .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            //foreach (var fk in cascadeFKs)
+            //    fk.DeleteBehavior = DeleteBehavior.Restrict;
+
+            //base.OnModelCreating(modelBuilder);
+    ***REMOVED***
 ***REMOVED***
+***REMOVED***
+       
