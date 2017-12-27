@@ -1,0 +1,38 @@
+﻿@using SrednjeSkoleApp.Data.Models
+
+@{
+    AreaAttribute aa = new AreaAttribute("ModulAdministrator");
+    int brojac = 0;
+***REMOVED***
+
+
+<table class="table table-bordered">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Naziv</th>
+            <th scope="col">Oznaka</th>
+            <th scope="col">Opcije</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        @foreach (var x in Model)
+        {
+            <tr scope="row">
+                <td>@x.PredmetId</td>
+                <td>@x.Naziv</td>
+                <td>@x.Oznaka</td>
+                <td>
+                    <a href="/obrisi?id=@x.PredmetId">Obrisi</a>
+                    <a href="/edit?id=@x.PredmetId">Edit</a>
+                </td>
+            </tr>
+    ***REMOVED***
+        </tbody>
+    </table>
+    
+<div>
+    <a href="/dodaj">Dodaj novi</a>
+</div>

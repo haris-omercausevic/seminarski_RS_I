@@ -5,9 +5,9 @@ namespace SrednjeSkoleApp.Data.EF
 {
     public class MojKontext : DbContext
     {
-        public MojKontext(DbContextOptions<MojKontext> options)
-            : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseSqlServer("Server=localhost;Database=test;Trusted_Connection=true;MultipleActiveResultSets=true;User Id =; Password=");
     ***REMOVED***
         public DbSet<Korisnik> Korisnici { get; set; ***REMOVED***
         public DbSet<Nastavnik> Nastavnici { get; set; ***REMOVED***
