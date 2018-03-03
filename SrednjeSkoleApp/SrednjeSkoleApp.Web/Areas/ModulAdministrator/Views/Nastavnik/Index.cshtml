@@ -1,0 +1,39 @@
+﻿@using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
+@using SrednjeSkoleApp.Data.Models
+@model NastavnikIndexVM
+
+@{
+   //Layout = "_Layout";
+***REMOVED***
+<h2>Index</h2>
+
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ime i prezime</th>
+            <th>Email</th>
+            <th>Naucna oblast</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+            <tr>
+                <td>@x.imePrezime</td>
+                <td>@x.email</td>
+                <td>@x.naucnaOblast</td>
+                <td>
+                    <a asp-area="ModulAdministrator" asp-action="Detalji" asp-route-id="@x.id" class="btn btn-primary">Detalji</a>
+                    <a asp-area="ModulAdministrator" asp-action="Obrisi" asp-route-id="@x.id" class="btn btn-danger">Obrisi</a>
+                </td>
+            </tr>
+    ***REMOVED***
+    </tbody>
+</table>
+
+<a asp-area="ModulAdministrator" asp-action="Dodaj" class="btn btn-success">Dodaj</a>
+
+

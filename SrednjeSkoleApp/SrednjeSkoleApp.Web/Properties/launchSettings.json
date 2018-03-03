@@ -1,0 +1,27 @@
+{
+  "iisSettings": {
+    "windowsAuthentication": false,
+    "anonymousAuthentication": true,
+    "iisExpress": {
+      "applicationUrl": "http://localhost:64917/",
+      "sslPort": 0
+***REMOVED***
+***REMOVED***
+  "profiles": {
+    "IIS Express": {
+      "commandName": "IISExpress",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+  ***REMOVED***
+***REMOVED***,
+    "SrednjeSkoleApp.Web": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+  ***REMOVED***,
+      "applicationUrl": "http://localhost:64918/"
+***REMOVED***
+  ***REMOVED***
+***REMOVED***
