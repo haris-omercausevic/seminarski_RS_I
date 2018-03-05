@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
+    [Area("ModulAdministrator")]
     public class ObavijestController : Controller
     {
         public IActionResult Index()

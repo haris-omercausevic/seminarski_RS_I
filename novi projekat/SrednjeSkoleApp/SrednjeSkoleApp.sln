@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC***REMOVED***") = "SrednjeSkoleApp.Web", "SrednjeSkoleApp.Web\SrednjeSkoleApp.Web.csproj", "{EEC11032-8E7C-4EE0-9C66-CB0B7709F8FF***REMOVED***"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC***REMOVED***") = "SrednjeSkoleApp.Data", "SrednjeSkoleApp.Data\SrednjeSkoleApp.Data.csproj", "{D97A8AC1-26D5-4D14-9B19-1911F381B37B***REMOVED***"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEC11032-8E7C-4EE0-9C66-CB0B7709F8FF***REMOVED***.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEC11032-8E7C-4EE0-9C66-CB0B7709F8FF***REMOVED***.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEC11032-8E7C-4EE0-9C66-CB0B7709F8FF***REMOVED***.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEC11032-8E7C-4EE0-9C66-CB0B7709F8FF***REMOVED***.Release|Any CPU.Build.0 = Release|Any CPU
+		{D97A8AC1-26D5-4D14-9B19-1911F381B37B***REMOVED***.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D97A8AC1-26D5-4D14-9B19-1911F381B37B***REMOVED***.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D97A8AC1-26D5-4D14-9B19-1911F381B37B***REMOVED***.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D97A8AC1-26D5-4D14-9B19-1911F381B37B***REMOVED***.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28DB0B0E-740F-485C-9A52-51B032894442***REMOVED***
+	EndGlobalSection
+EndGlobal

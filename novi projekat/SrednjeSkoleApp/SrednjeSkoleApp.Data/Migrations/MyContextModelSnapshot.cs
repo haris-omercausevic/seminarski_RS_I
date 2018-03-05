@@ -12,10 +12,9 @@ using System;
 namespace SrednjeSkoleApp.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20180302194359_init4")]
-    partial class init4
+    partial class MyContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -75,11 +74,15 @@ namespace SrednjeSkoleApp.Data.Migrations
 
                     b.Property<int>("UcenikId");
 
+                    b.Property<int?>("UcenikId1");
+
                     b.HasKey("IzostanakId");
 
                     b.HasIndex("CasId");
 
                     b.HasIndex("UcenikId");
+
+                    b.HasIndex("UcenikId1");
 
                     b.ToTable("Izostanci");
             ***REMOVED***);
@@ -323,7 +326,7 @@ namespace SrednjeSkoleApp.Data.Migrations
 
                     b.Property<string>("Opis");
 
-                    b.Property<int?>("SkolskaGodinaId");
+                    b.Property<int>("SkolskaGodinaId");
 
                     b.HasKey("SmjerId");
 
@@ -357,6 +360,8 @@ namespace SrednjeSkoleApp.Data.Migrations
 
                     b.Property<int>("UcenikId");
 
+                    b.Property<int?>("UcenikId1");
+
                     b.HasKey("UcenikCasoviId");
 
                     b.HasIndex("CasId");
@@ -364,6 +369,8 @@ namespace SrednjeSkoleApp.Data.Migrations
                     b.HasIndex("CasId1");
 
                     b.HasIndex("UcenikId");
+
+                    b.HasIndex("UcenikId1");
 
                     b.ToTable("UceniciCasovi");
             ***REMOVED***);
@@ -393,15 +400,13 @@ namespace SrednjeSkoleApp.Data.Migrations
 
                     b.Property<int>("RedniBroj");
 
-                    b.Property<int?>("SkolskaGodinaId");
+                    b.Property<string>("SkolskaGodina");
 
                     b.Property<int>("UcenikId");
 
                     b.HasKey("UcenikRazrediId");
 
                     b.HasIndex("RazredId");
-
-                    b.HasIndex("SkolskaGodinaId");
 
                     b.HasIndex("UcenikId");
 
@@ -453,6 +458,10 @@ namespace SrednjeSkoleApp.Data.Migrations
 
                     b.Property<string>("ImeRoditelja");
 
+                    b.Property<string>("NazivOsnovneSkole");
+
+                    b.Property<double?>("ProsjekOcjenaOsnovnaSkola");
+
                     b.Property<int>("SmjerId");
 
                     b.HasIndex("SmjerId");
@@ -489,6 +498,10 @@ namespace SrednjeSkoleApp.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UcenikId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SrednjeSkoleApp.Data.Models.Ucenik")
+                        .WithMany("Izostanci")
+                        .HasForeignKey("UcenikId1");
             ***REMOVED***);
 
             modelBuilder.Entity("SrednjeSkoleApp.Data.Models.KorisniciUloge", b =>
@@ -548,14 +561,14 @@ namespace SrednjeSkoleApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SrednjeSkoleApp.Data.Models.Razred", "Razred")
-                        .WithMany()
+                        .WithMany("Predaje")
                         .HasForeignKey("RazredId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SrednjeSkoleApp.Data.Models.SkolskaGodina", "SkolskaGodina")
                         .WithMany()
                         .HasForeignKey("SkolskaGodinaId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SrednjeSkoleApp.Data.Models.SmjerPredmet", "SmjerPredmet")
                         .WithMany()
@@ -592,7 +605,8 @@ namespace SrednjeSkoleApp.Data.Migrations
                 {
                     b.HasOne("SrednjeSkoleApp.Data.Models.SkolskaGodina", "SkolskaGodina")
                         .WithMany()
-                        .HasForeignKey("SkolskaGodinaId");
+                        .HasForeignKey("SkolskaGodinaId")
+                        .OnDelete(DeleteBehavior.Cascade);
             ***REMOVED***);
 
             modelBuilder.Entity("SrednjeSkoleApp.Data.Models.UcenikCasovi", b =>
@@ -610,12 +624,16 @@ namespace SrednjeSkoleApp.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UcenikId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SrednjeSkoleApp.Data.Models.Ucenik")
+                        .WithMany("UcenikCasovi")
+                        .HasForeignKey("UcenikId1");
             ***REMOVED***);
 
             modelBuilder.Entity("SrednjeSkoleApp.Data.Models.UcenikPredmet", b =>
                 {
                     b.HasOne("SrednjeSkoleApp.Data.Models.Ucenik", "Ucenik")
-                        .WithMany()
+                        .WithMany("UcenikPredmeti")
                         .HasForeignKey("UcenikId")
                         .OnDelete(DeleteBehavior.Cascade);
             ***REMOVED***);
@@ -623,16 +641,12 @@ namespace SrednjeSkoleApp.Data.Migrations
             modelBuilder.Entity("SrednjeSkoleApp.Data.Models.UcenikRazredi", b =>
                 {
                     b.HasOne("SrednjeSkoleApp.Data.Models.Razred", "Razred")
-                        .WithMany()
+                        .WithMany("UcenikRazredi")
                         .HasForeignKey("RazredId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SrednjeSkoleApp.Data.Models.SkolskaGodina", "SkolskaGodina")
-                        .WithMany()
-                        .HasForeignKey("SkolskaGodinaId");
-
                     b.HasOne("SrednjeSkoleApp.Data.Models.Ucenik", "Ucenik")
-                        .WithMany()
+                        .WithMany("UcenikRazredi")
                         .HasForeignKey("UcenikId")
                         .OnDelete(DeleteBehavior.Cascade);
             ***REMOVED***);

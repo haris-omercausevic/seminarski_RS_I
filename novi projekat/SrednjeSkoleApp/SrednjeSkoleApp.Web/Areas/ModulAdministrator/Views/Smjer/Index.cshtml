@@ -1,0 +1,34 @@
+﻿@using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
+@using SrednjeSkoleApp.Data.Models
+@model SmjerIndexVM
+@{
+    ViewData["Title"] = "ImeViewa";
+
+***REMOVED***
+
+<h2>Index</h2>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Naziv</th>
+        <th>Opis</th>
+        <th>Školska godina</th>
+        <th>Akcija</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var x in Model.rows)
+    {
+        <tr>
+            <td>@x.Naziv</td>
+            <td>@x.Opis</td>
+            <td>@x.SkolskaGodina</td>
+            <td>
+                <a asp-area="ModulAdministrator" asp-action="Detalji" asp-controller="Smjer" asp-route-id="@x.SmjerId" class="btn btn-primary">Detalji</a>
+                <a asp-area="ModulAdministrator" asp-action="Obrisi" asp-controller="Smjer" asp-route-id="@x.SmjerId" class="btn btn-danger">Obrisi</a>
+            </td>
+        </tr>
+***REMOVED***
+    </tbody>
+</table>
+<a asp-area="ModulAdministrator" asp-action="Dodaj" class="btn btn-success">Dodaj</a>

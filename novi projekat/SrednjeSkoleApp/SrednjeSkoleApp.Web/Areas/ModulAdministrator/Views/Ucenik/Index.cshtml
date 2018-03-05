@@ -1,0 +1,99 @@
+﻿@using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
+@using SrednjeSkoleApp.Data.Models
+@model UcenikIndexVM
+
+@{
+    //Layout = "_Layout";
+***REMOVED***
+<h2>Index</h2>
+
+
+@*<div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group" id="boot-search-box">
+                    <input type="text" class="form-control" placeholder="Type a search term like: mobile phone" />
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                    <form class="form-horizontal" role="form">
+                                        <div class="form-group">
+                                            <label for="ime">Ime:</label>
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="prezime">prezime:</label>
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">email:</label>
+                                            <input class="form-control" type="text" />
+                                        </div>
+
+                                            <button type="submit" class="btn btn-primary btn-block">Search :: <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success "><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<form asp-action="Trazi" asp-area="ModulAdministrator" method="get">
+    <div class="form-group">
+        <label>Ime: </label>
+        <div>
+            <input type="text" name="ime" value="@ViewData["imeFilter"]" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Prezime: </label>
+        <div>
+            <input type="text" name="prezime" value="@ViewData["prezimeFilter"]" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label>Email: </label>
+        <div>
+            <input type="text" name="email" value="@ViewData["emailFilter"]" />
+        </div>
+    </div>
+
+    <input type="submit" value="Trazi" class="btn btn-default" />
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ime i prezime</th>
+            <th>Email</th>
+            <th>Razred</th>
+            <th>Smjer</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+            <tr>
+                <td>@x.imePrezime</td>
+                <td>@x.email</td>
+                <td>@x.razred</td>
+                <td>@x.smjer</td>
+                <td>
+                    <a asp-area="ModulAdministrator" asp-action="Detalji" asp-route-id="@x.id" class="btn btn-primary">Detalji</a>
+                    <a asp-area="ModulAdministrator" asp-action="Obrisi" asp-route-id="@x.id" class="btn btn-danger">Obrisi</a>
+                </td>
+            </tr>
+    ***REMOVED***
+    </tbody>
+</table>
+
+<a asp-area="ModulAdministrator" asp-action="Dodaj" class="btn btn-success">Dodaj</a>
+
+
