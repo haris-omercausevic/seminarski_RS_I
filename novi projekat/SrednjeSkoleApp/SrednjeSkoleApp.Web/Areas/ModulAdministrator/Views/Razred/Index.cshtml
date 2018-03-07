@@ -19,16 +19,18 @@
     <tbody>
         @foreach (var x in Model.rows)
         {
-        <tr>
-            <td>@x.SkolskaGodina</td>
-            <td>@x.Razred</td>
-            <td>@x.Razrednik</td>
-            <td>
-                <a asp-area="ModulAdministrator" asp-action="Detalji" asp-controller="Razred" asp-route-id="@x.RazredId" class="btn btn-primary">Detalji</a>
-                <a asp-area="ModulAdministrator" asp-action="Obrisi" asp-controller="Razred" asp-route-id="@x.RazredId" class="btn btn-danger">Obrisi</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@x.SkolskaGodina</td>
+                <td>@x.Razred</td>
+                <td>@x.Razrednik</td>
+                <td>
+                    <a asp-area="ModulAdministrator" asp-action="Detalji" asp-controller="Razred" asp-route-id="@x.RazredId" class="btn btn-primary">Detalji</a>
+                    <a asp-area="ModulAdministrator" asp-action="Obrisi" asp-controller="Razred" asp-route-id="@x.RazredId" class="btn btn-danger">Obrisi</a>
+                </td>
+            </tr>
     ***REMOVED***
     </tbody>
 </table>
 <a asp-area="ModulAdministrator" asp-action="Dodaj" class="btn btn-success">Dodaj</a>
+
+

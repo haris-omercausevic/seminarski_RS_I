@@ -91,6 +91,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 
             var model = new RazredDodajVM
             {
+                id = id,
                 razredBrojcano = o1.RazredBrojcano,
                 oznaka = o1.Oznaka,
                 odjeljenje = o1.Odjeljenje,
