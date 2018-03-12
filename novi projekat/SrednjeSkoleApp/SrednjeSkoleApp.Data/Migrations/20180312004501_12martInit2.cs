@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SrednjeSkoleApp.Data.Migrations
 {
-    public partial class init5 : Migration
+    public partial class _12martInit2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,20 +34,6 @@ namespace SrednjeSkoleApp.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SkolskaGodina", x => x.SkolskaGodinaId);
-            ***REMOVED***);
-
-            migrationBuilder.CreateTable(
-                name: "SmjerPredmet",
-                columns: table => new
-                {
-                    SmjerPredmetId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BrojCasova = table.Column<int>(nullable: false),
-                    ProsjecnaOcjena = table.Column<double>(nullable: true)
-            ***REMOVED***,
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SmjerPredmet", x => x.SmjerPredmetId);
             ***REMOVED***);
 
             migrationBuilder.CreateTable(
@@ -149,36 +135,31 @@ namespace SrednjeSkoleApp.Data.Migrations
             ***REMOVED***);
 
             migrationBuilder.CreateTable(
-                name: "PredmetiNaSmjeru",
+                name: "SmjerPredmet",
                 columns: table => new
                 {
-                    PredmetiNaSmjeruId = table.Column<int>(nullable: false)
+                    SmjerPredmetId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BrojCasova = table.Column<int>(nullable: false),
                     PredmetId = table.Column<int>(nullable: false),
-                    SmjerId = table.Column<int>(nullable: false),
-                    SmjerPredmetId = table.Column<int>(nullable: true)
+                    ProsjecnaOcjena = table.Column<double>(nullable: true),
+                    SmjerId = table.Column<int>(nullable: false)
             ***REMOVED***,
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PredmetiNaSmjeru", x => x.PredmetiNaSmjeruId);
+                    table.PrimaryKey("PK_SmjerPredmet", x => x.SmjerPredmetId);
                     table.ForeignKey(
-                        name: "FK_PredmetiNaSmjeru_Predmet_PredmetId",
+                        name: "FK_SmjerPredmet_Predmet_PredmetId",
                         column: x => x.PredmetId,
                         principalTable: "Predmet",
                         principalColumn: "PredmetId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PredmetiNaSmjeru_Smjerovi_SmjerId",
+                        name: "FK_SmjerPredmet_Smjerovi_SmjerId",
                         column: x => x.SmjerId,
                         principalTable: "Smjerovi",
                         principalColumn: "SmjerId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_PredmetiNaSmjeru_SmjerPredmet_SmjerPredmetId",
-                        column: x => x.SmjerPredmetId,
-                        principalTable: "SmjerPredmet",
-                        principalColumn: "SmjerPredmetId",
-                        onDelete: ReferentialAction.Restrict);
             ***REMOVED***);
 
             migrationBuilder.CreateTable(
@@ -212,7 +193,7 @@ namespace SrednjeSkoleApp.Data.Migrations
                     Datum = table.Column<DateTime>(nullable: false),
                     Naslov = table.Column<string>(nullable: true),
                     NastavnikId = table.Column<int>(nullable: false),
-                    opis = table.Column<string>(nullable: true)
+                    Opis = table.Column<string>(nullable: true)
             ***REMOVED***,
                 constraints: table =>
                 {
@@ -323,6 +304,61 @@ namespace SrednjeSkoleApp.Data.Migrations
             ***REMOVED***);
 
             migrationBuilder.CreateTable(
+                name: "UceniciPredmeti",
+                columns: table => new
+                {
+                    UcenikPredmetId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    PredmetId = table.Column<int>(nullable: false),
+                    UcenikId = table.Column<int>(nullable: false),
+                    ZakljucnaOcjena = table.Column<double>(nullable: true)
+            ***REMOVED***,
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UceniciPredmeti", x => x.UcenikPredmetId);
+                    table.ForeignKey(
+                        name: "FK_UceniciPredmeti_Predmet_PredmetId",
+                        column: x => x.PredmetId,
+                        principalTable: "Predmet",
+                        principalColumn: "PredmetId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UceniciPredmeti_Korisnici_UcenikId",
+                        column: x => x.UcenikId,
+                        principalTable: "Korisnici",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+            ***REMOVED***);
+
+            migrationBuilder.CreateTable(
+                name: "UceniciRazredi",
+                columns: table => new
+                {
+                    UcenikRazrediId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RazredId = table.Column<int>(nullable: false),
+                    RedniBroj = table.Column<int>(nullable: false),
+                    SkolskaGodina = table.Column<string>(nullable: true),
+                    UcenikId = table.Column<int>(nullable: false)
+            ***REMOVED***,
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UceniciRazredi", x => x.UcenikRazrediId);
+                    table.ForeignKey(
+                        name: "FK_UceniciRazredi_Razred_RazredId",
+                        column: x => x.RazredId,
+                        principalTable: "Razred",
+                        principalColumn: "RazredId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UceniciRazredi_Korisnici_UcenikId",
+                        column: x => x.UcenikId,
+                        principalTable: "Korisnici",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+            ***REMOVED***);
+
+            migrationBuilder.CreateTable(
                 name: "Predaje",
                 columns: table => new
                 {
@@ -360,55 +396,7 @@ namespace SrednjeSkoleApp.Data.Migrations
                         column: x => x.SmjerPredmetId,
                         principalTable: "SmjerPredmet",
                         principalColumn: "SmjerPredmetId",
-                        onDelete: ReferentialAction.Cascade);
-            ***REMOVED***);
-
-            migrationBuilder.CreateTable(
-                name: "UceniciPredmeti",
-                columns: table => new
-                {
-                    UcenikPredmetId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UcenikId = table.Column<int>(nullable: false),
-                    ZakljucnaOcjena = table.Column<double>(nullable: true)
-            ***REMOVED***,
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UceniciPredmeti", x => x.UcenikPredmetId);
-                    table.ForeignKey(
-                        name: "FK_UceniciPredmeti_Korisnici_UcenikId",
-                        column: x => x.UcenikId,
-                        principalTable: "Korisnici",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-            ***REMOVED***);
-
-            migrationBuilder.CreateTable(
-                name: "UceniciRazredi",
-                columns: table => new
-                {
-                    UcenikRazrediId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RazredId = table.Column<int>(nullable: false),
-                    RedniBroj = table.Column<int>(nullable: false),
-                    SkolskaGodina = table.Column<string>(nullable: true),
-                    UcenikId = table.Column<int>(nullable: false)
-            ***REMOVED***,
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UceniciRazredi", x => x.UcenikRazrediId);
-                    table.ForeignKey(
-                        name: "FK_UceniciRazredi_Razred_RazredId",
-                        column: x => x.RazredId,
-                        principalTable: "Razred",
-                        principalColumn: "RazredId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UceniciRazredi_Korisnici_UcenikId",
-                        column: x => x.UcenikId,
-                        principalTable: "Korisnici",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
             ***REMOVED***);
 
             migrationBuilder.CreateTable(
@@ -590,21 +578,6 @@ namespace SrednjeSkoleApp.Data.Migrations
                 column: "SmjerPredmetId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PredmetiNaSmjeru_PredmetId",
-                table: "PredmetiNaSmjeru",
-                column: "PredmetId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PredmetiNaSmjeru_SmjerId",
-                table: "PredmetiNaSmjeru",
-                column: "SmjerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PredmetiNaSmjeru_SmjerPredmetId",
-                table: "PredmetiNaSmjeru",
-                column: "SmjerPredmetId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Razred_SkolskaGodinaId",
                 table: "Razred",
                 column: "SkolskaGodinaId");
@@ -613,6 +586,16 @@ namespace SrednjeSkoleApp.Data.Migrations
                 name: "IX_Smjerovi_SkolskaGodinaId",
                 table: "Smjerovi",
                 column: "SkolskaGodinaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SmjerPredmet_PredmetId",
+                table: "SmjerPredmet",
+                column: "PredmetId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SmjerPredmet_SmjerId",
+                table: "SmjerPredmet",
+                column: "SmjerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UceniciCasovi_CasId",
@@ -633,6 +616,11 @@ namespace SrednjeSkoleApp.Data.Migrations
                 name: "IX_UceniciCasovi_UcenikId1",
                 table: "UceniciCasovi",
                 column: "UcenikId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UceniciPredmeti_PredmetId",
+                table: "UceniciPredmeti",
+                column: "PredmetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UceniciPredmeti_UcenikId",
@@ -677,9 +665,6 @@ namespace SrednjeSkoleApp.Data.Migrations
                 name: "Predaje");
 
             migrationBuilder.DropTable(
-                name: "PredmetiNaSmjeru");
-
-            migrationBuilder.DropTable(
                 name: "UceniciCasovi");
 
             migrationBuilder.DropTable(
@@ -692,9 +677,6 @@ namespace SrednjeSkoleApp.Data.Migrations
                 name: "UceniciPredmeti");
 
             migrationBuilder.DropTable(
-                name: "Predmet");
-
-            migrationBuilder.DropTable(
                 name: "SmjerPredmet");
 
             migrationBuilder.DropTable(
@@ -702,6 +684,9 @@ namespace SrednjeSkoleApp.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Razred");
+
+            migrationBuilder.DropTable(
+                name: "Predmet");
 
             migrationBuilder.DropTable(
                 name: "Korisnici");

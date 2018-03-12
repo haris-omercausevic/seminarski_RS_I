@@ -12,6 +12,5 @@ namespace SrednjeSkoleApp.Data.Models
 
         public int SkolskaGodinaId { get; set; ***REMOVED***
         public SkolskaGodina SkolskaGodina { get; set; ***REMOVED***
-        public virtual List<Ucenik> Ucenici { get; set; ***REMOVED***
 ***REMOVED***
 ***REMOVED***

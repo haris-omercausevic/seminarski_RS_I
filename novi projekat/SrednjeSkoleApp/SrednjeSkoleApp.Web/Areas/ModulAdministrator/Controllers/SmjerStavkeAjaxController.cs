@@ -12,29 +12,28 @@ using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels;
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
     [Area("ModulAdministrator")]
-    public class RazredStavkeAjaxController : Controller
+    public class SmjerStavkeAjaxController : Controller
     {
         MyContext _context;
-        public RazredStavkeAjaxController(MyContext context)
+        public SmjerStavkeAjaxController(MyContext context)
         {
             _context = context;
     ***REMOVED***
         public IActionResult Index(int id)
         {
-            var model = new RazredStavkeAjaxIndexVM
+            var model = new SmjerStavkeAjaxIndexVM
             {
-                RazredId = id,
-                rows = _context.UceniciRazredi.Where(o => o.RazredId == id).Include(o => o.Ucenik).Select(x => new RazredStavkeAjaxIndexVM.Row
+                SmjerId = id,
+                rows = _context.SmjerPredmet.Where(o => o.SmjerId == id).Select(x => new SmjerStavkeAjaxIndexVM.Row
                 {
-                    RedniBroj = x.RedniBroj,
-                    Ucenik = x.Ucenik.Ime + x.Ucenik.Prezime,
-                    UcenikRazredId = x.UcenikRazrediId,
-                    UcenikId = x.UcenikId
-            ***REMOVED***).OrderBy(x => x.Ucenik).ToList()
+                    PredmetId = x.PredmetId,
+                    Naziv = x.Predmet.Naziv,
+                    Oznaka = x.Predmet.Oznaka
+            ***REMOVED***).ToList()
         ***REMOVED***;
 
 
-            return PartialView("Index",model);
+            return PartialView("Index", model);
     ***REMOVED***
 
         public IActionResult Uredi(int id)
@@ -52,13 +51,13 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 {
                     Value = w.Id.ToString(),
                     Text = w.Ime + " " + w.Prezime
-            ***REMOVED***).ToList()                
+            ***REMOVED***).ToList()
         ***REMOVED***;
 
             return PartialView("Dodaj", model);
-     ***REMOVED***
+    ***REMOVED***
 
-            public IActionResult Dodaj(int id)
+        public IActionResult Dodaj(int id)
         {
             RazredStavkeAjaxDodajVM model = new RazredStavkeAjaxDodajVM
             {
@@ -70,7 +69,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             ***REMOVED***).ToList()
         ***REMOVED***;
 
-            return PartialView("Dodaj",model);
+            return PartialView("Dodaj", model);
     ***REMOVED***
         public IActionResult Obrisi(int id)
         {
@@ -83,22 +82,22 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             return Redirect("/ModulAdministrator/RazredStavkeAjax/Index?id=" + o);
     ***REMOVED***
 
-        public IActionResult Snimi(int razredId, int ucenikId)
+        public IActionResult Snimi(int razredId, int UcenikId)
         {
             _context.UceniciRazredi.Add(new UcenikRazredi
             {
                 RazredId = razredId,
-                UcenikId = ucenikId,
+                UcenikId = UcenikId,
                 RedniBroj = 0,
-                SkolskaGodina = _context.Razred.Where(x => x.RazredId == razredId).Include(x => x.SkolskaGodina).FirstOrDefault()?.SkolskaGodina.Naziv
+                SkolskaGodina = _context.Razred.Where(x => x.RazredId == razredId).Include(x => x.SkolskaGodina).FirstOrDefault().SkolskaGodina.Naziv
         ***REMOVED***);
 
             //poredaj po prezimenu (broj u dnevniku)
             int brojac = 1;
             foreach (var item in _context.UceniciRazredi.Where(x => x.RazredId == razredId).Include(x => x.Ucenik).OrderBy(x => x.Ucenik.Prezime).ToList())
             {
-                item.RedniBroj = brojac++;
                 _context.Update(item);
+                item.RedniBroj = brojac++;
         ***REMOVED***
 
             _context.SaveChanges();
@@ -107,5 +106,4 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
     ***REMOVED***
 ***REMOVED***
 
-   
 ***REMOVED***

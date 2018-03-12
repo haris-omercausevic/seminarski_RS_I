@@ -72,7 +72,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
         public IActionResult Detalji(int id)
         {
             Ucenik input = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
-            var model = new UcenikDodajVM()
+            var model = new UcenikDetaljiVM()
             {
                 Ime = input.Ime,
                 Prezime = input.Prezime,
@@ -97,7 +97,6 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                         Text = y.Naziv
                 ***REMOVED***)
                     .ToList(),
-                RazredId = _context.UceniciRazredi.Where(x => x.UcenikId == input.Id).FirstOrDefault().RazredId,
                 razredi = _context.Razred
                     .Select(y => new SelectListItem
                     {
@@ -113,6 +112,14 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 Opstina = input.Kontakt.Opstina
         ***REMOVED***;
 
+            UcenikRazredi u = _context.UceniciRazredi.FirstOrDefault(x => x.UcenikId == input.Id);
+            if (u != null)
+                model.RazredId = u.RazredId;
+
+            var up = _context.UceniciPredmeti.Where(x => x.UcenikId == input.Id).ToList();
+            //zavrsiti pregled detalja za ucenik predmet, znaci prikaz predmeta i ocjena
+            // treba dodati za UcenikPredmet, koji nastavnik je dao tu ocjenu odnosno kod koga slusa taj predmet i sl.
+
 
             return View("Detalji", model);
     ***REMOVED***
@@ -124,7 +131,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 .FirstOrDefault();
             UcenikRazredi o3 = _context.UceniciRazredi.Where(x => x.UcenikId == input.Id).Include(x => x.Razred)
                 .FirstOrDefault();
-      
+
 
             if (o2 == null)
             {
@@ -164,35 +171,49 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 o3 = new UcenikRazredi();
                 _context.UceniciRazredi.Add(o3);
         ***REMOVED***
-
             o3.RazredId = input.RazredId;
             o3.UcenikId = o2.Id;
             o3.RedniBroj = _context.UceniciRazredi.Count(x => x.RazredId == input.RazredId) + 1;
-            o3.SkolskaGodina = o2.Smjer.SkolskaGodina.Naziv;
+            if (o2.Smjer != null)
+                o3.SkolskaGodina = o2.Smjer.SkolskaGodina.Naziv;
 
             _context.SaveChanges();
 
 
-            return RedirectToAction("Index", "Ucenik", new {area = "ModulAdministrator"***REMOVED***);
+            return RedirectToAction("Index", "Ucenik", new { area = "ModulAdministrator" ***REMOVED***);
     ***REMOVED***
 
         public IActionResult Obrisi(int id)
         {
             Ucenik p1 = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
             UcenikRazredi p2 = _context.UceniciRazredi.FirstOrDefault(x => x.UcenikId == id);
-            _context.Ucenici.Remove(p1);
-            _context.UceniciRazredi.Remove(p2);
+
+            foreach (var up in _context.UceniciPredmeti.Where(x => x.UcenikId == id))
+            {
+                foreach (var item in _context.Ocjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId).ToList())
+                {
+                    _context.Ocjene.Remove(item);
+            ***REMOVED***
+                _context.UceniciPredmeti.Remove(up);
+        ***REMOVED***
+            if (p2 != null)
+                _context.UceniciRazredi.Remove(p2);
+            if (p1 != null)
+                _context.Ucenici.Remove(p1);
+            
+
+
             _context.SaveChanges();
-            return RedirectToAction("Index", "Ucenik", new {area = "ModulAdministrator"***REMOVED***);
+            return RedirectToAction("Index", "Ucenik", new { area = "ModulAdministrator" ***REMOVED***);
     ***REMOVED***
 
         public IActionResult Trazi(string ime, string prezime, string email)
         {
-            if(!String.IsNullOrEmpty(ime))
+            if (!String.IsNullOrEmpty(ime))
                 ime = ime.ToLower();
-            if(!String.IsNullOrEmpty(prezime))
+            if (!String.IsNullOrEmpty(prezime))
                 prezime = prezime.ToLower();
-            if(!String.IsNullOrEmpty(email))
+            if (!String.IsNullOrEmpty(email))
                 email = email.ToLower();
 
             ViewData["imeFilter"] = ime;

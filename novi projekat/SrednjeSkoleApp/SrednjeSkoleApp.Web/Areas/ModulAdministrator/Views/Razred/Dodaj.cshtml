@@ -12,6 +12,7 @@
         <label>Razred: </label>
         <div>
             <input asp-for="razredBrojcano" class="form-control" />
+            <span asp-validation-for="razredBrojcano" class="text-danger"></span>
         </div>
     </div>
 
@@ -19,17 +20,18 @@
         <label>Odjeljenje: </label>
         <div>
             <input asp-for="odjeljenje" class="form-control" />
+            <span asp-validation-for="odjeljenje" class="text-danger"></span>
         </div>
     </div>
 
-    @*<div class="form-group">
+    <div class="form-group">
         <label>Razrednik: </label>
         <div>
             <select asp-for="nastavnikId" asp-items="@Model.nastavnici" class="form-control">
                 <option>(odaberite razrednika)</option>
             </select>
         </div>
-    </div>*@
+    </div>
 
     <div class="form-group">
         <label>Školska godina: </label>

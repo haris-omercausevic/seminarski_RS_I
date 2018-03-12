@@ -15,6 +15,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
             public int UcenikRazredId { get; set; ***REMOVED***
             public int RedniBroj { get; set; ***REMOVED***
             public string Ucenik { get; set; ***REMOVED***
+            public int UcenikId { get; set; ***REMOVED***
     ***REMOVED***
 ***REMOVED***
 ***REMOVED***

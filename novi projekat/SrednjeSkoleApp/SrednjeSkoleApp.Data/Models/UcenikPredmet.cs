@@ -8,9 +8,12 @@ namespace SrednjeSkoleApp.Data.Models
     {
         public int UcenikPredmetId { get; set; ***REMOVED***
         public double? ZakljucnaOcjena { get; set; ***REMOVED***
-
-        public virtual List<Ocjena> Ocjene { get; set; ***REMOVED***
+        public int PredmetId { get; set; ***REMOVED***
+        public virtual Predmet Predmet { get; set; ***REMOVED***
         public int UcenikId { get; set; ***REMOVED***
         public virtual Ucenik Ucenik { get; set; ***REMOVED***
+
+        public virtual List<Ocjena> Ocjene { get; set; ***REMOVED***
+        
 ***REMOVED***
 ***REMOVED***

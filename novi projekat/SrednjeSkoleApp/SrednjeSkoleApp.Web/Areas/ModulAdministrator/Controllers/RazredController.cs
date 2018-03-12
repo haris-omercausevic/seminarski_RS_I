@@ -29,7 +29,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 {
                     RazredId = x.RazredId,
                     Razred = x.Oznaka,
-                    Razrednik = _context.Predaje.Where(y => y.Razrednik && y.RazredId == x.RazredId).Include(y=> y.Nastavnik).FirstOrDefault().Nastavnik.Ime,
+                    Razrednik = _context.Predaje.Where(y => y.Razrednik && y.RazredId == x.RazredId).Include(y => y.Nastavnik).FirstOrDefault().Nastavnik.Ime,
                     SkolskaGodina = x.SkolskaGodina.Naziv
             ***REMOVED***).ToList()
 
@@ -42,14 +42,14 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
         {
             var model = new RazredDodajVM()
             {
-                //nastavnici = _context.Predaje
-                //    .Where(y => !y.Razrednik).Include(y => y.Nastavnik)
-                //    .Select(x => new SelectListItem
-                //    {
-                //        Value = x.NastavnikId.ToString(),
-                //        Text = x.Nastavnik.Ime + " " + x.Nastavnik.Prezime
-                //***REMOVED***)
-                //    .ToList(),
+                nastavnici = _context.Nastavnici
+                                .Where(y => y.Id != (_context.Predaje.FirstOrDefault(q => q.NastavnikId == y.Id && q.Razrednik == true).NastavnikId))
+                                .Select(x => new SelectListItem
+                                {
+                                    Value = x.Id.ToString(),
+                                    Text = x.Ime + " " + x.Prezime
+                            ***REMOVED***)
+                    .ToList(),
                 skolskeGodine = _context.SkolskaGodina
                     .Select(x => new SelectListItem
                     {
@@ -62,33 +62,10 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             return View("Dodaj", model);
     ***REMOVED***
 
-        public IActionResult Snimi(RazredDodajVM input)
-        {
-
-            Razred o1 = _context.Razred.Where(x => x.RazredId == input.id).Include(x => x.SkolskaGodina).FirstOrDefault();
-            if (o1 == null)
-            {
-                o1 = new Razred();
-                _context.Razred.Add(o1);
-        ***REMOVED***
-
-            o1.Oznaka = input.razredBrojcano + "-" + input.odjeljenje;
-            o1.RazredBrojcano = input.razredBrojcano;
-            o1.SkolskaGodinaId = input.skolskaGodinaId;
-            o1.Odjeljenje = input.odjeljenje;
-            _context.SaveChanges();
-
-
-            return RedirectToAction("Index", "Razred", new { area = "ModulAdministrator" ***REMOVED***);
-    ***REMOVED***
-
         public IActionResult Detalji(int id)
         {
             Razred o1 = _context.Razred.Where(x => x.RazredId == id).Include(x => x.SkolskaGodina).FirstOrDefault();
-
-            //int NastavnikId = _context.Predaje.Where(x => x.RazredId == id && x.Razrednik == true)
-            //    .Include(y => y.Nastavnik).FirstOrDefault().NastavnikId;
-
+            Predaje o2 = _context.Predaje.FirstOrDefault(x => x.RazredId == id && x.Razrednik);
             var model = new RazredDodajVM
             {
                 id = id,
@@ -102,30 +79,94 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                         Value = x.SkolskaGodinaId.ToString(),
                         Text = x.Naziv
                 ***REMOVED***)
-                    .ToList()
-
-            //nastavnici = _context.Predaje
-            //    .Where(y => !y.Razrednik).Include(y => y.Nastavnik)
-            //    .Select(x => new SelectListItem
-            //    {
-            //        Value = x.NastavnikId.ToString(),
-            //        Text = x.Nastavnik.Ime + " " + x.Nastavnik.Prezime
-            //***REMOVED***)
-            //    .ToList(),
+                    .ToList(),
+                nastavnikId = o2?.NastavnikId ?? 0, //je ustvari ovaj kod: o2 == null?0:o2.NastavnikId
+                nastavnici = _context.Nastavnici
+                    .Where(y => y.Id != (_context.Predaje.FirstOrDefault(q => q.NastavnikId == y.Id && q.Razrednik).NastavnikId))
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.Id.ToString(),
+                        Text = x.Ime + " " + x.Prezime
+                ***REMOVED***)
+                    .ToList(),
         ***REMOVED***;
 
 
             return View("Detalji", model);
     ***REMOVED***
 
+        public IActionResult Snimi(RazredDodajVM input)
+        {
+            if (!ModelState.IsValid)
+            {
+                input.skolskeGodine = _context.SkolskaGodina
+                   .Select(x => new SelectListItem
+                   {
+                       Value = x.SkolskaGodinaId.ToString(),
+                       Text = x.Naziv
+               ***REMOVED***)
+                   .ToList();
+
+                input.nastavnici = _context.Nastavnici
+                                .Where(y => y.Id != (_context.Predaje.FirstOrDefault(q => q.NastavnikId == y.Id && q.Razrednik == true).NastavnikId))
+                                .Select(x => new SelectListItem
+                                {
+                                    Value = x.Id.ToString(),
+                                    Text = x.Ime + " " + x.Prezime
+                            ***REMOVED***)
+                    .ToList();               
+
+                return View("Dodaj", input);
+        ***REMOVED***
+
+
+            Razred o1 = _context.Razred.Where(x => x.RazredId == input.id).Include(x => x.SkolskaGodina).FirstOrDefault();
+            if (o1 == null)
+            {
+                o1 = new Razred();
+        ***REMOVED***
+            _context.Razred.Add(o1);
+            o1.Oznaka = input.razredBrojcano + "-" + input.odjeljenje;
+            o1.RazredBrojcano = input.razredBrojcano;
+            o1.SkolskaGodinaId = input.skolskaGodinaId;
+            o1.Odjeljenje = input.odjeljenje;
+
+            Predaje o2 = _context.Predaje.FirstOrDefault(x => x.NastavnikId == input.nastavnikId);
+            if(o2 == null)
+            {
+                o2 = new Predaje();
+        ***REMOVED***
+            else
+            {
+                o2.Razrednik = false;
+        ***REMOVED***
+                _context.Predaje.Add(o2);
+
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Index", "Razred", new { area = "ModulAdministrator" ***REMOVED***);
+    ***REMOVED***
+
+        
+
         public IActionResult Obrisi(int id)
         {
             Razred r1 = _context.Razred.FirstOrDefault(x => x.RazredId == id);
+            foreach (var item in _context.Predaje.Where(x => x.RazredId == id).ToList())
+            {
+                _context.Predaje.Remove(item);
+        ***REMOVED***
+
+            foreach (var item in _context.UceniciRazredi.Where(x => x.RazredId == id).ToList())
+            {
+                _context.UceniciRazredi.Remove(item);
+        ***REMOVED***
             _context.Razred.Remove(r1);
             _context.SaveChanges();
             return RedirectToAction("Index", "Razred", new { area = "ModulAdministrator" ***REMOVED***);
 
     ***REMOVED***
-      
+
 ***REMOVED***
 ***REMOVED***

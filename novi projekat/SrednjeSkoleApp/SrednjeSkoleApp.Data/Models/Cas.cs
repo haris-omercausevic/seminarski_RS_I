@@ -10,7 +10,7 @@ namespace SrednjeSkoleApp.Data.Models
         public int CasId {get; set;***REMOVED***
         public DateTime Datum {get; set;***REMOVED***
         public string Naslov {get; set;***REMOVED***
-        public string opis {get; set;***REMOVED***
+        public string Opis {get; set;***REMOVED***
         
         public int NastavnikId { get; set; ***REMOVED***
         public virtual Nastavnik Nastavnik { get; set; ***REMOVED***

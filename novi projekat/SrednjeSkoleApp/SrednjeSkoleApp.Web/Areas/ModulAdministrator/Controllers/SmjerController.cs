@@ -80,7 +80,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                         Text = x.Naziv
                 ***REMOVED***)
                     .ToList(),
-                predmeti = _context.PredmetiNaSmjeru.Where(x => x.SmjerId == id).Include(x => x.Predmet)
+                predmeti = _context.SmjerPredmet.Where(x => x.SmjerId == id).Include(x => x.Predmet)
                     .Select(x => new CheckBoxVM
                     {
                         Id = x.PredmetId,
@@ -105,10 +105,12 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 {
                     if (item.Selected)
                     {
-                        _context.PredmetiNaSmjeru.Add(new PredmetiNaSmjeru
+                        _context.SmjerPredmet.Add(new SmjerPredmet
                         {
                             PredmetId = item.Id,
-                            SmjerId = o1.SmjerId
+                            SmjerId = o1.SmjerId,
+                            ProsjecnaOcjena = 0,
+                            BrojCasova = 0
                     ***REMOVED***);
                 ***REMOVED***
             ***REMOVED***
@@ -127,9 +129,9 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
         public IActionResult Obrisi(int id)
         {
             Smjer r1 = _context.Smjerovi.FirstOrDefault(x => x.SmjerId == id);
-            foreach (PredmetiNaSmjeru item in _context.PredmetiNaSmjeru.Where(x => x.SmjerId == id).ToList())
+            foreach (SmjerPredmet item in _context.SmjerPredmet.Where(x => x.SmjerId == id).ToList())
             {
-                _context.PredmetiNaSmjeru.Remove(item);
+                _context.SmjerPredmet.Remove(item);
         ***REMOVED***
             _context.Smjerovi.Remove(r1);
             _context.SaveChanges();

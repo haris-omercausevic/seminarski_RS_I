@@ -9,6 +9,5 @@ namespace SrednjeSkoleApp.Data.Models
         public int PredmetId { get; set; ***REMOVED***
         public string Naziv { get; set; ***REMOVED***
         public string Oznaka { get; set; ***REMOVED***
-        public virtual List<PredmetiNaSmjeru> PredmetiNaSmjeru { get; set; ***REMOVED***
 ***REMOVED***
 ***REMOVED***
