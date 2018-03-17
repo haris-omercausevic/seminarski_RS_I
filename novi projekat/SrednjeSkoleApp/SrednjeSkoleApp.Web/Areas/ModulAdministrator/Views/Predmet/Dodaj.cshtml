@@ -12,6 +12,8 @@
         <label>Naziv: </label>
         <div>
             <input asp-for="Naziv" class="form-control" />
+            <span asp-validation-for="Naziv" class="text-danger"></span>
+
         </div>
     </div>
     
@@ -19,8 +21,10 @@
         <label>Oznaka: </label>
         <div>
             <input asp-for="Oznaka" class="form-control" />
+            <span asp-validation-for="Oznaka" class="text-danger"></span>
+
         </div>
     </div>
 
-        <input type="submit" class="btn btn-success"/>
+        <input type="submit" class="btn btn-success" value="Snimi"/>
 </form>

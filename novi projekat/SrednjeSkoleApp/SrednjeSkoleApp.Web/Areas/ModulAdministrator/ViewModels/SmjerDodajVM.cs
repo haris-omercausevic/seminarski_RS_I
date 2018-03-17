@@ -14,7 +14,9 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
     public class SmjerDodajVM
     {
         public int id { get; set; ***REMOVED***
+        [Required]
         public string Naziv { get; set; ***REMOVED***
+        [Required]
         public string Opis { get; set; ***REMOVED***
         public int skolskaGodinaId { get; set; ***REMOVED***
         public List<SelectListItem> skolskeGodine { get; set; ***REMOVED***

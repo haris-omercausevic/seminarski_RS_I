@@ -8,6 +8,7 @@ using SQLitePCL;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
 using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels;
+using SrednjeSkoleApp.Web.Helper;
 
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
@@ -56,7 +57,6 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 Ime = input.Ime,
                 Prezime = input.Prezime,
                 KorisnickoIme = input.KorisnickoIme,
-                Lozinka = input.Lozinka,
                 Aktivan = input.Aktivan,
                 Spol = input.Spol,
                 DatumRodjenja = input.DatumRodjenja,
@@ -81,6 +81,11 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 
         public IActionResult Snimi(NastavnikDodajVM input)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Dodaj",input);
+        ***REMOVED***
+
             Nastavnik o2 = _context.Nastavnici.Where(x => x.Id == input.Id).Include(x => x.Kontakt).FirstOrDefault();
 
             if (o2 == null)
@@ -95,7 +100,10 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             o2.Ime = input.Ime;
             o2.Prezime = input.Prezime;
             o2.KorisnickoIme = input.KorisnickoIme;
-            o2.Lozinka = input.Lozinka;
+
+            o2.LozinkaSalt = MyMvc.GenerateSalt();
+            o2.LozinkaHash = MyMvc.GenerateHash(o2.LozinkaSalt, input.Lozinka);
+
             o2.Aktivan = input.Aktivan;
             o2.Spol = input.Spol;
             o2.DatumRodjenja = input.DatumRodjenja;

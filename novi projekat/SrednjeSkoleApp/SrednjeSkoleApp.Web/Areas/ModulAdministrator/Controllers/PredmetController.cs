@@ -34,7 +34,11 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 
         public IActionResult Dodaj()
         {
-            
+            if (!ModelState.IsValid)
+            {
+                return View("Dodaj");
+        ***REMOVED***
+
             return View("Dodaj");
     ***REMOVED***
 
@@ -46,7 +50,13 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
     ***REMOVED***
         public IActionResult Snimi(int predmetid, string naziv, string oznaka)
         {
-            Predmet p;
+
+            if (!ModelState.IsValid)
+            {
+                return View("Dodaj");
+        ***REMOVED***
+
+                Predmet p;
             if (predmetid != 0)
             {
                 p = _context.Predmet.Find(predmetid);

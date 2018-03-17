@@ -24,6 +24,7 @@
                             <label>Ime: </label>
                             <div>
                                 <input asp-for="Ime" class="form-control" />
+                                <span asp-validation-for="Ime" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -31,6 +32,7 @@
                             <label>Prezime: </label>
                             <div>
                                 <input asp-for="Prezime" class="form-control" />
+                                <span asp-validation-for="Prezime" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -38,6 +40,7 @@
                             <label>Korisničko ime: </label>
                             <div>
                                 <input asp-for="KorisnickoIme" class="form-control" />
+                                <span asp-validation-for="KorisnickoIme" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -45,6 +48,7 @@
                             <label>Lozinka: </label>
                             <div>
                                 <input asp-for="Lozinka" type="password" class="form-control" />
+                                <span asp-validation-for="Lozinka" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -80,6 +84,8 @@
                             <label>JMBG: </label>
                             <div>
                                 <input asp-for="JMBG" class="form-control" />
+                                <span asp-validation-for="JMBG" class="text-danger"></span>
+
                             </div>
                         </div>
 
@@ -109,6 +115,8 @@
                             <label>Email: </label>
                             <div>
                                 <input asp-for="Email" type="email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+
                             </div>
                         </div>
 
@@ -116,6 +124,8 @@
                             <label>Telefon: </label>
                             <div>
                                 <input asp-for="Telefon" class="form-control" />
+                                <span asp-validation-for="Telefon" class="text-danger"></span>
+
                             </div>
                         </div>
 
@@ -123,6 +133,8 @@
                             <label>Adresa: </label>
                             <div>
                                 <input asp-for="Adresa" class="form-control" />
+                                <span asp-validation-for="Adresa" class="text-danger"></span>
+
                             </div>
                         </div>
 
@@ -130,6 +142,8 @@
                             <label>Grad: </label>
                             <div>
                                 <input asp-for="Grad" class="form-control" />
+                                <span asp-validation-for="Grad" class="text-danger"></span>
+
                             </div>
                         </div>
 
@@ -158,6 +172,8 @@
                             <label>Ime roditelja: </label>
                             <div>
                                 <input asp-for="ImeRoditelja" class="form-control" />
+                                <span asp-validation-for="ImeRoditelja" class="text-danger"></span>
+
                             </div>
                         </div>
 
@@ -171,9 +187,11 @@
                         <div class="form-group">
                             <label>Smjer: </label>
                             <div>
+
                                 <select asp-for="SmjerId" asp-items="@Model.smjerovi" class="form-control">
                                     <option>(Odaberite smjer)</option>
                                 </select>
+                                <span asp-validation-for="SmjerId" class="text-danger"></span>
                             </div>
                         </div>
 

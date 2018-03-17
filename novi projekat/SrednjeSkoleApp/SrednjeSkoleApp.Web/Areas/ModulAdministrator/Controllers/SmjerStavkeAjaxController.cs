@@ -82,14 +82,14 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             return Redirect("/ModulAdministrator/RazredStavkeAjax/Index?id=" + o);
     ***REMOVED***
 
-        public IActionResult Snimi(int razredId, int UcenikId)
+        public IActionResult Snimi(int razredId, int ucenikId)
         {
             _context.UceniciRazredi.Add(new UcenikRazredi
             {
                 RazredId = razredId,
-                UcenikId = UcenikId,
+                UcenikId = ucenikId,
                 RedniBroj = 0,
-                SkolskaGodina = _context.Razred.Where(x => x.RazredId == razredId).Include(x => x.SkolskaGodina).FirstOrDefault().SkolskaGodina.Naziv
+                SkolskaGodina = _context.Razred.Where(x => x.RazredId == razredId).Include(x => x.SkolskaGodina).FirstOrDefault()?.SkolskaGodina.Naziv
         ***REMOVED***);
 
             //poredaj po prezimenu (broj u dnevniku)

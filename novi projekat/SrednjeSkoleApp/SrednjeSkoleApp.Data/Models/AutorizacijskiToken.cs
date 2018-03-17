@@ -9,9 +9,9 @@ namespace SrednjeSkoleApp.Data.Models
     {
         public int Id { get; set; ***REMOVED***
         public string Vrijednost { get; set; ***REMOVED***
-        [ForeignKey(nameof(KorisnickiNalog))]
-        public int KorisnickiNalogId { get; set; ***REMOVED***
-        public Korisnik KorisnickiNalog { get; set; ***REMOVED***
+        [ForeignKey(nameof(Korisnik))]
+        public int KorisnikId { get; set; ***REMOVED***
+        public Korisnik Korisnik { get; set; ***REMOVED***
         public DateTime VrijemeEvidentiranja { get; set; ***REMOVED***
         public string IpAdresa { get; set; ***REMOVED***
 ***REMOVED***

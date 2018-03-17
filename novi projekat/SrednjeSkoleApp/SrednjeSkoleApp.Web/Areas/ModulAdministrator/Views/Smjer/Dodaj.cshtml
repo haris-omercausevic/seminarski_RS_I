@@ -12,6 +12,8 @@
         <label>Naziv: </label>
         <div>
             <input asp-for="Naziv" class="form-control" />
+            <span asp-validation-for="Naziv" class="text-danger"></span>
+
         </div>
     </div>
 
@@ -19,6 +21,8 @@
         <label>Opis: </label>
         <div>
             <input asp-for="Opis" class="form-control" />
+            <span asp-validation-for="Opis" class="text-danger"></span>
+
         </div>
     </div>
 
@@ -43,9 +47,10 @@
                 @Html.HiddenFor(x => x.predmeti[i].Id)
             </div>
 ***REMOVED***
+        <span asp-validation-for="predmeti" class="text-danger"></span>
     </div>
 
-        <input type="submit" value="Snimi" />
+        <input type="submit" value="Snimi" class="btn btn-success" />
 </form>
 
 

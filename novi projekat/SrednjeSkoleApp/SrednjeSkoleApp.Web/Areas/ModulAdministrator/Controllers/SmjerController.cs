@@ -39,7 +39,6 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 
             return View("Index", model);
     ***REMOVED***
-
         public IActionResult Dodaj()
         {
             var model = new SmjerDodajVM()
@@ -95,6 +94,11 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
     ***REMOVED***
         public IActionResult Snimi(SmjerDodajVM input)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Dodaj", input);
+        ***REMOVED***
+
             Smjer o1 = _context.Smjerovi.Where(x => x.SmjerId == input.id).Include(x => x.SkolskaGodina).FirstOrDefault();
             if (o1 == null) // ako se dodaje novi smjer
             {

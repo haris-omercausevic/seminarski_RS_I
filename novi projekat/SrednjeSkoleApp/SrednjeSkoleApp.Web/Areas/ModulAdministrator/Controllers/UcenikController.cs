@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
 using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels;
+using SrednjeSkoleApp.Web.Helper;
+using System;
+using System.Linq;
 
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
     [Area("ModulAdministrator")]
     public class UcenikController : Controller
     {
-
         private MyContext _context;
 
         public UcenikController(MyContext context)
@@ -49,24 +46,29 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 Prebivaliste = "Mostar, Zalik",
                 Aktivan = true,
                 GodinaUpisa = DateTime.Now.Year,
-                NazivOsnovneSkole = "Osnovna škola \"Zalik\", Mostar",
-                smjerovi = _context.Smjerovi
-                    .Select(y => new SelectListItem
-                    {
-                        Value = y.SmjerId.ToString(),
-                        Text = y.Naziv
-                ***REMOVED***)
-                    .ToList(),
-                razredi = _context.Razred
-                    .Select(y => new SelectListItem
-                    {
-                        Value = y.RazredId.ToString(),
-                        Text = y.Oznaka
-                ***REMOVED***)
-                    .ToList()
+                NazivOsnovneSkole = "Osnovna škola \"Zalik\", Mostar"
         ***REMOVED***;
+            pripremiCmbStavke(model);
 
             return View("Dodaj", model);
+    ***REMOVED***
+
+        private void pripremiCmbStavke(UcenikDodajVM model)
+        {
+            model.smjerovi = _context.Smjerovi
+                .Select(y => new SelectListItem
+                {
+                    Value = y.SmjerId.ToString(),
+                    Text = y.Naziv
+            ***REMOVED***)
+                .ToList();
+            model.razredi = _context.Razred
+                .Select(y => new SelectListItem
+                {
+                    Value = y.RazredId.ToString(),
+                    Text = y.Oznaka
+            ***REMOVED***)
+                .ToList();
     ***REMOVED***
 
         public IActionResult Detalji(int id)
@@ -77,14 +79,12 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 Ime = input.Ime,
                 Prezime = input.Prezime,
                 KorisnickoIme = input.KorisnickoIme,
-                Lozinka = input.Lozinka,
                 Aktivan = input.Aktivan,
                 Spol = input.Spol,
                 DatumRodjenja = input.DatumRodjenja,
                 MjestoRodjenja = input.MjestoRodjenja,
                 JMBG = input.JMBG,
                 Prebivaliste = input.Prebivaliste,
-
                 ImeRoditelja = input.ImeRoditelja,
                 GodinaUpisa = input.GodinaUpisa,
                 ProsjekOcjenaOsnovnaSkola = input.ProsjekOcjenaOsnovnaSkola,
@@ -104,7 +104,6 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                         Text = y.Oznaka
                 ***REMOVED***)
                     .ToList(),
-
                 Email = input.Kontakt.Email,
                 Telefon = input.Kontakt.Telefon,
                 Adresa = input.Kontakt.Adresa,
@@ -127,6 +126,12 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 
         public IActionResult Snimi(UcenikDodajVM input)
         {
+            if (!ModelState.IsValid)
+            {
+                pripremiCmbStavke(input);
+                return View("Dodaj", input);
+        ***REMOVED***
+
             Ucenik o2 = _context.Ucenici.Where(x => x.Id == input.Id).Include(x => x.Kontakt).Include(x => x.Smjer)
                 .FirstOrDefault();
             UcenikRazredi o3 = _context.UceniciRazredi.Where(x => x.UcenikId == input.Id).Include(x => x.Razred)
@@ -146,7 +151,8 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             o2.Ime = input.Ime;
             o2.Prezime = input.Prezime;
             o2.KorisnickoIme = input.KorisnickoIme;
-            o2.Lozinka = input.Lozinka;
+            o2.LozinkaSalt = MyMvc.GenerateSalt();
+            o2.LozinkaHash = MyMvc.GenerateHash(o2.LozinkaSalt, input.Lozinka);
             o2.Aktivan = input.Aktivan;
             o2.Spol = input.Spol;
             o2.DatumRodjenja = input.DatumRodjenja;
@@ -239,6 +245,14 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
         ***REMOVED***;
 
             return View("Index", model);
+    ***REMOVED***
+
+        public IActionResult ProvjeriKorisnickoIme(string korisnickoIme)
+        {
+            if (_context.Korisnici.Any(x => x.KorisnickoIme == korisnickoIme))
+                return Json($"Korisnicko ime {korisnickoIme***REMOVED*** je zauzeto.");
+
+            return Json(true);
     ***REMOVED***
 ***REMOVED***
 ***REMOVED***

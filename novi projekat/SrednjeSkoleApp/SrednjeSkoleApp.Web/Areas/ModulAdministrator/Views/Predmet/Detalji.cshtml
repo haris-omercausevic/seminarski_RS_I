@@ -4,6 +4,7 @@
     ViewData["Title"] = "Detalji";
 ***REMOVED***
 
+<h2>Detalji predmeta</h2>
 
 <form asp-area="ModulAdministrator" asp-controller="Predmet" asp-action="Snimi">
     <input type="hidden" asp-for="PredmetId" />
@@ -11,6 +12,8 @@
         <label>Naziv: </label>
         <div>
             <input asp-for="Naziv" class="form-control" />
+            <span asp-validation-for="Naziv" class="text-danger"></span>
+
         </div>
     </div>
     
@@ -18,6 +21,8 @@
         <label>Oznaka: </label>
         <div>
             <input asp-for="Oznaka" class="form-control" />
+            <span asp-validation-for="Oznaka" class="text-danger"></span>
+
         </div>
     </div>
 

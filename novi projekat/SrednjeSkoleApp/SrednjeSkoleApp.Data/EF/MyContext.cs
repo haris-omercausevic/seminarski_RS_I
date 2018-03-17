@@ -69,6 +69,12 @@ namespace SrednjeSkoleApp.Data.EF
                 .WithMany()
                 .HasForeignKey(x => x.SmjerPredmetId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UcenikPredmet>()
+                .HasOne(x => x.Ucenik)
+                .WithMany()
+                .HasForeignKey(x => x.UcenikId)
+                .OnDelete(DeleteBehavior.Restrict);
     ***REMOVED***
 ***REMOVED***
 ***REMOVED***

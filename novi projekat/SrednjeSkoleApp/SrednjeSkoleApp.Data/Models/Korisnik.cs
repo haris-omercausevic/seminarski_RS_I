@@ -11,7 +11,8 @@ namespace SrednjeSkoleApp.Data.Models
         public string Ime { get; set; ***REMOVED***
         public string Prezime { get; set; ***REMOVED***
         public string KorisnickoIme { get; set; ***REMOVED***
-        public string Lozinka { get; set; ***REMOVED***
+        public string LozinkaHash { get; set; ***REMOVED***
+        public string LozinkaSalt { get; set; ***REMOVED***
         public bool Aktivan { get; set; ***REMOVED***
         public string Spol { get; set; ***REMOVED***
         public DateTime DatumRodjenja { get; set; ***REMOVED***

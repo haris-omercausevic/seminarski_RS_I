@@ -28,7 +28,7 @@ namespace SrednjeSkoleApp.Data.Migrations
 
                     b.Property<string>("IpAdresa");
 
-                    b.Property<int>("KorisnickiNalogId");
+                    b.Property<int>("KorisnikId");
 
                     b.Property<string>("Vrijednost");
 
@@ -36,7 +36,7 @@ namespace SrednjeSkoleApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KorisnickiNalogId");
+                    b.HasIndex("KorisnikId");
 
                     b.ToTable("AutorizacijskiToken");
             ***REMOVED***);
@@ -123,7 +123,9 @@ namespace SrednjeSkoleApp.Data.Migrations
 
                     b.Property<string>("KorisnickoIme");
 
-                    b.Property<string>("Lozinka");
+                    b.Property<string>("LozinkaHash");
+
+                    b.Property<string>("LozinkaSalt");
 
                     b.Property<string>("MjestoRodjenja");
 
@@ -366,17 +368,25 @@ namespace SrednjeSkoleApp.Data.Migrations
                     b.Property<int>("UcenikPredmetId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("NastavnikId");
+
                     b.Property<int>("PredmetId");
 
                     b.Property<int>("UcenikId");
+
+                    b.Property<int?>("UcenikId1");
 
                     b.Property<double?>("ZakljucnaOcjena");
 
                     b.HasKey("UcenikPredmetId");
 
+                    b.HasIndex("NastavnikId");
+
                     b.HasIndex("PredmetId");
 
                     b.HasIndex("UcenikId");
+
+                    b.HasIndex("UcenikId1");
 
                     b.ToTable("UceniciPredmeti");
             ***REMOVED***);
@@ -463,9 +473,9 @@ namespace SrednjeSkoleApp.Data.Migrations
 
             modelBuilder.Entity("SrednjeSkoleApp.Data.Models.AutorizacijskiToken", b =>
                 {
-                    b.HasOne("SrednjeSkoleApp.Data.Models.Korisnik", "KorisnickiNalog")
+                    b.HasOne("SrednjeSkoleApp.Data.Models.Korisnik", "Korisnik")
                         .WithMany()
-                        .HasForeignKey("KorisnickiNalogId")
+                        .HasForeignKey("KorisnikId")
                         .OnDelete(DeleteBehavior.Cascade);
             ***REMOVED***);
 
@@ -618,15 +628,24 @@ namespace SrednjeSkoleApp.Data.Migrations
 
             modelBuilder.Entity("SrednjeSkoleApp.Data.Models.UcenikPredmet", b =>
                 {
+                    b.HasOne("SrednjeSkoleApp.Data.Models.Nastavnik", "Nastavnik")
+                        .WithMany()
+                        .HasForeignKey("NastavnikId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("SrednjeSkoleApp.Data.Models.Predmet", "Predmet")
                         .WithMany()
                         .HasForeignKey("PredmetId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SrednjeSkoleApp.Data.Models.Ucenik", "Ucenik")
-                        .WithMany("UcenikPredmeti")
+                        .WithMany()
                         .HasForeignKey("UcenikId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SrednjeSkoleApp.Data.Models.Ucenik")
+                        .WithMany("UcenikPredmeti")
+                        .HasForeignKey("UcenikId1");
             ***REMOVED***);
 
             modelBuilder.Entity("SrednjeSkoleApp.Data.Models.UcenikRazredi", b =>
