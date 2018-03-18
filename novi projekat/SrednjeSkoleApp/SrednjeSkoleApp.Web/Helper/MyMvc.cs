@@ -19,16 +19,24 @@ namespace SrednjeSkoleApp.Web.Helper
 
         public static string GenerateHash(string salt, string password)
         {
-            var saltBytes = Convert.FromBase64String(salt);
-            var passwordBytes = Encoding.Unicode.GetBytes(password);
-            var resultingBytes = new byte[saltBytes.Length + passwordBytes.Length];
+            using (var sha256 = SHA256.Create())
+            {
+                // Send a sample text to hash.  
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password+salt));
+                // Get the hashed string.  
+                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+        ***REMOVED***
 
-            Buffer.BlockCopy(saltBytes, 0, resultingBytes, 0, saltBytes.Length);
-            Buffer.BlockCopy(passwordBytes, 0, resultingBytes, saltBytes.Length, passwordBytes.Length);
+            //var saltBytes = Convert.FromBase64String(salt);
+            //var passwordBytes = Encoding.Unicode.GetBytes(password);
+            //var resultingBytes = new byte[saltBytes.Length + passwordBytes.Length];
 
-            HashAlgorithm algorithm = HashAlgorithm.Create("SHA1");
+            //Buffer.BlockCopy(saltBytes, 0, resultingBytes, 0, saltBytes.Length);
+            //Buffer.BlockCopy(passwordBytes, 0, resultingBytes, saltBytes.Length, passwordBytes.Length);
 
-            return Convert.ToBase64String(algorithm.ComputeHash(resultingBytes));
+            //HashAlgorithm algorithm = HashAlgorithm.Create("SHA256");
+
+            //return Convert.ToBase64String(algorithm.ComputeHash(resultingBytes));
     ***REMOVED***
 ***REMOVED***
 ***REMOVED***
