@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\ModulAdministrator\Data\" />
-    <Folder Include="Areas\ModulAdministrator\Views\Pretraga\" />
     <Folder Include="Areas\ModulNastavnik\Data\" />
   </ItemGroup>
 

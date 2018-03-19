@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
@@ -40,14 +42,15 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 
         public IActionResult Dodaj()
         {
+
             var model = new RazredDodajVM()
             {
-                nastavnici = _context.Nastavnici
-                                .Where(y => y.Id != (_context.Predaje.FirstOrDefault(q => q.NastavnikId == y.Id && q.Razrednik == true).NastavnikId))
+                nastavnici = _context.Predaje
+                                .Where(y => y.Razrednik == false).Include(y => y.Nastavnik)
                                 .Select(x => new SelectListItem
                                 {
-                                    Value = x.Id.ToString(),
-                                    Text = x.Ime + " " + x.Prezime
+                                    Value = x.NastavnikId.ToString(),
+                                    Text = x.Nastavnik.Ime + " " + x.Nastavnik.Prezime
                             ***REMOVED***)
                     .ToList(),
                 skolskeGodine = _context.SkolskaGodina
@@ -81,12 +84,12 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 ***REMOVED***)
                     .ToList(),
                 nastavnikId = o2?.NastavnikId ?? 0, //je ustvari ovaj kod: o2 == null?0:o2.NastavnikId
-                nastavnici = _context.Nastavnici
-                    .Where(y => y.Id != (_context.Predaje.FirstOrDefault(q => q.NastavnikId == y.Id && q.Razrednik).NastavnikId))
+                nastavnici = _context.Predaje
+                    .Where(y => y.Razrednik == false).Include(y => y.Nastavnik)
                     .Select(x => new SelectListItem
                     {
-                        Value = x.Id.ToString(),
-                        Text = x.Ime + " " + x.Prezime
+                        Value = x.NastavnikId.ToString(),
+                        Text = x.Nastavnik.Ime + " " + x.Nastavnik.Prezime
                 ***REMOVED***)
                     .ToList(),
         ***REMOVED***;
