@@ -256,9 +256,11 @@ namespace SrednjeSkoleApp.Data.Migrations
                     b.Property<int>("PredmetId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Naziv");
+                    b.Property<string>("Naziv")
+                        .IsRequired();
 
-                    b.Property<string>("Oznaka");
+                    b.Property<string>("Oznaka")
+                        .IsRequired();
 
                     b.HasKey("PredmetId");
 
@@ -425,6 +427,8 @@ namespace SrednjeSkoleApp.Data.Migrations
                     b.Property<string>("Naziv");
 
                     b.Property<bool>("Roditelj");
+
+                    b.Property<bool>("SuperAdministrator");
 
                     b.Property<bool>("Ucenik");
 

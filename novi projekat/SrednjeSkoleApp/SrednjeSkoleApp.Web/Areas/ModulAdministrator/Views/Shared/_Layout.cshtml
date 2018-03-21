@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@using SrednjeSkoleApp.Data.Models
+@using SrednjeSkoleApp.Web.Helper
+
+@{
+    Korisnik korisnik = Context.GetLogiraniKorisnik();
+***REMOVED***
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -36,6 +43,8 @@
                     <li><a asp-area="ModulAdministrator" asp-controller="Predmet" asp-action="Index">Predmet</a></li>
                     <li><a asp-area="ModulAdministrator" asp-controller="Smjer" asp-action="Index">Smjer</a></li>
                     <li><a asp-area="ModulAdministrator" asp-controller="Ucenik" asp-action="Index">Ucenik</a></li>
+                    <li><a asp-area="" asp-controller="Autentifikacija" asp-action="Logout">@(korisnik?.KorisnickoIme) Logout</a></li>
+
                 </ul>
             </div>
         </div>

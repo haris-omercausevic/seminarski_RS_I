@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Index";
+    string error_poruka = (string)TempData["error_poruka"];
 ***REMOVED***
 
 
@@ -10,3 +11,12 @@
 <br />
 @Html.ActionLink("DB text", "TestDB", "Home")   << -- Prije nego što kliknete prepravite Connection string. Upišite vaš broj indeksa u naziv DB-a.
 <br />
+
+
+@if (error_poruka != null)
+{
+    <br/>
+    <div class="alert alert-danger">
+        @error_poruka
+    </div>
+***REMOVED***

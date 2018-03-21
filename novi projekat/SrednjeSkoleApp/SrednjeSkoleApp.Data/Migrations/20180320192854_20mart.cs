@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SrednjeSkoleApp.Data.Migrations
 {
-    public partial class _17martInit : Migration
+    public partial class _20mart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,8 +15,8 @@ namespace SrednjeSkoleApp.Data.Migrations
                 {
                     PredmetId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Naziv = table.Column<string>(nullable: true),
-                    Oznaka = table.Column<string>(nullable: true)
+                    Naziv = table.Column<string>(nullable: false),
+                    Oznaka = table.Column<string>(nullable: false)
             ***REMOVED***,
                 constraints: table =>
                 {
@@ -46,6 +46,7 @@ namespace SrednjeSkoleApp.Data.Migrations
                     Nastavnik = table.Column<bool>(nullable: false),
                     Naziv = table.Column<string>(nullable: true),
                     Roditelj = table.Column<bool>(nullable: false),
+                    SuperAdministrator = table.Column<bool>(nullable: false),
                     Ucenik = table.Column<bool>(nullable: false)
             ***REMOVED***,
                 constraints: table =>

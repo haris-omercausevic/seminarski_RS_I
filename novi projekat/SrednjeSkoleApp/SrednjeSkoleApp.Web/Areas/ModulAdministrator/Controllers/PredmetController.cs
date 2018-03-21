@@ -9,10 +9,12 @@ using Microsoft.EntityFrameworkCore;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
 using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels;
+using SrednjeSkoleApp.Web.Helper;
 
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
     [Area("ModulAdministrator")]
+    [Autorizacija(superAdministrator: true,administrator: true, nastavnici: false)]
     public class PredmetController : Controller
     {
         private MyContext _context;

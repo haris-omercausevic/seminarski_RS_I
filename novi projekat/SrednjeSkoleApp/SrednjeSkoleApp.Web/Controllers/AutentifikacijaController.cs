@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
 using SrednjeSkoleApp.Web.Helper;
@@ -21,7 +23,10 @@ namespace SrednjeSkoleApp.Web.Controllers
 
         public IActionResult Index()
         {
-            return View(new LoginVM());
+            return View(new LoginVM()
+            {
+                ZapamtiPassword = true
+        ***REMOVED***);
     ***REMOVED***
 
         public IActionResult Login(LoginVM input)
@@ -37,7 +42,18 @@ namespace SrednjeSkoleApp.Web.Controllers
 
             HttpContext.SetLogiraniKorisnik(korisnik, input.ZapamtiPassword);
 
-            return RedirectToAction("Index", "Home");
+            List<KorisniciUloge> korisniciUloge = _context.KorisniciUloge.Where(x => x.KorisnikID == korisnik.Id).Include(x => x.Uloga).ToList();
+            foreach (var item in korisniciUloge)
+            {
+                if(item.Uloga.Naziv.Equals("Administrator") || item.Uloga.Naziv.Equals("SuperAdministrator"))
+                    return RedirectToAction("Index", "Nastavnik", new {area="ModulAdministrator"***REMOVED***);
+
+                if (item.Uloga.Naziv.Equals("Nastavnik"))
+                    return RedirectToAction("Index", "Razred", new { area = "ModulNastavnik" ***REMOVED***);
+        ***REMOVED***
+
+
+            return RedirectToAction("Index", "Home", new {area=""***REMOVED***);
     ***REMOVED***
 
         public IActionResult Logout()

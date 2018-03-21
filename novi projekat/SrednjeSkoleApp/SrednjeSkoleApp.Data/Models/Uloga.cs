@@ -9,12 +9,22 @@ namespace SrednjeSkoleApp.Data.Models
     {
         public int UlogaId { get; set; ***REMOVED***
         public string Naziv { get; set; ***REMOVED***
+        public bool SuperAdministrator { get; set; ***REMOVED***
         public bool Administrator { get; set; ***REMOVED***
         public bool Nastavnik { get; set; ***REMOVED***        
         public bool Ucenik{ get; set; ***REMOVED***
         public bool Roditelj { get; set; ***REMOVED***
 
         public virtual List<KorisniciUloge> KorisniciUloge { get; set; ***REMOVED***
+
+        public Uloga()
+        {
+            SuperAdministrator = false;
+            Administrator = false;
+            Nastavnik = false;
+            Ucenik = false;
+            Roditelj = false;
+    ***REMOVED***
 
 ***REMOVED***
 ***REMOVED***

@@ -25,6 +25,16 @@ namespace SrednjeSkoleApp.Data.EF
             var skolskeGodine = new List<SkolskaGodina>();
             var smjerpredmeti = new List<SmjerPredmet>();
             var predaje = new List<Predaje>();
+            var uloge = new List<Uloga>();
+
+            uloge.Add(new Uloga { Naziv = "SuperAdministrator", SuperAdministrator = true, Administrator = true, Nastavnik = true, Ucenik = true, Roditelj = true***REMOVED***);
+            uloge.Add(new Uloga { Naziv = "Administrator", Administrator = true ***REMOVED***);
+            uloge.Add(new Uloga { Naziv = "Nastavnik", Nastavnik = true ***REMOVED***);
+            foreach (var item in uloge)
+            {
+                _context.Uloge.Add(item);
+        ***REMOVED***
+
 
             skolskeGodine.Add(new SkolskaGodina { Naziv = "2015/16" ***REMOVED***);
             skolskeGodine.Add(new SkolskaGodina { Naziv = "2016/17" ***REMOVED***);
@@ -33,7 +43,9 @@ namespace SrednjeSkoleApp.Data.EF
             {
                 _context.SkolskaGodina.Add(item);
         ***REMOVED***
-           
+
+
+
             for (int i = 0; i < 48; i++)
             {
                 predmeti.Add(new Predmet { Naziv = "Predmet " + Guid.NewGuid().ToString().Substring(0, 3), Oznaka = "P" + Guid.NewGuid().ToString().Substring(0, 2) ***REMOVED***);
@@ -75,11 +87,15 @@ namespace SrednjeSkoleApp.Data.EF
                         Email = Guid.NewGuid().ToString().Substring(0, 3) + "@fit.ba",
                         Grad = "Mostar"
                 ***REMOVED***,
-                    DatumIzboraUZvanje = DateTime.Now.Date
+                    DatumIzboraUZvanje = DateTime.Now.Date,
+                    JMBG = Guid.NewGuid().ToString().Substring(0, 13),
+                    Zvanje = "doc.dr"
             ***REMOVED***);
+                nastavniks[i].KorisnickoIme = nastavniks[i].Kontakt.Email;
                 _context.Nastavnici.Add(nastavniks[i]);
-
         ***REMOVED***
+
+                              
 
 
             for (int i = 0; i < 120; i++)
@@ -126,7 +142,7 @@ namespace SrednjeSkoleApp.Data.EF
                 //***REMOVED***);
 
                 //***REMOVED***
-               
+
         ***REMOVED***
 
             for (int i = 0; i < 40; i++)
@@ -154,7 +170,17 @@ namespace SrednjeSkoleApp.Data.EF
 
                 _context.Add(predaje[i]);
         ***REMOVED***
-            
+
+            foreach (var item in nastavniks)
+            {
+                _context.KorisniciUloge.Add(new KorisniciUloge()
+                {
+                    KorisnikID = item.Id,
+                    UlogaID = uloge.Where(x => x.Naziv == "Nastavnik").Select(x => x.UlogaId).SingleOrDefault()
+            ***REMOVED***);
+        ***REMOVED***
+
+
             _context.SaveChanges();
     ***REMOVED***
         static Random random = new Random();

@@ -18,7 +18,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
         [Required]
         public string Prezime { get; set; ***REMOVED***
         [Required]
-        [Remote(action:nameof(UcenikController.ProvjeriKorisnickoIme),controller:"Ucenik")]
+        [Remote(action:nameof(KorisnikController.ProvjeriKorisnickoIme),controller:"Korisnik")]
         public string KorisnickoIme { get; set; ***REMOVED***
         [Required]
         public string Lozinka { get; set; ***REMOVED***

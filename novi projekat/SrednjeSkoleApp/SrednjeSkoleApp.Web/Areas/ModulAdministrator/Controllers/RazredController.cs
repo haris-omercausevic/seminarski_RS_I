@@ -10,10 +10,12 @@ using Microsoft.EntityFrameworkCore;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
 using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels;
+using SrednjeSkoleApp.Web.Helper;
 
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
     [Area("ModulAdministrator")]
+    [Autorizacija(superAdministrator: true,administrator: true, nastavnici: false)]
     public class RazredController : Controller
     {
         private MyContext _context;
@@ -31,7 +33,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 {
                     RazredId = x.RazredId,
                     Razred = x.Oznaka,
-                    Razrednik = _context.Predaje.Where(y => y.Razrednik && y.RazredId == x.RazredId).Include(y => y.Nastavnik).FirstOrDefault().Nastavnik.Ime,
+                    Razrednik = _context.Predaje.Where(y => y.Razrednik && y.RazredId == x.RazredId).Include(y => y.Nastavnik).Select(y => y.Nastavnik.Ime).FirstOrDefault(),
                     SkolskaGodina = x.SkolskaGodina.Naziv
             ***REMOVED***).ToList()
 
@@ -83,7 +85,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                         Text = x.Naziv
                 ***REMOVED***)
                     .ToList(),
-                nastavnikId = o2?.NastavnikId ?? 0, //je ustvari ovaj kod: o2 == null?0:o2.NastavnikId
+                nastavnikId = o2?.NastavnikId ?? 0, //o2 == null?0:o2.NastavnikId
                 nastavnici = _context.Predaje
                     .Where(y => y.Razrednik == false).Include(y => y.Nastavnik)
                     .Select(x => new SelectListItem

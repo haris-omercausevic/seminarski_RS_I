@@ -13,17 +13,24 @@ using SrednjeSkoleApp.Web.Helper;
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
     [Area("ModulAdministrator")]
+    [Autorizacija(superAdministrator: true, administrator: true, nastavnici:false)]
     public class NastavnikController : Controller
     {
         private MyContext _context;
-
         public NastavnikController(MyContext context)
         {
             _context = context;
     ***REMOVED***
 
-        public IActionResult Index() 
+        public IActionResult Index()
         {
+
+            Korisnik korisnik = HttpContext.GetLogiraniKorisnik();
+            if (korisnik == null)
+            {
+                TempData["error_poruka"] = "Nemate pravo pristupa.";
+                return RedirectToAction("Index", "Autentifikacija");
+        ***REMOVED***
             var model = new NastavnikIndexVM
 
             {

@@ -12,8 +12,8 @@ using System;
 namespace SrednjeSkoleApp.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20180317172721_17martInit")]
-    partial class _17martInit
+    [Migration("20180320192854_20mart")]
+    partial class _20mart
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -257,9 +257,11 @@ namespace SrednjeSkoleApp.Data.Migrations
                     b.Property<int>("PredmetId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Naziv");
+                    b.Property<string>("Naziv")
+                        .IsRequired();
 
-                    b.Property<string>("Oznaka");
+                    b.Property<string>("Oznaka")
+                        .IsRequired();
 
                     b.HasKey("PredmetId");
 
@@ -426,6 +428,8 @@ namespace SrednjeSkoleApp.Data.Migrations
                     b.Property<string>("Naziv");
 
                     b.Property<bool>("Roditelj");
+
+                    b.Property<bool>("SuperAdministrator");
 
                     b.Property<bool>("Ucenik");
 

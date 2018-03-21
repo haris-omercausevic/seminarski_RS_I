@@ -1,13 +1,13 @@
 ﻿@using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
 @using SrednjeSkoleApp.Data.Models
 
-@model UcenikIndexVM
+@model KorisnikIndexVM
 
 @{
     //Layout = "_Layout";
 ***REMOVED***
 <h2>Učenici</h2>
-<form asp-action="Trazi" asp-area="ModulAdministrator" method="get">
+<form asp-action="Trazi" asp-area="ModulAdministrator" asp-route-uloga="@Model.ulogaId" method="get">
     <div class="form-group">
         <label>Ime: </label>
         <div>
@@ -26,7 +26,16 @@
             <input type="text" name="email" value="@ViewData["emailFilter"]" />
         </div>
     </div>
-     
+
+    <div class="form-group">
+        <label>Uloga: </label>
+        <div>
+            <select asp-for="ulogaId" asp-items="@Model.uloge" class="form-control">
+                <option>(odaberite ulogu)</option>
+            </select>            
+        </div>
+    </div>
+
 
     <input type="submit" value="Trazi" class="btn btn-info" />
 </form>
@@ -40,8 +49,7 @@
         <tr>
             <th>Ime i prezime</th>
             <th>Email</th>
-            <th>Razred</th>
-            <th>Smjer</th>
+            <th>Uloga</th>
             <th>Akcija</th>
         </tr>
     </thead>
@@ -51,8 +59,7 @@
             <tr>
                 <td>@x.imePrezime</td>
                 <td>@x.email</td>
-                <td>@x.razred</td>
-                <td>@x.smjer</td>
+                <td>@x.uloga</td>
                 <td>
                     <a asp-area="ModulAdministrator" asp-action="Detalji" asp-route-id="@x.id" class="btn btn-primary">Detalji</a>
                     <a asp-area="ModulAdministrator" asp-action="Obrisi" asp-route-id="@x.id" class="btn btn-danger">Obrisi</a>

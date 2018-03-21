@@ -11,6 +11,7 @@ using System.Linq;
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
     [Area("ModulAdministrator")]
+    [Autorizacija(superAdministrator: true,administrator: true, nastavnici: false)]
     public class UcenikController : Controller
     {
         private MyContext _context;
@@ -27,11 +28,10 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 rows = _context.Ucenici.Include(q => q.Kontakt).Select(x => new UcenikIndexVM.Row
                 {
                     id = x.Id,
-                    razred = _context.UceniciRazredi.Where(y => y.UcenikId == x.Id).Include(y => y.Razred)
-                        .FirstOrDefault().Razred.Oznaka,
+                    razred = _context.UceniciRazredi.Where(y => y.UcenikId == x.Id).Include(y => y.Razred).Select(y => y.Razred.Oznaka).FirstOrDefault(),
                     imePrezime = x.Ime + " " + x.Prezime,
                     email = x.Kontakt.Email,
-                    smjer = _context.Ucenici.Where(q => q.Id == x.Id).Include(q => q.Smjer).FirstOrDefault().Smjer.Naziv
+                    smjer = _context.Ucenici.Where(q => q.Id == x.Id).Include(q => q.Smjer).Select(q => q.Smjer.Naziv).SingleOrDefault()
             ***REMOVED***).ToList()
         ***REMOVED***;
 
@@ -236,23 +236,17 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                     .Select(x => new UcenikIndexVM.Row
                     {
                         id = x.Id,
-                        razred = _context.UceniciRazredi.Where(y => y.UcenikId == x.Id).Include(y => y.Razred)
-                            .FirstOrDefault().Razred.Oznaka,
+                        razred = _context.UceniciRazredi.Where(y => y.UcenikId == x.Id).Include(y => y.Razred).Select(y => y.Razred.Oznaka)
+                            .FirstOrDefault(),
                         imePrezime = x.Ime + " " + x.Prezime,
                         email = x.Kontakt.Email,
-                        smjer = _context.Ucenici.Where(q => q.Id == x.Id).Include(q => q.Smjer).FirstOrDefault().Smjer.Naziv
+                        smjer = _context.Ucenici.Where(q => q.Id == x.Id).Include(q => q.Smjer).Select(q => q.Smjer.Naziv).FirstOrDefault()
                 ***REMOVED***).ToList()
         ***REMOVED***;
 
             return View("Index", model);
     ***REMOVED***
 
-        public IActionResult ProvjeriKorisnickoIme(string korisnickoIme)
-        {
-            if (_context.Korisnici.Any(x => x.KorisnickoIme == korisnickoIme))
-                return Json($"Korisnicko ime {korisnickoIme***REMOVED*** je zauzeto.");
-
-            return Json(true);
-    ***REMOVED***
+     
 ***REMOVED***
 ***REMOVED***

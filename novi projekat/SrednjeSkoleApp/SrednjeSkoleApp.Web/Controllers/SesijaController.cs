@@ -10,7 +10,7 @@ using SrednjeSkoleApp.Web.ViewModels;
 
 namespace SrednjeSkoleApp.Web.Controllers
 {
-    [Autorizacija(administrator: true, nastavnici: true)]
+    [Autorizacija(superAdministrator:true,administrator: true, nastavnici: true)]
     public class SesijaController : Controller
     {
         private MyContext _context;
