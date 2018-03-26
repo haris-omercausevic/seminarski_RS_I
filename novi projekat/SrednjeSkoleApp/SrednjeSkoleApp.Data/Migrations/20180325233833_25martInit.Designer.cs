@@ -12,8 +12,8 @@ using System;
 namespace SrednjeSkoleApp.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20180320192854_20mart")]
-    partial class _20mart
+    [Migration("20180325233833_25martInit")]
+    partial class _25martInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

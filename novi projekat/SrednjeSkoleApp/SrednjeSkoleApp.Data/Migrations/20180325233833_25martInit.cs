@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SrednjeSkoleApp.Data.Migrations
 {
-    public partial class _20mart : Migration
+    public partial class _25martInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -25,7 +25,7 @@ namespace SrednjeSkoleApp.Web.Controllers
         {
             return View(new LoginVM()
             {
-                ZapamtiPassword = true
+                ZapamtiPassword = false
         ***REMOVED***);
     ***REMOVED***
 

@@ -1,0 +1,59 @@
+﻿@using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
+
+@model UcenikDetaljiVM
+@{
+    ViewData["Title"] = "Detalji";
+***REMOVED***
+
+<h2>Detalji</h2>
+
+<div>
+    <div class="form-group">
+        <label>Ime i prezime: </label>
+        <div>
+            <input asp-for="imePrezime" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Email: </label>
+        <div>
+            <input asp-for="email" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Smjer: </label>
+        <div>
+            <input asp-for="smjer" class="form-control" readonly />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Razred: </label>
+        <div>
+            <input asp-for="razred" class="form-control" readonly />
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label>Broj u dnevniku: </label>
+        <div>
+            <input asp-for="brojUDnevniku" class="form-control" readonly />
+        </div>
+    </div>
+</div>
+
+<div id="ucenikDetaljiID" style="border: 1px black solid"></div>
+
+
+<script>
+    $(document).ready(function(parameters) {
+        $.get("/ModulNastavnik/UcenikStavkeAjax/index?id=@Model.id",
+            function (rezultat, status) {
+                $("#ucenikDetaljiID").html(rezultat);
+        ***REMOVED***);
+***REMOVED***);
+</script>
+
+

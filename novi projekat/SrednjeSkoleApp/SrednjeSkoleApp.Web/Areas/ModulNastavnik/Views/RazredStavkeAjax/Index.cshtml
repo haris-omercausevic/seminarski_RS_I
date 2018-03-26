@@ -1,0 +1,40 @@
+﻿@using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
+@using Microsoft.VisualStudio.Web.CodeGeneration
+
+@model RazredStavkeAjaxIndexVM
+@{
+    ViewData["Title"] = "Index";
+***REMOVED***
+
+<h2>Razred stavke</h2>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Broj u dnevniku</th>
+        <th>Ucenik</th>
+        <th>Akcija</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.rows)
+    {
+        <tr>
+            <td>@item.RedniBroj</td>
+            <td>@item.Ucenik</td>
+            <td>
+                <a asp-action="Detalji" asp-route-id="@item.UcenikId" asp-controller="Ucenik" asp-area="ModulNastavnik" class="btn btn-danger">Detalji</a>
+                <a asp-action="Detalji" asp-route-id="@item.UcenikId" asp-controller="Ucenik" asp-area="ModulNastavnik" class="btn btn-danger">Detalji</a>
+            </td>
+        </tr>
+***REMOVED***
+    </tbody>
+</table>
+
+<a class="btn btn-success" ajax-poziv="da" ajax-rezultat="nekiID" asp-action="Dodaj" asp-area="ModulAdministrator" asp-route-id="@Model.RazredId">Dodaj</a>
+
+
+
+
+
+

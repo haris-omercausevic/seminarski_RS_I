@@ -1,7 +1,49 @@
-﻿
+﻿@using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
+
+@model RazredDetaljiVM
 @{
     ViewData["Title"] = "Detalji";
 ***REMOVED***
 
 <h2>Detalji</h2>
+
+<div>
+    <div class="form-group">
+        <label>Razred: </label>
+        <div>
+            <input asp-for="oznaka" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Odjeljenje: </label>
+        <div>
+            <input asp-for="skolskaGodina" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Oznaka: </label>
+        <div>
+            <input asp-for="razrednik" class="form-control" readonly />
+        </div>
+    </div>
+
+</div>
+
+
+<div id="razredDetaljiID"></div>
+
+
+<script>
+    $(document).ready(function(parameters) {
+        $.get("/ModulNastavnik/RazredStavkeAjax/index?id=@Model.id",
+            function (rezultat, status) {
+                $("#razredDetaljiID").html(rezultat);
+        ***REMOVED***);
+***REMOVED***);
+</script>
+
+
+
 

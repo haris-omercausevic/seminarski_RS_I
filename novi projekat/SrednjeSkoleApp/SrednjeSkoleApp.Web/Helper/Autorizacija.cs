@@ -17,7 +17,7 @@ namespace SrednjeSkoleApp.Web.Helper
         public AutorizacijaAttribute(bool superAdministrator, bool administrator, bool nastavnici)
             : base(typeof(MyAuthorizeImpl))
         {
-            Arguments = new object[] { administrator, nastavnici ***REMOVED***;
+            Arguments = new object[] { superAdministrator, administrator, nastavnici ***REMOVED***;
     ***REMOVED***
 ***REMOVED***
 

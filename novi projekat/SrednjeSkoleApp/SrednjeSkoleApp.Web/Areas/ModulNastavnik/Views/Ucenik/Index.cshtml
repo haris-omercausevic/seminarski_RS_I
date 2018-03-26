@@ -1,13 +1,13 @@
-﻿@using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
+﻿@using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
 @using SrednjeSkoleApp.Data.Models
 
-@model KorisnikIndexVM
+@model UcenikIndexVM
 
 @{
     //Layout = "_Layout";
 ***REMOVED***
 <h2>Učenici</h2>
-<form asp-action="Trazi" asp-area="ModulAdministrator" asp-route-uloga="@Model.ulogaId" method="get">
+<form asp-action="Trazi" asp-area="ModulNastavnik" method="get" asp-route-smjerId="@Model.smjerId" asp-route-razredId="@Model.razredId">
     <div class="form-group">
         <label>Ime: </label>
         <div>
@@ -28,27 +28,34 @@
     </div>
 
     <div class="form-group">
-        <label>Uloga: </label>
+        <label>Razred: </label>
         <div>
-            <select asp-for="ulogaId" asp-items="@Model.uloge" class="form-control">
-                <option>(odaberite ulogu)</option>
-            </select>            
+            <select asp-for="razredId" asp-items="@Model.razredi" class="form-control">
+                <option>(odaberite razred)</option>
+            </select>
         </div>
     </div>
 
+    <div class="form-group">
+        <label>Smjer: </label>
+        <div>
+            <select asp-for="smjerId" asp-items="@Model.smjerovi" class="form-control">
+                <option>(odaberite smjer)</option>
+            </select>
+        </div>
+    </div>
 
     <input type="submit" value="Trazi" class="btn btn-info" />
 </form>
-<a asp-area="ModulAdministrator" asp-action="Dodaj" class="btn btn-success">Dodaj</a>
 
-<div id="ucenikIndexId" style="border: 1px black solid"></div>
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>Ime i prezime</th>
             <th>Email</th>
-            <th>Uloga</th>
+            <th>Razred</th>
+            <th>Smjer</th>
             <th>Akcija</th>
         </tr>
     </thead>
@@ -58,15 +65,17 @@
             <tr>
                 <td>@x.imePrezime</td>
                 <td>@x.email</td>
-                <td>@x.uloga</td>
+                <td>@x.razred</td>
+                <td>@x.smjer</td>
                 <td>
-                    <a asp-area="ModulAdministrator" asp-action="Detalji" asp-route-id="@x.id" class="btn btn-primary">Detalji</a>
-                    <a asp-area="ModulAdministrator" asp-action="Obrisi" asp-route-id="@x.id" class="btn btn-danger">Obrisi</a>
+                    <a asp-area="ModulNastavnik" asp-action="Detalji" asp-route-id="@x.id" class="btn btn-primary">Detalji</a>
+                    <a asp-area="ModulNastavnik" asp-action="Dodaj" asp-route-id="@x.id" class="btn btn-danger">Dodaj ocjenu</a>
                 </td>
             </tr>
     ***REMOVED***
     </tbody>
 </table>
+
 
 
 
