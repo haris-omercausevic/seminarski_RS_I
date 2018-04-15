@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - SrednjeSkoleApp.Web</title>
 
     <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-lumen.css" />
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
@@ -31,10 +31,8 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="ModulAdministrator" asp-controller="Nastavnik" asp-action="Index">Modul Admin - nastavnik</a></li>
-                    <li><a asp-area="ModulNastavnik" asp-controller="Razred" asp-action="Index">Modul nastavnik - razred</a></li>
+                    <li><a asp-area="ModulAdministrator" asp-controller="Korisnik" asp-action="Index">Modul Admin</a></li>
+                    <li><a asp-area="ModulNastavnik" asp-controller="Ucenik" asp-action="Index">Modul nastavnik</a></li>
                 </ul>
             </div>
         </div>

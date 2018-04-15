@@ -15,6 +15,8 @@ using SrednjeSkoleApp.Web.Helper;
 
 namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
 {
+    [Area("ModulNastavnik")]
+    [Autorizacija(superAdministrator: true, administrator: false, nastavnici: true)]
     public class UcenikController : Controller
     {
         private MyContext _context;
@@ -123,40 +125,6 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
 
             _context.SaveChanges();
             return RedirectToAction("Index", "Ucenik", new { area = "ModulAdministrator" ***REMOVED***);
-    ***REMOVED***
-
-        public IActionResult Trazi(string ime, string prezime, string email)
-        {
-            if (!String.IsNullOrEmpty(ime))
-                ime = ime.ToLower();
-            if (!String.IsNullOrEmpty(prezime))
-                prezime = prezime.ToLower();
-            if (!String.IsNullOrEmpty(email))
-                email = email.ToLower();
-
-            ViewData["imeFilter"] = ime;
-            ViewData["prezimeFilter"] = prezime;
-            ViewData["emailFilter"] = email;
-
-            var model = new UcenikIndexVM
-            {
-                rows = _context.Ucenici
-                    .Include(q => q.Kontakt)
-                    .Where(y => (y.Ime.ToLower().Contains(ime) || String.IsNullOrEmpty(ime)) &&
-                                (y.Prezime.ToLower().Contains(prezime) || String.IsNullOrEmpty(prezime)) &&
-                                (y.Kontakt.Email.ToLower().Contains(email) || String.IsNullOrEmpty(email)))
-                    .Select(x => new UcenikIndexVM.Row
-                    {
-                        id = x.Id,
-                        razred = _context.UceniciRazredi.Where(y => y.UcenikId == x.Id).Include(y => y.Razred).Select(y => y.Razred.Oznaka)
-                            .FirstOrDefault(),
-                        imePrezime = x.Ime + " " + x.Prezime,
-                        email = x.Kontakt.Email,
-                        smjer = _context.Ucenici.Where(q => q.Id == x.Id).Include(q => q.Smjer).Select(q => q.Smjer.Naziv).FirstOrDefault()
-                ***REMOVED***).ToList()
-        ***REMOVED***;
-
-            return View("Index", model);
     ***REMOVED***
 
 ***REMOVED***

@@ -5,17 +5,19 @@
 @{
     Korisnik korisnik = Context.GetLogiraniKorisnik();
 ***REMOVED***
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SrednjeSkoleApp.Web</title>
-    
-    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <title>@ViewData["Title"] - SrednjeSkoleApp</title>
+
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap-lumen.css" />
     <link rel="stylesheet" href="/css/site.css" />
-    <script src="/lib/jquery/dist/jquery.js"></script>
+    <script src="/lib/jquery/dist/jquery-3.3.1.js"></script>
     <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
 
@@ -24,31 +26,28 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SrednjeSkoleApp.Web</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="ModulAdministrator" asp-controller="Razred" asp-action="Index">Razred</a></li>
-                    <li><a asp-area="ModulAdministrator" asp-controller="Nastavnik" asp-action="Index">Nastavnik</a></li>
-                    <li><a asp-area="ModulAdministrator" asp-controller="Predmet" asp-action="Index">Predmet</a></li>
-                    <li><a asp-area="ModulAdministrator" asp-controller="Smjer" asp-action="Index">Smjer</a></li>
-                    <li><a asp-area="ModulAdministrator" asp-controller="Ucenik" asp-action="Index">Ucenik</a></li>
-                    <li><a asp-area="" asp-controller="Autentifikacija" asp-action="Logout">@(korisnik?.KorisnickoIme) Logout</a></li>
-
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a asp-area="ModulAdministrator" asp-controller="Korisnik" asp-action="Index" class="navbar-brand">Modul Administrator</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation" style="">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-area="ModulAdministrator" asp-controller="Razred" asp-action="Index" >Razred </a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" asp-area="ModulAdministrator" asp-controller="Nastavnik" asp-action="Index">Nastavnik</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="ModulAdministrator" asp-controller="Predmet" asp-action="Index">Predmet</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="ModulAdministrator" asp-controller="Smjer" asp-action="Index">Smjer</a></li>
+                    <li class="nav-item"><a class="nav-link" asp-area="ModulAdministrator" asp-controller="Ucenik" asp-action="Index">Ucenik</a></li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Autentifikacija" asp-action="Logout">@(korisnik?.KorisnickoIme), logout</a></li>
                 </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -56,7 +55,7 @@
             <p>&copy; 2018 - SrednjeSkoleApp</p>
         </footer>
     </div>
-    
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
