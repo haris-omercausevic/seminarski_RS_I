@@ -31,6 +31,9 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 model.Add(item);   
         ***REMOVED***
 
+            model.OrderBy(x => x.Naziv);
+
+
             return View(model);
     ***REMOVED***
 

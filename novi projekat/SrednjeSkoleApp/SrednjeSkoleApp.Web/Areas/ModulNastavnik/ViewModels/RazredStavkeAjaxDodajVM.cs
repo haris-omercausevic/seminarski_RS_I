@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
 {
-    public class UcenikStavkeAjaxIndexVM
+    public class RazredStavkeAjaxDodajVM
     {
 
 ***REMOVED***

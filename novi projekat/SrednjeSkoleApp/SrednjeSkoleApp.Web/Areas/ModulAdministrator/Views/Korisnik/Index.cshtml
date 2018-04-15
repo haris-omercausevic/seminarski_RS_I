@@ -6,7 +6,7 @@
 @{
     //Layout = "_Layout";
 ***REMOVED***
-<h2>Učenici</h2>
+<h2>Korisnici</h2>
 <form asp-action="Trazi" asp-area="ModulAdministrator" asp-route-uloga="@Model.ulogaId" method="get">
     <div class="form-group">
         <label>Ime: </label>
@@ -31,7 +31,7 @@
         <label>Uloga: </label>
         <div>
             <select asp-for="ulogaId" asp-items="@Model.uloge" class="form-control">
-                <option>(odaberite ulogu)</option>
+                <option value="0">(odaberite ulogu)</option>
             </select>            
         </div>
     </div>

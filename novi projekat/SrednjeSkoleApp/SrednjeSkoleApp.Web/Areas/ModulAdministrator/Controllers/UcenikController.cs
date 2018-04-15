@@ -32,7 +32,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                     imePrezime = x.Ime + " " + x.Prezime,
                     email = x.Kontakt.Email,
                     smjer = _context.Ucenici.Where(q => q.Id == x.Id).Include(q => q.Smjer).Select(q => q.Smjer.Naziv).SingleOrDefault()
-            ***REMOVED***).ToList()
+            ***REMOVED***).OrderBy(x => x.razred).ThenBy(x => x.imePrezime).ToList()
         ***REMOVED***;
 
             return View(model);
@@ -61,66 +61,65 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                     Value = y.SmjerId.ToString(),
                     Text = y.Naziv
             ***REMOVED***)
-                .ToList();
+                .OrderBy(x => x.Text).ToList();
             model.razredi = _context.Razred
                 .Select(y => new SelectListItem
                 {
                     Value = y.RazredId.ToString(),
                     Text = y.Oznaka
             ***REMOVED***)
-                .ToList();
+                .OrderBy(x => x.Text).ToList();
     ***REMOVED***
 
         public IActionResult Detalji(int id)
         {
             Ucenik input = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
-            var model = new UcenikDetaljiVM()
-            {
-                Ime = input.Ime,
-                Prezime = input.Prezime,
-                KorisnickoIme = input.KorisnickoIme,
-                Aktivan = input.Aktivan,
-                Spol = input.Spol,
-                DatumRodjenja = input.DatumRodjenja,
-                MjestoRodjenja = input.MjestoRodjenja,
-                JMBG = input.JMBG,
-                Prebivaliste = input.Prebivaliste,
-                ImeRoditelja = input.ImeRoditelja,
-                GodinaUpisa = input.GodinaUpisa,
-                ProsjekOcjenaOsnovnaSkola = input.ProsjekOcjenaOsnovnaSkola,
-                NazivOsnovneSkole = input.NazivOsnovneSkole,
-                SmjerId = input.SmjerId,
-                smjerovi = _context.Smjerovi
-                    .Select(y => new SelectListItem
-                    {
-                        Value = y.SmjerId.ToString(),
-                        Text = y.Naziv
-                ***REMOVED***)
-                    .ToList(),
-                razredi = _context.Razred
-                    .Select(y => new SelectListItem
-                    {
-                        Value = y.RazredId.ToString(),
-                        Text = y.Oznaka
-                ***REMOVED***)
-                    .ToList(),
-                Email = input.Kontakt.Email,
-                Telefon = input.Kontakt.Telefon,
-                Adresa = input.Kontakt.Adresa,
-                Grad = input.Kontakt.Grad,
-                Opstina = input.Kontakt.Opstina
-        ***REMOVED***;
+                var model = new UcenikDetaljiVM()
+                {
+                    Ime = input.Ime,
+                    Prezime = input.Prezime,
+                    KorisnickoIme = input.KorisnickoIme,
+                    Aktivan = input.Aktivan,
+                    Spol = input.Spol,
+                    DatumRodjenja = input.DatumRodjenja,
+                    MjestoRodjenja = input.MjestoRodjenja,
+                    JMBG = input.JMBG,
+                    Prebivaliste = input.Prebivaliste,
+                    ImeRoditelja = input.ImeRoditelja,
+                    GodinaUpisa = input.GodinaUpisa,
+                    ProsjekOcjenaOsnovnaSkola = input.ProsjekOcjenaOsnovnaSkola,
+                    NazivOsnovneSkole = input.NazivOsnovneSkole,
+                    SmjerId = input.SmjerId,
+                    smjerovi = _context.Smjerovi
+                        .Select(y => new SelectListItem
+                        {
+                            Value = y.SmjerId.ToString(),
+                            Text = y.Naziv
+                    ***REMOVED***)
+                        .ToList(),
+                    razredi = _context.Razred
+                        .Select(y => new SelectListItem
+                        {
+                            Value = y.RazredId.ToString(),
+                            Text = y.Oznaka
+                    ***REMOVED***)
+                        .ToList(),
+                    Email = input.Kontakt.Email,
+                    Telefon = input.Kontakt.Telefon,
+                    Adresa = input.Kontakt.Adresa,
+                    Grad = input.Kontakt.Grad,
+                    Opstina = input.Kontakt.Opstina
+            ***REMOVED***;
 
-            UcenikRazredi u = _context.UceniciRazredi.FirstOrDefault(x => x.UcenikId == input.Id);
-            if (u != null)
-                model.RazredId = u.RazredId;
+                UcenikRazredi u = _context.UceniciRazredi.FirstOrDefault(x => x.UcenikId == input.Id);
+                if (u != null)
+                    model.RazredId = u.RazredId;
 
-            var up = _context.UceniciPredmeti.Where(x => x.UcenikId == input.Id).ToList();
-            //zavrsiti pregled detalja za ucenik predmet, znaci prikaz predmeta i ocjena
-            // treba dodati za UcenikPredmet, koji nastavnik je dao tu ocjenu odnosno kod koga slusa taj predmet i sl.
+                var up = _context.UceniciPredmeti.Where(x => x.UcenikId == input.Id).ToList();
+                //zavrsiti pregled detalja za ucenik predmet, znaci prikaz predmeta i ocjena
+                // treba dodati za UcenikPredmet, koji nastavnik je dao tu ocjenu odnosno kod koga slusa taj predmet i sl.
 
-
-            return View("Detalji", model);
+                return View("Detalji", model);
     ***REMOVED***
 
 

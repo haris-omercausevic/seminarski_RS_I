@@ -70,30 +70,21 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
         public IActionResult Detalji(int id)
         {
             Razred o1 = _context.Razred.Where(x => x.RazredId == id).Include(x => x.SkolskaGodina).FirstOrDefault();
-            Predaje o2 = _context.Predaje.FirstOrDefault(x => x.RazredId == id && x.Razrednik);
-            var model = new RazredDodajVM
+            Nastavnik n1 = _context.Predaje.Where(x => x.RazredId == id && x.Razrednik).Select(x => x.Nastavnik).FirstOrDefault();
+            string razrednik = null;
+            if (n1 != null)
+            {
+                 razrednik = n1.Ime + " " + n1.Prezime;
+        ***REMOVED***
+
+            var model = new RazredDetaljiVM
             {
                 id = id,
                 razredBrojcano = o1.RazredBrojcano,
                 oznaka = o1.Oznaka,
                 odjeljenje = o1.Odjeljenje,
-                skolskaGodinaId = o1.SkolskaGodinaId,
-                skolskeGodine = _context.SkolskaGodina
-                    .Select(x => new SelectListItem
-                    {
-                        Value = x.SkolskaGodinaId.ToString(),
-                        Text = x.Naziv
-                ***REMOVED***)
-                    .ToList(),
-                nastavnikId = o2?.NastavnikId ?? 0, //o2 == null?0:o2.NastavnikId
-                nastavnici = _context.Predaje
-                    .Where(y => y.Razrednik == false).Include(y => y.Nastavnik)
-                    .Select(x => new SelectListItem
-                    {
-                        Value = x.NastavnikId.ToString(),
-                        Text = x.Nastavnik.Ime + " " + x.Nastavnik.Prezime
-                ***REMOVED***)
-                    .ToList(),
+                skolskaGodina = o1.SkolskaGodina.Naziv,
+                nastavnik = razrednik
         ***REMOVED***;
 
 

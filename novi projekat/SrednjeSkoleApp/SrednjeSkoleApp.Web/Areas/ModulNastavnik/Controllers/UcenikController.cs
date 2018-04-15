@@ -9,8 +9,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
+using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels;
 using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels;
 using SrednjeSkoleApp.Web.Helper;
+using UcenikDetaljiVM = SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikDetaljiVM;
+using UcenikIndexVM = SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikIndexVM;
 
 
 namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
@@ -30,13 +33,26 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
         {
             var model = new UcenikIndexVM
             {
-                rows = _context.Ucenici.Include(q => q.Kontakt).Select(x => new UcenikIndexVM.Row
+                rows = _context.Ucenici.Include(q => q.Kontakt).Include(q => q.Smjer).Select(x => new UcenikIndexVM.Row
                 {
                     id = x.Id,
                     imePrezime = x.Ime + " " + x.Prezime,
                     email = x.Kontakt.Email,
-                    razred = _context.UceniciRazredi.Where(y => y.UcenikId == x.Id).Include(y => y.Razred).Select(y => y.Razred.Oznaka).FirstOrDefault()
-            ***REMOVED***).ToList()
+                    razred = _context.UceniciRazredi.Where(y => y.UcenikId == x.Id).Include(y => y.Razred).Select(y => y.Razred.Oznaka).FirstOrDefault(),
+                    smjer = x.Smjer.Naziv
+            ***REMOVED***).OrderBy(x => x.razred).ThenBy(x => x.imePrezime).ToList(),
+                razredi = _context.Razred.Select(x => new SelectListItem
+                    {
+                        Value = x.RazredId.ToString(),
+                        Text = x.Oznaka
+                ***REMOVED***
+                ).ToList(),
+                smjerovi = _context.Smjerovi.Select(x => new SelectListItem
+                    {
+                        Value = x.SmjerId.ToString(),
+                        Text = x.Naziv
+                ***REMOVED***
+                ).ToList()
         ***REMOVED***;
 
             return View(model);
@@ -78,27 +94,50 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             var model = new UcenikIndexVM
             {
                 razredi = _context.Razred.Select(x => new SelectListItem
-                {
-                    Value = x.RazredId.ToString(),
-                    Text = x.Oznaka
-            ***REMOVED***
+                    {
+                        Value = x.RazredId.ToString(),
+                        Text = x.Oznaka
+                ***REMOVED***
+                ).ToList(),
+                smjerovi = _context.Smjerovi.Select(x => new SelectListItem
+                    {
+                        Value = x.SmjerId.ToString(),
+                        Text = x.Naziv
+                ***REMOVED***
                 ).ToList(),
                 rows = _context.Ucenici
                     .Include(q => q.Kontakt).Include(q => q.Smjer)
                     .Where(y => (y.Ime.ToLower().Contains(ime) || String.IsNullOrEmpty(ime)) &&
                                 (y.Prezime.ToLower().Contains(prezime) || String.IsNullOrEmpty(prezime)) &&
-                                (y.Kontakt.Email.ToLower().Contains(email) || String.IsNullOrEmpty(email)) && 
-                                (y.Smjer.SmjerId == smjerId || smjerId == 0) && 
-                                (_context.UceniciRazredi.Where(o => o.RazredId == razredId).Select(o => o.UcenikId).Single()) == y.Id) // testirati radi li kako treba
+                                (y.Kontakt.Email.ToLower().Contains(email) || String.IsNullOrEmpty(email)))
                     .Select(x => new UcenikIndexVM.Row
                     {
                         id = x.Id,
                         imePrezime = x.Ime + " " + x.Prezime,
                         email = x.Kontakt.Email,
-                        razred = _context.UceniciRazredi.Where(q => q.UcenikId == x.Id).Include(q => q.Razred).Select(q => q.Razred.Oznaka).SingleOrDefault(),
+                        razred = _context.UceniciRazredi.Where(y => y.UcenikId == x.Id).Include(y => y.Razred).Select(y => y.Razred.Oznaka).SingleOrDefault(),
                         smjer = x.Smjer.Naziv
-                ***REMOVED***).ToList()
+                ***REMOVED***).OrderBy(x => x.razred).ThenBy(x => x.imePrezime).ToList()
         ***REMOVED***;
+
+            Smjer smjer = _context.Smjerovi.FirstOrDefault(y => y.SmjerId == smjerId);
+            if (smjer != null)
+            {
+                for (int i = model.rows.Count - 1; i >= 0; i--)
+                {
+                    if (model.rows[i].smjer != smjer.Naziv)
+                        model.rows.RemoveAt(i);
+            ***REMOVED***
+        ***REMOVED***
+            Razred razred = _context.Razred.FirstOrDefault(y => y.RazredId == razredId);
+            if (razred != null)
+            {
+                for (int i = model.rows.Count - 1; i >= 0; i--)
+                {
+                    if (model.rows[i].razred != razred.Oznaka)
+                        model.rows.RemoveAt(i);
+            ***REMOVED***
+        ***REMOVED***
 
             return View("Index", model);
     ***REMOVED***

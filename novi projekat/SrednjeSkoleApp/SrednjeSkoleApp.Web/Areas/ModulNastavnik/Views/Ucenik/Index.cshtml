@@ -31,7 +31,7 @@
         <label>Razred: </label>
         <div>
             <select asp-for="razredId" asp-items="@Model.razredi" class="form-control">
-                <option>(odaberite razred)</option>
+                <option value="0">(odaberite razred)</option>
             </select>
         </div>
     </div>
@@ -40,7 +40,7 @@
         <label>Smjer: </label>
         <div>
             <select asp-for="smjerId" asp-items="@Model.smjerovi" class="form-control">
-                <option>(odaberite smjer)</option>
+                <option value="0">(odaberite smjer)</option>
             </select>
         </div>
     </div>

@@ -1,0 +1,27 @@
+﻿@using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
+@model SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.RazredStavkeAjaxDodajVM
+
+@{
+    ViewData["Title"] = "Dodaj";
+***REMOVED***
+
+<h2>Dodaj učenika u razred</h2>
+
+
+<form ajax-poziv="da" ajax-rezultat="nekiID" asp-action="Snimi" asp-area="ModulNastavnik">
+    <input type="hidden" name="RazredId" value="@Model.RazredId" />
+    <div class="form-group">
+        <label>Ucenik: </label>
+        <div>
+            <select asp-for="UcenikId" asp-items="@Model.ucenici" class="form-control">
+                <option>(odaberite ucenika)</option>
+            </select>
+        </div>
+    </div>
+
+    <input type="submit" id="submitButton" value="Snimi" />
+</form>
+
+
+
+

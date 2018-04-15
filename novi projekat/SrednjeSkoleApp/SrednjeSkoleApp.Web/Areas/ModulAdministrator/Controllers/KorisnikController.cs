@@ -121,7 +121,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 ***REMOVED***).ToList()
         ***REMOVED***;
 
-            Uloga uloga = _context.Uloge.Where(y => y.UlogaId == ulogaId).FirstOrDefault();
+            Uloga uloga = _context.Uloge.FirstOrDefault(y => y.UlogaId == ulogaId);
             if (uloga != null)
             {
                 for (int i = model.rows.Count - 1; i >= 0; i--)
