@@ -95,9 +95,9 @@ namespace SrednjeSkoleApp.Data.EF
                 _context.Nastavnici.Add(nastavniks[i]);
         ***REMOVED***
 
-                              
 
 
+            int brojac = 0;
             for (int i = 0; i < 120; i++)
             {
                 ucenici.Add(new Ucenik
@@ -123,25 +123,25 @@ namespace SrednjeSkoleApp.Data.EF
                     SkolskaGodina = skolskeGodine[i % skolskeGodine.Count].Naziv
             ***REMOVED***);
 
-                //var ocjene = new List<Ocjena>();
-                //for (int j = 0; j < 5; j++)
-                //{
-                //    var ucenikPredmet = new UcenikPredmet
-                //    {
-                //        Ucenik = ucenici[i],
-                //        Predmet = predmeti[j % predmeti.Count]
-                //***REMOVED***;
+                var ocjene = new List<Ocjena>();
+                for (int j = 0; j < 5; j++)
+                {
+                    var ucenikPredmet = new UcenikPredmet
+                    {
+                        Ucenik = ucenici[i],
+                        Predmet = predmeti[j % predmeti.Count]
+                ***REMOVED***;
 
-                //    _context.UceniciPredmeti.Add(ucenikPredmet);
+                    _context.UceniciPredmeti.Add(ucenikPredmet);
 
-                //    _context.Ocjene.Add(new Ocjena
-                //    {
-                //        Vrijednost = dajOcjenu(),
-                //        Datum = DateTime.Now,
-                //        UcenikPredmet = ucenikPredmet
-                //***REMOVED***);
+                    _context.Ocjene.Add(new Ocjena
+                    {
+                        Vrijednost = dajOcjenu(),
+                        Datum = DateTime.Now,
+                        UcenikPredmet = ucenikPredmet
+                ***REMOVED***);
 
-                //***REMOVED***
+            ***REMOVED***
 
         ***REMOVED***
 

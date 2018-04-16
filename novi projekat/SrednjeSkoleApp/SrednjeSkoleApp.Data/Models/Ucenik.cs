@@ -15,10 +15,11 @@ namespace SrednjeSkoleApp.Data.Models
         public string NazivOsnovneSkole { get; set; ***REMOVED***
         public double? ProsjekOcjenaOsnovnaSkola { get; set; ***REMOVED***
 
-        public virtual List<UcenikRazredi> UcenikRazredi { get; set; ***REMOVED***
-        public virtual List<UcenikPredmet> UcenikPredmeti { get; set; ***REMOVED***
-        public virtual List<UcenikCasovi> UcenikCasovi { get; set; ***REMOVED***
-        public virtual List<Izostanak> Izostanci { get; set; ***REMOVED***
+        //public virtual List<UcenikRazredi> UcenikRazredi { get; set; ***REMOVED***
+        //public virtual List<UcenikPredmet> UcenikPredmeti { get; set; ***REMOVED***
+        //public virtual List<UcenikCasovi> UcenikCasovi { get; set; ***REMOVED***
+        //public virtual List<UcenikOcjene> UcenikOcjene { get; set; ***REMOVED***
+        //public virtual List<Izostanak> Izostanci { get; set; ***REMOVED***
 
 ***REMOVED***
 ***REMOVED***

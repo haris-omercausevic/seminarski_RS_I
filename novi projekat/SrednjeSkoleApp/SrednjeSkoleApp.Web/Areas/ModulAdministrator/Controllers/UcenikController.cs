@@ -195,12 +195,21 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 
             foreach (var up in _context.UceniciPredmeti.Where(x => x.UcenikId == id))
             {
-                foreach (var item in _context.Ocjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId).ToList())
+                foreach (var item in _context.UceniciOcjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId))
                 {
-                    _context.Ocjene.Remove(item);
+                    _context.Ocjene.Remove(item.Ocjena);
+                    _context.UceniciOcjene.Remove(item);
             ***REMOVED***
                 _context.UceniciPredmeti.Remove(up);
         ***REMOVED***
+
+            //query example
+            //SELECT AVG(O.Vrijednost)
+            //    FROM UceniciPredmeti AS UP
+            //      JOIN UceniciOcjene AS UO ON UP.UcenikPredmetId = UO.UcenikPredmetId
+            //      JOIN Ocjene AS O ON UO.OcjenaId = O.OcjenaId
+            //WHERE UP.UcenikId = 1
+
             if (p2 != null)
                 _context.UceniciRazredi.Remove(p2);
             if (p1 != null)

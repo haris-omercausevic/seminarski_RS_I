@@ -11,8 +11,5 @@ namespace SrednjeSkoleApp.Data.Models
         public DateTime Datum { get; set; ***REMOVED***
         public string TipOcjene { get; set; ***REMOVED***
         public string Napomena{ get; set; ***REMOVED***
-
-        public int UcenikPredmetId { get; set; ***REMOVED***
-        public virtual UcenikPredmet UcenikPredmet { get; set; ***REMOVED***
 ***REMOVED***
 ***REMOVED***

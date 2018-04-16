@@ -14,7 +14,7 @@ namespace SrednjeSkoleApp.Data.Models
         
         public int NastavnikId { get; set; ***REMOVED***
         public virtual Nastavnik Nastavnik { get; set; ***REMOVED***
-        public virtual List<UcenikCasovi> UcenikCasovi { get; set; ***REMOVED***
-        public virtual List<Izostanak> Izostanci { get; set; ***REMOVED***
+        //public virtual List<UcenikCasovi> UcenikCasovi { get; set; ***REMOVED***
+        //public virtual List<Izostanak> Izostanci { get; set; ***REMOVED***
 ***REMOVED***
 ***REMOVED***

@@ -29,6 +29,8 @@ namespace SrednjeSkoleApp.Data.EF
         public DbSet<UcenikCasovi> UceniciCasovi { get; set; ***REMOVED***
         public DbSet<UcenikPredmet> UceniciPredmeti { get; set; ***REMOVED***
         public DbSet<UcenikRazredi> UceniciRazredi { get; set; ***REMOVED***
+        public DbSet<UcenikOcjene> UceniciOcjene { get; set; ***REMOVED***
+
         public DbSet<Uloga> Uloge { get; set; ***REMOVED***
         public DbSet<AutorizacijskiToken> AutorizacijskiToken { get; set; ***REMOVED***
 
@@ -74,6 +76,18 @@ namespace SrednjeSkoleApp.Data.EF
                 .HasOne(x => x.Ucenik)
                 .WithMany()
                 .HasForeignKey(x => x.UcenikId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Materijal>()
+                .HasOne(x => x.SkolskaGodina)
+                .WithMany()
+                .HasForeignKey(x => x.SkolskaGodinaId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UcenikOcjene>()
+                .HasOne(x => x.UcenikPredmet)
+                .WithMany()
+                .HasForeignKey(x => x.UcenikPredmetId)
                 .OnDelete(DeleteBehavior.Restrict);
     ***REMOVED***
 ***REMOVED***

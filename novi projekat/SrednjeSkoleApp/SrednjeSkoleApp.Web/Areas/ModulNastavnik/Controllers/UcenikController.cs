@@ -149,12 +149,14 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
 
             foreach (var up in _context.UceniciPredmeti.Where(x => x.UcenikId == id))
             {
-                foreach (var item in _context.Ocjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId).ToList())
+                foreach (var item in _context.UceniciOcjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId))
                 {
-                    _context.Ocjene.Remove(item);
+                    _context.Ocjene.Remove(item.Ocjena);
+                    _context.UceniciOcjene.Remove(item);
             ***REMOVED***
                 _context.UceniciPredmeti.Remove(up);
         ***REMOVED***
+
             if (p2 != null)
                 _context.UceniciRazredi.Remove(p2);
             if (p1 != null)

@@ -8,9 +8,9 @@ namespace SrednjeSkoleApp.Data.Models
     {
         public int KorisniciUlogeId { get; set; ***REMOVED***
         public int UlogaID { get; set; ***REMOVED***
-        public int KorisnikID { get; set; ***REMOVED***
-
-        public virtual Korisnik Korisnik { get; set; ***REMOVED***
         public virtual Uloga Uloga { get; set; ***REMOVED***
+
+        public int KorisnikID { get; set; ***REMOVED***
+        public virtual Korisnik Korisnik { get; set; ***REMOVED***
 ***REMOVED***
 ***REMOVED***

@@ -67,53 +67,45 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
         //    return PartialView("Dodaj", model);
         //***REMOVED***
 
-        public IActionResult Dodaj(int ucenikId, int nastavnikId)
+        public IActionResult Dodaj(int ucenikId, int nastavnikId, int razredId)
         {
             RazredStavkeAjaxDodajVM model = new RazredStavkeAjaxDodajVM
             {
                 datum = DateTime.Now,
                 ucenikId = ucenikId,
                 nastavnikId = nastavnikId,
-                
-                
-
+                predmeti = _context.Predaje.Where(x => x.NastavnikId == nastavnikId && x.RazredId == razredId).Include(x => x.SmjerPredmet).ThenInclude(x => x.Predmet).Select(x => new SelectListItem
+                {
+                    Value = x.SmjerPredmet.Predmet.PredmetId.ToString(),
+                    Text = x.SmjerPredmet.Predmet.Naziv
+            ***REMOVED***).ToList()
         ***REMOVED***;
 
             return PartialView("Dodaj", model);
     ***REMOVED***
-        //public IActionResult Obrisi(int id)
-        //{
-        //    UcenikRazredi x = _context.UceniciRazredi.Find(id);
-        //    int o = x.RazredId;
 
-        //    _context.UceniciRazredi.Remove(_context.UceniciRazredi.Find(id));
-        //    _context.SaveChanges();
+        public IActionResult Snimi(int razredId, int ucenikId)
+        {
+            _context.UceniciPredmeti.Add(new UcenikPredmet
+            {
+                //RazredId = razredId,
+                //UcenikId = ucenikId,
+                //RedniBroj = 0,
+                //SkolskaGodina = _context.Razred.Where(x => x.RazredId == razredId).Include(x => x.SkolskaGodina).FirstOrDefault()?.SkolskaGodina.Naziv
+        ***REMOVED***);
 
-        //    return Redirect("/ModulNastavnik/RazredStavkeAjax/Index?id=" + o);
-        //***REMOVED***
+            //poredaj po prezimenu (broj u dnevniku)
+            int brojac = 1;
+            foreach (var item in _context.UceniciRazredi.Where(x => x.RazredId == razredId).Include(x => x.Ucenik).OrderBy(x => x.Ucenik.Prezime).ToList())
+            {
+                item.RedniBroj = brojac++;
+                _context.Update(item);
+        ***REMOVED***
 
-        //public IActionResult Snimi(int razredId, int ucenikId)
-        //{
-        //    _context.UceniciRazredi.Add(new UcenikRazredi
-        //    {
-        //        RazredId = razredId,
-        //        UcenikId = ucenikId,
-        //        RedniBroj = 0,
-        //        SkolskaGodina = _context.Razred.Where(x => x.RazredId == razredId).Include(x => x.SkolskaGodina).FirstOrDefault()?.SkolskaGodina.Naziv
-        //***REMOVED***);
+            _context.SaveChanges();
 
-        //    //poredaj po prezimenu (broj u dnevniku)
-        //    int brojac = 1;
-        //    foreach (var item in _context.UceniciRazredi.Where(x => x.RazredId == razredId).Include(x => x.Ucenik).OrderBy(x => x.Ucenik.Prezime).ToList())
-        //    {
-        //        item.RedniBroj = brojac++;
-        //        _context.Update(item);
-        //***REMOVED***
-
-        //    _context.SaveChanges();
-
-        //    return Redirect("/ModulNastavnik/RazredStavkeAjax/Index?id=" + razredId);
-        //***REMOVED***
+            return Redirect("/ModulNastavnik/RazredStavkeAjax/Index?id=" + razredId);
+    ***REMOVED***
 ***REMOVED***
 
 

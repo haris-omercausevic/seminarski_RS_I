@@ -8,8 +8,10 @@ namespace SrednjeSkoleApp.Data.Models
     {
         public int UcenikPredmetId { get; set; ***REMOVED***
         public double? ZakljucnaOcjena { get; set; ***REMOVED***
+
         public int PredmetId { get; set; ***REMOVED***
         public virtual Predmet Predmet { get; set; ***REMOVED***
+
         public int NastavnikId { get; set; ***REMOVED***
         public virtual Nastavnik Nastavnik { get; set; ***REMOVED***
 
