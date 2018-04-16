@@ -40,6 +40,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 
             return View("Index", model);
     ***REMOVED***
+        //https://summernote.org/getting-started/#simple-example
         public IActionResult Dodaj()
         {
             var model = new SmjerDodajVM()

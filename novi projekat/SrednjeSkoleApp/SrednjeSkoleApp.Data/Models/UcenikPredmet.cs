@@ -15,8 +15,5 @@ namespace SrednjeSkoleApp.Data.Models
 
         public int UcenikId { get; set; ***REMOVED***
         public virtual Ucenik Ucenik { get; set; ***REMOVED***
-
-        public virtual List<Ocjena> Ocjene { get; set; ***REMOVED***
-        
 ***REMOVED***
 ***REMOVED***

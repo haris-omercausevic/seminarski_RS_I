@@ -14,7 +14,7 @@ using SrednjeSkoleApp.Web.Helper;
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
     [Area("ModulAdministrator")]
-    [Autorizacija(superAdministrator:true,administrator: true,nastavnici: false)]
+    //[Autorizacija(superAdministrator:true,administrator: true,nastavnici: false)]
     public class KorisnikController : Controller
     {
         private MyContext _context;

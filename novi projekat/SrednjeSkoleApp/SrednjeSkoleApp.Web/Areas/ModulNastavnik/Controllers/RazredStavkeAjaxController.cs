@@ -67,17 +67,16 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
         //    return PartialView("Dodaj", model);
         //***REMOVED***
 
-        public IActionResult Dodaj(int id)
+        public IActionResult Dodaj(int ucenikId, int nastavnikId)
         {
             RazredStavkeAjaxDodajVM model = new RazredStavkeAjaxDodajVM
             {
-                //    RazredId = id,
-                //    ucenici = _context.Ucenici.Select(x => new SelectListItem
-                //    {
-                //        Value = x.Id.ToString(),
-                //        Text = x.Ime + " " + x.Prezime
-                //***REMOVED***).ToList()
-                //
+                datum = DateTime.Now,
+                ucenikId = ucenikId,
+                nastavnikId = nastavnikId,
+                
+                
+
         ***REMOVED***;
 
             return PartialView("Dodaj", model);
