@@ -1,5 +1,6 @@
 ﻿@using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
 @using SrednjeSkoleApp.Data.Models
+@using SrednjeSkoleApp.Web.Helper
 
 @model UcenikIndexVM
 
@@ -69,7 +70,7 @@
                 <td>@x.smjer</td>
                 <td>
                     <a asp-area="ModulNastavnik" asp-action="Detalji" asp-route-id="@x.id" class="btn btn-primary">Detalji</a>
-                    <a asp-area="ModulNastavnik" asp-action="Dodaj" asp-route-id="@x.id" class="btn btn-danger">Dodaj ocjenu</a>
+                    <a asp-area="ModulNastavnik" asp-action="Dodaj" asp-route-id="@x.id" asp-route-nastavnikId="@Context.GetLogiraniKorisnik().Id" class="btn btn-danger">Dodaj ocjenu</a>
                 </td>
             </tr>
     ***REMOVED***

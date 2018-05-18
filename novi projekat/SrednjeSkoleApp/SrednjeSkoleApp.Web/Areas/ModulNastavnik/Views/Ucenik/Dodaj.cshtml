@@ -1,0 +1,53 @@
+﻿@model SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikDodajVM
+
+@{
+    ViewData["Title"] = "Snimi";
+***REMOVED***
+
+<h2>Dodaj</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-area="ModulNastavnik" asp-action="Snimi" asp-controller="Ucenik">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <input type="hidden" name="predmetId" value="@Model.PredmetId" />
+
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ImePrezime" class="control-label"></label>
+                <input asp-for="ImePrezime" class="form-control" />
+                <span asp-validation-for="ImePrezime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Razred" class="control-label"></label>
+                <input asp-for="Razred" class="form-control" />
+                <span asp-validation-for="Razred" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Vrijednost" class="control-label"></label>
+                <input asp-for="Vrijednost" class="form-control" />
+                <span asp-validation-for="Vrijednost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Datum" class="control-label"></label>
+                <input asp-for="Datum" class="form-control" />
+                <span asp-validation-for="Datum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TipOcjene" class="control-label"></label>
+                <input asp-for="TipOcjene" class="form-control" />
+                <span asp-validation-for="TipOcjene" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Napomena" class="control-label"></label>
+                <input asp-for="Napomena" class="form-control" />
+                <span asp-validation-for="Napomena" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Snimi" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+

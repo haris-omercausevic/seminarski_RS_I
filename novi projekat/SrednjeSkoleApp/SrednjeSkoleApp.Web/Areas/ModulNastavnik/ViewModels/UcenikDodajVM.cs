@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
 {
-    public class UcenikStavkeAjaxDodajVM
+    public class UcenikDodajVM
     {
-        public string Ime { get; set; ***REMOVED***
-        public string Prezime { get; set; ***REMOVED***
+        public int Id { get; set; ***REMOVED***
+        public int nastavnikId { get; set; ***REMOVED***
+        public string ImePrezime { get; set; ***REMOVED***
         public string Razred { get; set; ***REMOVED***
         public int PredmetId { get; set; ***REMOVED***
         public List<SelectListItem> predmeti { get; set; ***REMOVED***

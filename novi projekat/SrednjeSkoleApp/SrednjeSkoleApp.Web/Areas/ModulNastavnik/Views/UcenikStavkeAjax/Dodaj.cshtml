@@ -1,0 +1,65 @@
+﻿@model SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikDodajVM
+
+@{
+    ViewData["Title"] = "Dodaj";
+***REMOVED***
+
+<h2>Dodaj ocjenu -- kontroler nije zavrsen</h2>
+
+
+<form ajax-poziv="da" ajax-rezultat="nekiID" asp-action="Snimi" asp-area="ModulNastavnik">
+    <input type="hidden" name="RazredId" value="@Model.Id" />
+    <div class="form-group">
+        <label>Ime i prezime: </label>
+        <div>
+            <input asp-for="ImePrezime" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Razred: </label>
+        <div>
+            <input asp-for="Razred" class="form-control" readonly />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Datum: </label>
+        <div>
+            <input asp-for="Datum" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Predmet: </label>
+        <div>
+            <select asp-for="@Model.PredmetId" asp-items="@Model.predmeti" class="form-control">
+                <option>(odaberite predmet)</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Ocjena: </label>
+        <div>
+            <input asp-for="Vrijednost" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Tip ocjene: </label>
+        <div>
+            <input asp-for="TipOcjene" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Napomena: </label>
+        <div>
+            <input asp-for="Napomena" class="form-control" />
+        </div>
+    </div>
+
+
+    <input type="submit" id="submitButton" value="Snimi" />
+</form>

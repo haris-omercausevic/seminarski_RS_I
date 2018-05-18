@@ -1,9 +1,32 @@
 ﻿@model SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikStavkeAjaxIndexVM
+
 @{
     ViewData["Title"] = "Index";
 ***REMOVED***
 
-<h3>Ostale informacije</h3>
+<h2>Dodatne informacije</h2>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Ocjene</th>
+            <th>Prosjecna ocjena</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.rows)
+        {
+            <tr>
+                <td>@item.Naziv</td>
+                <td>@item.ocjene</td>
+                <td>@item.prosjek</td>
+            </tr>
+    ***REMOVED***
+    </tbody>
+</table>
+
 
 
 

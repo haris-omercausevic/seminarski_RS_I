@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
-using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels;
+//using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels;
 using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels;
 using SrednjeSkoleApp.Web.Helper;
-using UcenikDetaljiVM = SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikDetaljiVM;
-using UcenikIndexVM = SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikIndexVM;
+//using UcenikDetaljiVM = SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikDetaljiVM;
+//using UcenikIndexVM = SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikIndexVM;
 
 
 namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
@@ -168,5 +168,48 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             return RedirectToAction("Index", "Ucenik", new { area = "ModulAdministrator" ***REMOVED***);
     ***REMOVED***
 
+        public IActionResult Dodaj(int id, int nastavnikId) //ucenik id, nastavnikId preuzeti iz konteksta
+        {
+
+            Ucenik u = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
+            var model = new UcenikDodajVM()
+            {
+                Datum = DateTime.Now,
+                ImePrezime = u.Ime + " " + u.Prezime,
+                Razred = _context.UceniciRazredi.Where(x => x.UcenikId == id).Include(x => x.Razred).Select(x => x.Razred.Oznaka).ToString(),
+                predmeti = _context.UceniciPredmeti.Where(x => x.UcenikId == id && x.NastavnikId == nastavnikId)
+                .Include(x => x.Predmet).Select(x => new SelectListItem
+                {
+                    Value = x.PredmetId.ToString(),
+                    Text = x.Predmet.Naziv
+            ***REMOVED***).ToList(),
+                PredmetId = 0
+        ***REMOVED***;
+            return View(model);
+    ***REMOVED***
+
+        public IActionResult Snimi(UcenikDodajVM input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Dodaj", input);
+        ***REMOVED***
+
+            UcenikPredmet up = _context.UceniciPredmeti.Where(x => x.NastavnikId == input.Id && x.PredmetId == input.PredmetId && x.UcenikId == input.Id).FirstOrDefault();
+            UcenikOcjene uo = new UcenikOcjene()
+            {
+                UcenikPredmet = up,
+                Ocjena = new Ocjena()
+                {
+                    Datum = input.Datum,
+                    Napomena = input.Napomena,
+                    TipOcjene = input.TipOcjene,
+                    Vrijednost = input.Vrijednost
+            ***REMOVED***
+        ***REMOVED***;
+
+            return RedirectToAction("Index");
+    ***REMOVED***
 ***REMOVED***
+
 ***REMOVED***
