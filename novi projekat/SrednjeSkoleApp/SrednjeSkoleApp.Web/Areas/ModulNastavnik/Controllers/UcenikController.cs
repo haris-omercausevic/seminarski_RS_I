@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
-//using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels;
 using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels;
 using SrednjeSkoleApp.Web.Helper;
 //using UcenikDetaljiVM = SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikDetaljiVM;
@@ -42,35 +41,35 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
                     smjer = x.Smjer.Naziv
             ***REMOVED***).OrderBy(x => x.razred).ThenBy(x => x.imePrezime).ToList(),
                 razredi = _context.Razred.Select(x => new SelectListItem
-                    {
-                        Value = x.RazredId.ToString(),
-                        Text = x.Oznaka
-                ***REMOVED***
+                {
+                    Value = x.RazredId.ToString(),
+                    Text = x.Oznaka
+            ***REMOVED***
                 ).ToList(),
                 smjerovi = _context.Smjerovi.Select(x => new SelectListItem
-                    {
-                        Value = x.SmjerId.ToString(),
-                        Text = x.Naziv
-                ***REMOVED***
+                {
+                    Value = x.SmjerId.ToString(),
+                    Text = x.Naziv
+            ***REMOVED***
                 ).ToList()
         ***REMOVED***;
 
             return View(model);
     ***REMOVED***
-        
+
         public IActionResult Detalji(int id)
         {
             Ucenik input = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).Include(x => x.Smjer).FirstOrDefault();
             UcenikRazredi ucenikRazredi = _context.UceniciRazredi.Where(x => x.UcenikId == input.Id).Include(x => x.Razred).FirstOrDefault();
 
-                var model = new UcenikDetaljiVM()
-                {
-                    imePrezime = input.Ime + " " + input.Prezime,
-                    smjer = input.Smjer.Naziv,
-                    razred = ucenikRazredi.Razred.Oznaka,
-                    brojUDnevniku = ucenikRazredi.RedniBroj,
-                    email = input.Kontakt.Email,
-            ***REMOVED***;
+            var model = new UcenikDetaljiVM()
+            {
+                imePrezime = input.Ime + " " + input.Prezime,
+                smjer = input.Smjer.Naziv,
+                razred = ucenikRazredi.Razred.Oznaka,
+                brojUDnevniku = ucenikRazredi.RedniBroj,
+                email = input.Kontakt.Email,
+        ***REMOVED***;
 
             return View("Detalji", model);
     ***REMOVED***
@@ -94,16 +93,16 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             var model = new UcenikIndexVM
             {
                 razredi = _context.Razred.Select(x => new SelectListItem
-                    {
-                        Value = x.RazredId.ToString(),
-                        Text = x.Oznaka
-                ***REMOVED***
+                {
+                    Value = x.RazredId.ToString(),
+                    Text = x.Oznaka
+            ***REMOVED***
                 ).ToList(),
                 smjerovi = _context.Smjerovi.Select(x => new SelectListItem
-                    {
-                        Value = x.SmjerId.ToString(),
-                        Text = x.Naziv
-                ***REMOVED***
+                {
+                    Value = x.SmjerId.ToString(),
+                    Text = x.Naziv
+            ***REMOVED***
                 ).ToList(),
                 rows = _context.Ucenici
                     .Include(q => q.Kontakt).Include(q => q.Smjer)
@@ -196,20 +195,31 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
         ***REMOVED***
 
             UcenikPredmet up = _context.UceniciPredmeti.Where(x => x.NastavnikId == input.Id && x.PredmetId == input.PredmetId && x.UcenikId == input.Id).FirstOrDefault();
-            UcenikOcjene uo = new UcenikOcjene()
+            if (up != null)
             {
-                UcenikPredmet = up,
-                Ocjena = new Ocjena()
-                {
-                    Datum = input.Datum,
-                    Napomena = input.Napomena,
-                    TipOcjene = input.TipOcjene,
-                    Vrijednost = input.Vrijednost
-            ***REMOVED***
-        ***REMOVED***;
 
-            return RedirectToAction("Index");
+
+
+                UcenikOcjene uo = new UcenikOcjene()
+                {
+                    UcenikPredmetId = up.UcenikPredmetId,
+                    Ocjena = new Ocjena()
+                    {
+                        Datum = input.Datum,
+                        Napomena = input.Napomena,
+                        TipOcjene = input.TipOcjene,
+                        Vrijednost = input.Vrijednost
+                ***REMOVED***
+            ***REMOVED***;
+
+
+                _context.Ocjene.Add(uo.Ocjena);
+                _context.UceniciOcjene.Add(uo);
+
+                _context.SaveChanges();
+        ***REMOVED***
+
+            return RedirectToAction("Index", "Ucenik", new { area = "ModulNastavnik" ***REMOVED***);
     ***REMOVED***
 ***REMOVED***
-
 ***REMOVED***

@@ -22,7 +22,26 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
     ***REMOVED***
         public IActionResult Index(int id)
         {
-            UcenikPredmet up = _context.UceniciPredmeti.Where(x => x.UcenikId == id).Include(x => x.Predmet).Include(x => x.Nastavnik).FirstOrDefault();
+            var temp = _context.UceniciPredmeti.Where(x => x.UcenikId == id).Include(x => x.Predmet).Include(x => x.Nastavnik).ToList();
+            string test = "";
+            //if (temp != null)
+              //  test =  String.Join(",",_context.UceniciOcjene.Where(y => y.UcenikPredmetId == temp[0].UcenikPredmetId).Include(y => y.Ocjena).Select(y => y.Ocjena.Vrijednost).ToArray());
+
+            var test2 = test.Split(",");
+            //List<UcenikPredmet> up = _context.UceniciPredmeti.Where(x => x.UcenikId == id).Include(x => x.Predmet).Include(x => x.Nastavnik).ToList();
+            //foreach (var item in up)
+            //{
+
+            //***REMOVED***
+            //List<string> ocjeneList = new List<string>();
+            //List<Ocjena> o = _context.UceniciOcjene.Where(y => y.UcenikPredmetId == ).Include(y => y.Ocjena).Select(y => y.Ocjena.Vrijednost).ToString();
+            //string ocjene = "";
+            //for (int i = 0; i < o.Count - 1; i++)
+            //{
+            //    ocjene += o[i].Vrijednost + ",";
+            //***REMOVED***
+            //ocjene += o[o.Count].Vrijednost;
+
             var model = new UcenikStavkeAjaxIndexVM
             {
 
@@ -32,7 +51,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
                     Naziv = x.Predmet.Naziv,
                     PredmetId = x.PredmetId,
                     prosjek = _context.UceniciOcjene.Where(y => y.UcenikPredmetId == x.UcenikPredmetId).Include(y => y.Ocjena).Average(a => (int?)a.Ocjena.Vrijednost) ?? 0,
-                    ocjene = _context.UceniciOcjene.Where(y => y.UcenikPredmetId == x.UcenikPredmetId).Include(y => y.Ocjena).Select(y => y.Ocjena.Vrijednost).ToString()
+                    ocjene = _context.UceniciOcjene.Where(y => y.UcenikPredmetId == x.UcenikPredmetId).Include(y => y.Ocjena).Select(y => y.Ocjena.Vrijednost).ToList().ToString()
             ***REMOVED***).ToList()
 
                 //RazredId = id,

@@ -1,8 +1,12 @@
 ﻿@using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
+@using SrednjeSkoleApp.Data.Models
+@using SrednjeSkoleApp.Web.Helper
 
 @model UcenikDetaljiVM
 @{
     ViewData["Title"] = "Detalji";
+    Korisnik korisnik = Context.GetLogiraniKorisnik();
+
 ***REMOVED***
 
 <h2>Detalji</h2>
@@ -28,14 +32,14 @@
             <input asp-for="smjer" class="form-control" readonly />
         </div>
     </div>
-    
+
     <div class="form-group">
         <label>Razred: </label>
         <div>
             <input asp-for="razred" class="form-control" readonly />
         </div>
     </div>
-    
+
     <div class="form-group">
         <label>Broj u dnevniku: </label>
         <div>

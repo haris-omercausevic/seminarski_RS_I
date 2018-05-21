@@ -6,13 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
 {
-    [Area("ModulNastavnik")]
-    public class ObavijestiController : Controller
+    public class IzostanakController : Controller
     {
-        //http://haneefputtur.com/wysiwyg-bootstrap-asp-net-mvc-image-upload-feature.html
-        //https://summernote.org/getting-started/#integration
         public IActionResult Index()
         {
+
+
             return View();
     ***REMOVED***
 ***REMOVED***

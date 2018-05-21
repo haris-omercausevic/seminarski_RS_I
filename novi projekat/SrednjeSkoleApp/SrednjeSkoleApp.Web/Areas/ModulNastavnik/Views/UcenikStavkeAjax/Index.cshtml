@@ -1,7 +1,11 @@
 ﻿@model SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikStavkeAjaxIndexVM
+@using SrednjeSkoleApp.Data.Models
+@using SrednjeSkoleApp.Web.Helper
 
 @{
     ViewData["Title"] = "Index";
+    Korisnik korisnik = Context.GetLogiraniKorisnik();
+
 ***REMOVED***
 
 <h2>Dodatne informacije</h2>

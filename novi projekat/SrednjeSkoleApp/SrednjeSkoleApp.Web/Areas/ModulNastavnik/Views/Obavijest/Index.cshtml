@@ -1,0 +1,45 @@
+﻿@using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
+@using SrednjeSkoleApp.Data.Models
+@using SrednjeSkoleApp.Web.Helper
+
+@model ObavijestIndexVM
+@{
+    ViewData["Title"] = "ImeViewa";
+    Korisnik korisnik = Context.GetLogiraniKorisnik();
+
+***REMOVED***
+
+<h2>Obavijesti</h2>
+
+<a asp-area="ModulNastavnik" asp-action="Dodaj" class="btn btn-success">Dodaj</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Naslov</th>
+            <th>Napisao</th>
+            <th>Datum</th>
+            <th>Akcija</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var x in Model.rows)
+        {
+        <tr>
+            <td>
+                <h3>@x.Naslov</h3> <br />
+                <p>@x.Tekst.Substring(0, Math.Min(x.Tekst.Length, 50)) ...</p>
+            </td>
+            <td>@x.Korisnik</td>
+            <td>@x.Datum</td>
+            <td>
+                <a asp-area="ModulNastavnik" asp-action="Detalji" asp-route-id="@x.ObavijestId" class="btn btn-primary">Detalji</a>
+                @if (x.KorisnikId == korisnik.Id)
+                {
+                <a asp-area="ModulNastavnik" asp-action="Obrisi" asp-route-id="@x.ObavijestId" class="btn btn-danger">Obrisi</a>
+        ***REMOVED***
+                </td>
+
+            </tr>
+    ***REMOVED***
+    </tbody>
+</table>

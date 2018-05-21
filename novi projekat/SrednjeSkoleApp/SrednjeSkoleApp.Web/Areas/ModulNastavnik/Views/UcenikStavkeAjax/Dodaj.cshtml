@@ -1,14 +1,19 @@
 ﻿@model SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.UcenikDodajVM
-
+@using SrednjeSkoleApp.Data.Models
+@using SrednjeSkoleApp.Web.Helper
 @{
     ViewData["Title"] = "Dodaj";
+    Korisnik korisnik = Context.GetLogiraniKorisnik();
+
 ***REMOVED***
 
 <h2>Dodaj ocjenu -- kontroler nije zavrsen</h2>
 
 
 <form ajax-poziv="da" ajax-rezultat="nekiID" asp-action="Snimi" asp-area="ModulNastavnik">
-    <input type="hidden" name="RazredId" value="@Model.Id" />
+    <input type="hidden" name="PredmetId" value="@Model.Id" />
+    <input type="hidden" name="NastavnikId" value="@Model.nastavnikId" />
+
     <div class="form-group">
         <label>Ime i prezime: </label>
         <div>

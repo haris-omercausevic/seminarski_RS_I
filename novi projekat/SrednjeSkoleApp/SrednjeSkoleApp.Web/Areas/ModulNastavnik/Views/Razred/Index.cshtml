@@ -1,9 +1,9 @@
 ﻿@using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
 @using SrednjeSkoleApp.Data.Models
+
 @model RazredIndexVM
 @{
     ViewData["Title"] = "ImeViewa";
-
 ***REMOVED***
 
 <h2>Index</h2>
@@ -19,14 +19,14 @@
     <tbody>
         @foreach (var x in Model.rows)
         {
-        <tr>
-            <td>@x.SkolskaGodina</td>
-            <td>@x.Razred</td>
-            <td>@x.Razrednik</td>
-            <td>
-                <a asp-area="ModulNastavnik" asp-action="Detalji" asp-route-id="@x.RazredId" class="btn btn-primary">Detalji</a>
-            </td>
-        </tr>
+            <tr>
+                <td>@x.SkolskaGodina</td>
+                <td>@x.Razred</td>
+                <td>@x.Razrednik</td>
+                <td>
+                    <a asp-area="ModulNastavnik" asp-action="Detalji" asp-route-id="@x.RazredId" class="btn btn-primary">Detalji</a>
+                </td>
+            </tr>
     ***REMOVED***
     </tbody>
 </table>

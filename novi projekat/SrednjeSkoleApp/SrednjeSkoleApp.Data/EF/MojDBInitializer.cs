@@ -27,7 +27,7 @@ namespace SrednjeSkoleApp.Data.EF
             var predaje = new List<Predaje>();
             var uloge = new List<Uloga>();
 
-            uloge.Add(new Uloga { Naziv = "SuperAdministrator", SuperAdministrator = true, Administrator = true, Nastavnik = true, Ucenik = true, Roditelj = true***REMOVED***);
+            uloge.Add(new Uloga { Naziv = "SuperAdministrator", SuperAdministrator = true, Administrator = true, Nastavnik = true, Ucenik = true, Roditelj = true ***REMOVED***);
             uloge.Add(new Uloga { Naziv = "Administrator", Administrator = true ***REMOVED***);
             uloge.Add(new Uloga { Naziv = "Nastavnik", Nastavnik = true ***REMOVED***);
             foreach (var item in uloge)
@@ -96,7 +96,6 @@ namespace SrednjeSkoleApp.Data.EF
         ***REMOVED***
 
 
-
             int brojac = 0;
             for (int i = 0; i < 120; i++)
             {
@@ -122,27 +121,27 @@ namespace SrednjeSkoleApp.Data.EF
                     RedniBroj = 0,
                     SkolskaGodina = skolskeGodine[i % skolskeGodine.Count].Naziv
             ***REMOVED***);
-
                 //var ocjene = new List<Ocjena>();
                 for (int j = 0; j < 5; j++)
                 {
-                    var ucenikPredmet = new UcenikPredmet
+                    _context.UceniciPredmeti.Add(new UcenikPredmet
                     {
                         Ucenik = ucenici[i],
-                        Predmet = predmeti[j % predmeti.Count]
-                ***REMOVED***;
+                        Predmet = predmeti[j % predmeti.Count],
+                        ZakljucnaOcjena = 0,
 
-                        _context.UceniciPredmeti.Add(ucenikPredmet);
+                        //Nastavnik =  
+                ***REMOVED***);
 
-                    //    _context.Ocjene.Add(new Ocjena
-                    //    {
-                    //        Vrijednost = dajOcjenu(),
-                    //        Datum = DateTime.Now,
-                    //        //UcenikPredmet = ucenikPredmet.UcenikPredmetId
-                    //***REMOVED***);
-
-                ***REMOVED***
+                    _context.Ocjene.Add(new Ocjena
+                    {
+                        Vrijednost = dajOcjenu(),
+                        Datum = DateTime.Now
+                ***REMOVED***);
             ***REMOVED***
+        ***REMOVED***
+
+            
 
             for (int i = 0; i < 40; i++)
             {
@@ -170,6 +169,7 @@ namespace SrednjeSkoleApp.Data.EF
                 _context.Add(predaje[i]);
         ***REMOVED***
 
+            int broj = 1;
             foreach (var item in nastavniks)
             {
                 _context.KorisniciUloge.Add(new KorisniciUloge()
@@ -177,10 +177,29 @@ namespace SrednjeSkoleApp.Data.EF
                     KorisnikID = item.Id,
                     UlogaID = uloge.Where(x => x.Naziv == "Nastavnik").Select(x => x.UlogaId).SingleOrDefault()
             ***REMOVED***);
+
+                _context.Obavijesti.Add(new Obavijest
+                {
+                    Datum = DateTime.Now,
+                    KorisnikId = item.Id,
+                    Naslov = "Vijest br " + broj,
+                    Tekst = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+            ***REMOVED***);
+                broj++;
         ***REMOVED***
 
+            foreach (var predajeItem in predaje)
+            {
+                // za svaki predmet kojem predaje daj ocjenu
+
+                foreach (var item in _context.UceniciRazredi.Where(x => x.RazredId == predajeItem.RazredId))
+                {
+                   // item.
+            ***REMOVED***
+        ***REMOVED***
 
             _context.SaveChanges();
+
     ***REMOVED***
         static Random random = new Random();
         private static int dajOcjenu()
