@@ -23,7 +23,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
         public List<SelectListItem> nastavnici { get; set; ***REMOVED***
         public int skolskaGodinaId { get; set; ***REMOVED***
         public List<SelectListItem> skolskeGodine { get; set; ***REMOVED***
-
-
+        public int smjerId { get; set; ***REMOVED***
+        public List<SelectListItem> smjerovi { get; set; ***REMOVED***
 ***REMOVED***
 ***REMOVED***

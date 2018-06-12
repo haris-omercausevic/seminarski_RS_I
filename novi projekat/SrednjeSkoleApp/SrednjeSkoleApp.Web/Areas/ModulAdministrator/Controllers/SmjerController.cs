@@ -79,6 +79,14 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                         Value = x.SkolskaGodinaId.ToString(),
                         Text = x.Naziv
                 ***REMOVED***)
+                    .ToList(),
+                predmeti = _context.SmjerPredmet.Where(x => x.Smjer == o1)
+                    .Select(x => new CheckBoxVM
+                    {
+                        Id = x.PredmetId,
+                        Name = x.Predmet.Naziv,
+                        Selected = true
+                ***REMOVED***)
                     .ToList()                
         ***REMOVED***;
 

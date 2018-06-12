@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SrednjeSkoleApp.Data.Migrations
 {
-    public partial class _31majLarisaSuggestions : Migration
+    public partial class _12jun : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -436,7 +436,7 @@ namespace SrednjeSkoleApp.Data.Migrations
             ***REMOVED***);
 
             migrationBuilder.CreateTable(
-                name: "Ocjene",
+                name: "UceniciOcjene",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -450,15 +450,15 @@ namespace SrednjeSkoleApp.Data.Migrations
             ***REMOVED***,
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ocjene", x => x.Id);
+                    table.PrimaryKey("PK_UceniciOcjene", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ocjene_Predaje_PredajeId",
+                        name: "FK_UceniciOcjene_Predaje_PredajeId",
                         column: x => x.PredajeId,
                         principalTable: "Predaje",
                         principalColumn: "PredajeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Ocjene_Korisnici_UcenikId",
+                        name: "FK_UceniciOcjene_Korisnici_UcenikId",
                         column: x => x.UcenikId,
                         principalTable: "Korisnici",
                         principalColumn: "Id",
@@ -516,16 +516,6 @@ namespace SrednjeSkoleApp.Data.Migrations
                 column: "KorisnikId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ocjene_PredajeId",
-                table: "Ocjene",
-                column: "PredajeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Ocjene_UcenikId",
-                table: "Ocjene",
-                column: "UcenikId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Predaje_NastavnikId",
                 table: "Predaje",
                 column: "NastavnikId");
@@ -581,6 +571,16 @@ namespace SrednjeSkoleApp.Data.Migrations
                 column: "UcenikId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UceniciOcjene_PredajeId",
+                table: "UceniciOcjene",
+                column: "PredajeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UceniciOcjene_UcenikId",
+                table: "UceniciOcjene",
+                column: "UcenikId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UceniciRazredi_RazredId",
                 table: "UceniciRazredi",
                 column: "RazredId");
@@ -612,10 +612,10 @@ namespace SrednjeSkoleApp.Data.Migrations
                 name: "Obavijesti");
 
             migrationBuilder.DropTable(
-                name: "Ocjene");
+                name: "UceniciCasovi");
 
             migrationBuilder.DropTable(
-                name: "UceniciCasovi");
+                name: "UceniciOcjene");
 
             migrationBuilder.DropTable(
                 name: "UceniciRazredi");
@@ -624,10 +624,10 @@ namespace SrednjeSkoleApp.Data.Migrations
                 name: "Uloge");
 
             migrationBuilder.DropTable(
-                name: "Predaje");
+                name: "Casovi");
 
             migrationBuilder.DropTable(
-                name: "Casovi");
+                name: "Predaje");
 
             migrationBuilder.DropTable(
                 name: "Razred");

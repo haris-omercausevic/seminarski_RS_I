@@ -14,7 +14,7 @@ using SrednjeSkoleApp.Web.Helper;
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
     [Area("ModulAdministrator")]
-    //[Autorizacija(superAdministrator:true,administrator: true,nastavnici: false)]
+    [Autorizacija(superAdministrator:true,administrator: true,nastavnici: false)]
     public class KorisnikController : Controller
     {
         private MyContext _context;
@@ -46,6 +46,24 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             return View(model);
     ***REMOVED***
 
+        public IActionResult Detalji(int id)
+        {
+            Korisnik korisnik = _context.Korisnici.Where(x => x.Id == id).FirstOrDefault();
+            var model = new KorisnikDodajVM()
+            {
+                uloge = _context.Uloge.Select(x => new RoleVm
+                {
+                    Id = x.UlogaId,
+                    Naziv = x.Naziv
+            ***REMOVED***).ToList(),
+                Ime = korisnik.Ime,
+                Prezime = korisnik.Prezime,
+                KorisnickoIme = korisnik.Prezime,
+                Lozinka = ""
+        ***REMOVED***;
+
+            return View(model);
+    ***REMOVED***
         public IActionResult Dodaj()
         {
             var model = new KorisnikDodajVM

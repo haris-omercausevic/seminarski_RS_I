@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SrednjeSkoleApp.Data.Models
 {
-    public class Ocjena
+    public class UcenikOcjene
     {
         public int Id { get; set; ***REMOVED***
         public int UcenikId { get; set; ***REMOVED***

@@ -14,7 +14,6 @@ namespace SrednjeSkoleApp.Data.Models
         public string Adresa {get; set;***REMOVED***
         public string Grad {get; set;***REMOVED***
         public string Opstina {get; set;***REMOVED***
-
         public virtual Korisnik Korisnik { get; set; ***REMOVED***
 ***REMOVED***
 ***REMOVED***

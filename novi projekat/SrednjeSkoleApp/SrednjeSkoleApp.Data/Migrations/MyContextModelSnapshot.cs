@@ -201,32 +201,6 @@ namespace SrednjeSkoleApp.Data.Migrations
                     b.ToTable("Obavijesti");
             ***REMOVED***);
 
-            modelBuilder.Entity("SrednjeSkoleApp.Data.Models.Ocjena", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("Datum");
-
-                    b.Property<string>("Napomena");
-
-                    b.Property<int>("PredajeId");
-
-                    b.Property<string>("TipOcjene");
-
-                    b.Property<int>("UcenikId");
-
-                    b.Property<int>("Vrijednost");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PredajeId");
-
-                    b.HasIndex("UcenikId");
-
-                    b.ToTable("Ocjene");
-            ***REMOVED***);
-
             modelBuilder.Entity("SrednjeSkoleApp.Data.Models.Predaje", b =>
                 {
                     b.Property<int>("PredajeId")
@@ -359,6 +333,32 @@ namespace SrednjeSkoleApp.Data.Migrations
                     b.HasIndex("UcenikId");
 
                     b.ToTable("UceniciCasovi");
+            ***REMOVED***);
+
+            modelBuilder.Entity("SrednjeSkoleApp.Data.Models.UcenikOcjene", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Datum");
+
+                    b.Property<string>("Napomena");
+
+                    b.Property<int>("PredajeId");
+
+                    b.Property<string>("TipOcjene");
+
+                    b.Property<int>("UcenikId");
+
+                    b.Property<int>("Vrijednost");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PredajeId");
+
+                    b.HasIndex("UcenikId");
+
+                    b.ToTable("UceniciOcjene");
             ***REMOVED***);
 
             modelBuilder.Entity("SrednjeSkoleApp.Data.Models.UcenikRazredi", b =>
@@ -514,19 +514,6 @@ namespace SrednjeSkoleApp.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
             ***REMOVED***);
 
-            modelBuilder.Entity("SrednjeSkoleApp.Data.Models.Ocjena", b =>
-                {
-                    b.HasOne("SrednjeSkoleApp.Data.Models.Predaje", "Predaje")
-                        .WithMany()
-                        .HasForeignKey("PredajeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SrednjeSkoleApp.Data.Models.Ucenik", "Ucenik")
-                        .WithMany()
-                        .HasForeignKey("UcenikId")
-                        .OnDelete(DeleteBehavior.Restrict);
-            ***REMOVED***);
-
             modelBuilder.Entity("SrednjeSkoleApp.Data.Models.Predaje", b =>
                 {
                     b.HasOne("SrednjeSkoleApp.Data.Models.Nastavnik", "Nastavnik")
@@ -590,6 +577,19 @@ namespace SrednjeSkoleApp.Data.Migrations
                         .WithMany()
                         .HasForeignKey("CasId")
                         .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SrednjeSkoleApp.Data.Models.Ucenik", "Ucenik")
+                        .WithMany()
+                        .HasForeignKey("UcenikId")
+                        .OnDelete(DeleteBehavior.Restrict);
+            ***REMOVED***);
+
+            modelBuilder.Entity("SrednjeSkoleApp.Data.Models.UcenikOcjene", b =>
+                {
+                    b.HasOne("SrednjeSkoleApp.Data.Models.Predaje", "Predaje")
+                        .WithMany()
+                        .HasForeignKey("PredajeId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SrednjeSkoleApp.Data.Models.Ucenik", "Ucenik")
                         .WithMany()

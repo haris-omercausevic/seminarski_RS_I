@@ -33,9 +33,8 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 {
                     RazredId = x.RazredId,
                     Razred = x.Oznaka,
-                    //Razrednik = _context.Predaje.Where(y => y.Razrednik && y.RazredId == x.RazredId).Include(y => y.Nastavnik).Select(y => y.Nastavnik.Ime).FirstOrDefault(),
                     SkolskaGodina = x.SkolskaGodina.Naziv,
-                    Razrednik = x.Razrednik.Ime + " " + x.Razrednik.Prezime
+                    Razrednik = x.Razrednik.Ime + " " + x.Razrednik.Prezime                    
             ***REMOVED***).ToList()
 
         ***REMOVED***;
@@ -48,12 +47,11 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 
             var model = new RazredDodajVM()
             {
-                nastavnici = _context.Predaje
-                                .Include(y => y.Nastavnik)
+                nastavnici = _context.Nastavnici
                                 .Select(x => new SelectListItem
                                 {
-                                    Value = x.NastavnikId.ToString(),
-                                    Text = x.Nastavnik.Ime + " " + x.Nastavnik.Prezime
+                                    Value = x.Id.ToString(),
+                                    Text = x.Ime + " " + x.Prezime
                             ***REMOVED***)
                     .ToList(),
                 skolskeGodine = _context.SkolskaGodina
@@ -62,7 +60,13 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                         Value = x.SkolskaGodinaId.ToString(),
                         Text = x.Naziv
                 ***REMOVED***)
-                    .ToList()
+                    .ToList(),
+                 smjerovi = _context.Smjerovi.Select(x => new SelectListItem
+                 {
+                     Value = x.SmjerId.ToString(),
+                     Text = x.Naziv
+             ***REMOVED***).ToList()
+                
         ***REMOVED***;
 
             return View("Dodaj", model);
@@ -97,16 +101,15 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                        Text = x.Naziv
                ***REMOVED***)
                    .ToList();
-                
+                               
                 //PROMJENA
-                //input.nastavnici = _context.Nastavnici
-                //                .Where(y => y.Id != (_context.Predaje.FirstOrDefault(q => q.NastavnikId == y.Id && q.Razrednik == true).NastavnikId))
-                //                .Select(x => new SelectListItem
-                //                {
-                //                    Value = x.Id.ToString(),
-                //                    Text = x.Ime + " " + x.Prezime
-                //            ***REMOVED***)
-                //    .ToList();   
+                input.nastavnici = _context.Nastavnici                                
+                                .Select(x => new SelectListItem
+                                {
+                                    Value = x.Id.ToString(),
+                                    Text = x.Ime + " " + x.Prezime
+                            ***REMOVED***)
+                    .ToList();   
                 //END-PROMJENA
 
                 return View("Dodaj", input);
@@ -123,16 +126,15 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             o1.RazredBrojcano = input.razredBrojcano;
             o1.SkolskaGodinaId = input.skolskaGodinaId;
             o1.Odjeljenje = input.odjeljenje;
-            //o1.Razrednik = input. ovde ide ID iz selectListItema koji je odabran
-
+            o1.RazrednikId = input.nastavnikId;
+            o1.SmjerId = input.smjerId;
+            
             _context.SaveChanges();
 
 
             return RedirectToAction("Index", "Razred", new { area = "ModulAdministrator" ***REMOVED***);
     ***REMOVED***
-
         
-
         public IActionResult Obrisi(int id)
         {
             Razred r1 = _context.Razred.FirstOrDefault(x => x.RazredId == id);

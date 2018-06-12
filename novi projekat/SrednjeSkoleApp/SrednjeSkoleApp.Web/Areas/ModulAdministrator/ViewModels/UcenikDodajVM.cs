@@ -27,6 +27,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
         public DateTime DatumRodjenja { get; set; ***REMOVED***
         public string MjestoRodjenja { get; set; ***REMOVED***
         [Required]
+        [StringLength(13),MinLength(13)]
         public string JMBG { get; set; ***REMOVED***
         public string Prebivaliste { get; set; ***REMOVED***
 
