@@ -58,7 +58,7 @@ namespace SrednjeSkoleApp.Web.Controllers
 
         public IActionResult Logout()
         {
-
+            HttpContext.SetLogiraniKorisnik(null);
             return RedirectToAction("Index");
     ***REMOVED***
 

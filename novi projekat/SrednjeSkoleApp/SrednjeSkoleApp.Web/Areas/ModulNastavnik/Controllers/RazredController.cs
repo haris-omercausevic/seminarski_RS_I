@@ -26,11 +26,11 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
         {
             var model = new RazredIndexVM
             {
-                rows = _context.Predaje.Where(y => y.Razrednik == true).Select(x => new RazredIndexVM.Row
+                rows = _context.Razred.Select(x => new RazredIndexVM.Row
                 {
                     RazredId = x.RazredId,
-                    Razred = x.Razred.Oznaka,
-                    Razrednik = x.Nastavnik.Ime + x.Nastavnik.Prezime, 
+                    Razred = x.Oznaka,
+                    Razrednik = x.Razrednik.Ime + " " +x.Razrednik.Prezime, 
                     SkolskaGodina = x.SkolskaGodina.Naziv
             ***REMOVED***).OrderBy(x => x.Razred).ToList()
 
@@ -41,14 +41,13 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
 
         public IActionResult Detalji(int id)
         {
-            Razred o1 = _context.Razred.Where(x => x.RazredId == id).Include(x => x.SkolskaGodina).FirstOrDefault();
-            Predaje o2 = _context.Predaje.Include(x => x.Nastavnik).FirstOrDefault(x => x.RazredId == id && x.Razrednik);
+            Razred o1 = _context.Razred.Where(x => x.RazredId == id).Include(x => x.Razrednik).Include(x => x.SkolskaGodina).FirstOrDefault();
             var model = new RazredDetaljiVM()
             {
                 id = o1.RazredId,
                 oznaka = o1.Oznaka,
                 skolskaGodina = o1.SkolskaGodina.Naziv,
-                razrednik = o2 == null?"":o2.Nastavnik.Ime + " " + o2.Nastavnik.Prezime
+                razrednik = o1.Razrednik.Ime + " " + o1.Razrednik.Prezime
         ***REMOVED***;
 
             return View("Detalji", model);

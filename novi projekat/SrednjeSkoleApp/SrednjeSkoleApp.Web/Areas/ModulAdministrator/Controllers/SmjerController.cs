@@ -68,7 +68,6 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
       public IActionResult Detalji(int id)
         {
             Smjer o1 = _context.Smjerovi.Where(x => x.SmjerId == id).Include(x => x.SkolskaGodina).FirstOrDefault();
-
             var model = new SmjerDodajVM
             {
                 Naziv = o1.Naziv,
@@ -80,15 +79,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                         Value = x.SkolskaGodinaId.ToString(),
                         Text = x.Naziv
                 ***REMOVED***)
-                    .ToList(),
-                predmeti = _context.SmjerPredmet.Where(x => x.SmjerId == id).Include(x => x.Predmet)
-                    .Select(x => new CheckBoxVM
-                    {
-                        Id = x.PredmetId,
-                        Name = x.Predmet.Naziv,
-                        Selected = true
-                ***REMOVED***)
-                    .ToList()
+                    .ToList()                
         ***REMOVED***;
 
 
@@ -97,7 +88,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
         public IActionResult Snimi(SmjerDodajVM input)
         {
             if (!ModelState.IsValid)
-            {
+            {                          
                 return View("Dodaj", input);
         ***REMOVED***
 
@@ -115,7 +106,6 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                         {
                             PredmetId = item.Id,
                             SmjerId = o1.SmjerId,
-                            ProsjecnaOcjena = 0,
                             BrojCasova = 0
                     ***REMOVED***);
                 ***REMOVED***

@@ -115,7 +115,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 if (u != null)
                     model.RazredId = u.RazredId;
 
-                var up = _context.UceniciPredmeti.Where(x => x.UcenikId == input.Id).ToList();
+                //var up = _context.UceniciPredmeti.Where(x => x.UcenikId == input.Id).ToList();
                 //zavrsiti pregled detalja za ucenik predmet, znaci prikaz predmeta i ocjena
                 // treba dodati za UcenikPredmet, koji nastavnik je dao tu ocjenu odnosno kod koga slusa taj predmet i sl.
 
@@ -193,16 +193,17 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             Ucenik p1 = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
             UcenikRazredi p2 = _context.UceniciRazredi.FirstOrDefault(x => x.UcenikId == id);
 
-            foreach (var up in _context.UceniciPredmeti.Where(x => x.UcenikId == id))
-            {
-                foreach (var item in _context.UceniciOcjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId))
-                {
-                    _context.Ocjene.Remove(item.Ocjena);
-                    _context.UceniciOcjene.Remove(item);
-            ***REMOVED***
-                _context.UceniciPredmeti.Remove(up);
-        ***REMOVED***
-
+            //PROMJENA
+            //foreach (var up in _context.UceniciPredmeti.Where(x => x.UcenikId == id))
+            //{
+            //    foreach (var item in _context.UceniciOcjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId))
+            //    {
+            //        _context.Ocjene.Remove(item.Ocjena);
+            //        _context.UceniciOcjene.Remove(item);
+            //***REMOVED***
+            //    _context.UceniciPredmeti.Remove(up);
+            //***REMOVED***
+            //END-PROMJENA
             //query example
             //SELECT AVG(O.Vrijednost)
             //    FROM UceniciPredmeti AS UP

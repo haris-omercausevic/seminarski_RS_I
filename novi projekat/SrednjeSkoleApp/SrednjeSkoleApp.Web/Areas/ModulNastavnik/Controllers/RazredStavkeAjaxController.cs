@@ -37,7 +37,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
                     Ucenik = x.Ucenik.Ime + x.Ucenik.Prezime,
                     UcenikRazredId = x.UcenikRazrediId,
                     UcenikId = x.UcenikId,
-                    ProsjecnaOcjena = _context.UceniciPredmeti.Where(y => y.UcenikId == x.UcenikId).Average(a => (int?)a.ZakljucnaOcjena) ?? 0
+                    //ProsjecnaOcjena = _context.UceniciPredmeti.Where(y => y.UcenikId == x.UcenikId).Average(a => (int?)a.ZakljucnaOcjena) ?? 0
             ***REMOVED***).OrderBy(x => x.Ucenik).ToList()
         ***REMOVED***;
 
@@ -69,16 +69,18 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
 
         public IActionResult Dodaj(int ucenikId, int nastavnikId, int razredId)
         {
+            //PROMJENA
+            //ovo vjerovatno nista nece trebati, jer predmeti se dodaju automatski, nema smisla da se svakom pojedinacno dodaje neki predmet
             RazredStavkeAjaxDodajVM model = new RazredStavkeAjaxDodajVM
             {
                 datum = DateTime.Now,
                 ucenikId = ucenikId,
-                nastavnikId = nastavnikId,
-                predmeti = _context.Predaje.Where(x => x.NastavnikId == nastavnikId && x.RazredId == razredId).Include(x => x.SmjerPredmet).ThenInclude(x => x.Predmet).Select(x => new SelectListItem
-                {
-                    Value = x.SmjerPredmet.Predmet.PredmetId.ToString(),
-                    Text = x.SmjerPredmet.Predmet.Naziv
-            ***REMOVED***).ToList()
+                nastavnikId = nastavnikId                
+                //predmeti = _context.Predaje.Where(x => x.NastavnikId == nastavnikId).Include(x => x.SmjerPredmet).ThenInclude(x => x.Predmet).Select(x => new SelectListItem
+                //{
+                //    Value = x.SmjerPredmet.Predmet.PredmetId.ToString(),
+                //    Text = x.SmjerPredmet.Predmet.Naziv
+                //***REMOVED***).ToList()
         ***REMOVED***;
 
             return PartialView("Dodaj", model);
@@ -86,14 +88,15 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
 
         public IActionResult Snimi(int razredId, int ucenikId)
         {
-            _context.UceniciPredmeti.Add(new UcenikPredmet
-            {
+            //PROMJENA
+            //_context.UceniciPredmeti.Add(new UcenikPredmet
+            //{
                 //RazredId = razredId,
                 //UcenikId = ucenikId,
                 //RedniBroj = 0,
                 //SkolskaGodina = _context.Razred.Where(x => x.RazredId == razredId).Include(x => x.SkolskaGodina).FirstOrDefault()?.SkolskaGodina.Naziv
-        ***REMOVED***);
-
+            //***REMOVED***);
+            //END-PROMJENA
             //poredaj po prezimenu (broj u dnevniku)
             int brojac = 1;
             foreach (var item in _context.UceniciRazredi.Where(x => x.RazredId == razredId).Include(x => x.Ucenik).OrderBy(x => x.Ucenik.Prezime).ToList())

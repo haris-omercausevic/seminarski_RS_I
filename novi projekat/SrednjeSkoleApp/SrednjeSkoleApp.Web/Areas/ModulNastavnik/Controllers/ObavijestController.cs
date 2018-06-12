@@ -59,7 +59,8 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             {
                 KorisnikId = input.KorisnikId,
                 Naslov = input.Naslov,
-                Tekst = input.Tekst
+                Tekst = input.Tekst,
+                Datum = DateTime.Now
         ***REMOVED***);
             _context.SaveChanges();
 
@@ -71,7 +72,6 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             Obavijest p1 = _context.Obavijesti.Where(x => x.ObavijestId == id).Include(x => x.Korisnik).FirstOrDefault();
             if (p1 != null)
                 _context.Obavijesti.Remove(p1);
-
 
             _context.SaveChanges();
             return RedirectToAction("Index", "Obavijest", new { area = "ModulNastavnik" ***REMOVED***);

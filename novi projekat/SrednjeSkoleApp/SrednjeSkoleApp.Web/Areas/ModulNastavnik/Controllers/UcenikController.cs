@@ -146,15 +146,17 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             Ucenik p1 = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
             UcenikRazredi p2 = _context.UceniciRazredi.FirstOrDefault(x => x.UcenikId == id);
 
-            foreach (var up in _context.UceniciPredmeti.Where(x => x.UcenikId == id))
-            {
-                foreach (var item in _context.UceniciOcjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId))
-                {
-                    _context.Ocjene.Remove(item.Ocjena);
-                    _context.UceniciOcjene.Remove(item);
-            ***REMOVED***
-                _context.UceniciPredmeti.Remove(up);
-        ***REMOVED***
+            //PROMJENA
+            //foreach (var up in _context.UceniciPredmeti.Where(x => x.UcenikId == id))
+            //{
+            //    foreach (var item in _context.UceniciOcjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId))
+            //    {
+            //        _context.Ocjene.Remove(item.Ocjena);
+            //        _context.UceniciOcjene.Remove(item);
+            //***REMOVED***
+            //    _context.UceniciPredmeti.Remove(up);
+            //***REMOVED***
+            //END-PROMJENA
 
             if (p2 != null)
                 _context.UceniciRazredi.Remove(p2);
@@ -171,19 +173,22 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
         {
 
             Ucenik u = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
-            var model = new UcenikDodajVM()
-            {
-                Datum = DateTime.Now,
-                ImePrezime = u.Ime + " " + u.Prezime,
-                Razred = _context.UceniciRazredi.Where(x => x.UcenikId == id).Include(x => x.Razred).Select(x => x.Razred.Oznaka).ToString(),
-                predmeti = _context.UceniciPredmeti.Where(x => x.UcenikId == id && x.NastavnikId == nastavnikId)
-                .Include(x => x.Predmet).Select(x => new SelectListItem
-                {
-                    Value = x.PredmetId.ToString(),
-                    Text = x.Predmet.Naziv
-            ***REMOVED***).ToList(),
-                PredmetId = 0
-        ***REMOVED***;
+            //PROMJENA
+            var model = new UcenikDodajVM();
+            //var model = new UcenikDodajVM()
+            //{
+            //    Datum = DateTime.Now,
+            //    ImePrezime = u.Ime + " " + u.Prezime,
+            //    Razred = _context.UceniciRazredi.Where(x => x.UcenikId == id).Include(x => x.Razred).Select(x => x.Razred.Oznaka).ToString(),
+            //    predmeti = _context.UceniciPredmeti.Where(x => x.UcenikId == id && x.NastavnikId == nastavnikId)
+            //    .Include(x => x.Predmet).Select(x => new SelectListItem
+            //    {
+            //        Value = x.PredmetId.ToString(),
+            //        Text = x.Predmet.Naziv
+            //***REMOVED***).ToList(),
+            //    PredmetId = 0
+            //***REMOVED***;
+            //END PROMJENA
             return View(model);
     ***REMOVED***
 
@@ -193,31 +198,27 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             {
                 return View("Dodaj", input);
         ***REMOVED***
+            //PROMJENA
+            //UcenikPredmet up = _context.UceniciPredmeti.Where(x => x.NastavnikId == input.Id && x.PredmetId == input.PredmetId && x.UcenikId == input.Id).FirstOrDefault();
+            //if (up != null)
+            //{
+            //    UcenikOcjene uo = new UcenikOcjene()
+            //    {
+            //        UcenikPredmetId = up.UcenikPredmetId,
+            //        Ocjena = new Ocjena()
+            //        {
+            //            Datum = input.Datum,
+            //            Napomena = input.Napomena,
+            //            TipOcjene = input.TipOcjene,
+            //            Vrijednost = input.Vrijednost
+            //    ***REMOVED***
+            //***REMOVED***;
+            //END-PROMJENA
 
-            UcenikPredmet up = _context.UceniciPredmeti.Where(x => x.NastavnikId == input.Id && x.PredmetId == input.PredmetId && x.UcenikId == input.Id).FirstOrDefault();
-            if (up != null)
-            {
-
-
-
-                UcenikOcjene uo = new UcenikOcjene()
-                {
-                    UcenikPredmetId = up.UcenikPredmetId,
-                    Ocjena = new Ocjena()
-                    {
-                        Datum = input.Datum,
-                        Napomena = input.Napomena,
-                        TipOcjene = input.TipOcjene,
-                        Vrijednost = input.Vrijednost
-                ***REMOVED***
-            ***REMOVED***;
-
-
-                _context.Ocjene.Add(uo.Ocjena);
-                _context.UceniciOcjene.Add(uo);
+            //    _context.Ocjene.Add(uo.Ocjena);
+            //    //_context.UceniciOcjene.Add(uo);
 
                 _context.SaveChanges();
-        ***REMOVED***
 
             return RedirectToAction("Index", "Ucenik", new { area = "ModulNastavnik" ***REMOVED***);
     ***REMOVED***

@@ -27,9 +27,9 @@ namespace SrednjeSkoleApp.Data.EF
         public DbSet<SkolskaGodina> SkolskaGodina { get; set; ***REMOVED***
         public DbSet<SmjerPredmet> SmjerPredmet { get; set; ***REMOVED***
         public DbSet<UcenikCasovi> UceniciCasovi { get; set; ***REMOVED***
-        public DbSet<UcenikPredmet> UceniciPredmeti { get; set; ***REMOVED***
+        //public DbSet<UcenikPredmet> UceniciPredmeti { get; set; ***REMOVED***
         public DbSet<UcenikRazredi> UceniciRazredi { get; set; ***REMOVED***
-        public DbSet<UcenikOcjene> UceniciOcjene { get; set; ***REMOVED***
+        //public DbSet<UcenikOcjene> UceniciOcjene { get; set; ***REMOVED***
 
         public DbSet<Uloga> Uloge { get; set; ***REMOVED***
         public DbSet<AutorizacijskiToken> AutorizacijskiToken { get; set; ***REMOVED***
@@ -72,11 +72,11 @@ namespace SrednjeSkoleApp.Data.EF
                 .HasForeignKey(x => x.SmjerPredmetId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<UcenikPredmet>()
-                .HasOne(x => x.Ucenik)
-                .WithMany()
-                .HasForeignKey(x => x.UcenikId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<UcenikPredmet>()
+            //    .HasOne(x => x.Ucenik)
+            //    .WithMany()
+            //    .HasForeignKey(x => x.UcenikId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Materijal>()
                 .HasOne(x => x.SkolskaGodina)
@@ -84,11 +84,31 @@ namespace SrednjeSkoleApp.Data.EF
                 .HasForeignKey(x => x.SkolskaGodinaId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<UcenikOcjene>()
-                .HasOne(x => x.UcenikPredmet)
+            //nakon promjena baze
+
+            modelBuilder.Entity<Razred>()
+                .HasOne(x => x.Smjer)
                 .WithMany()
-                .HasForeignKey(x => x.UcenikPredmetId)
+                .HasForeignKey(x => x.SmjerId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<UcenikRazredi>()
+               .HasOne(x => x.Ucenik)
+               .WithMany()
+               .HasForeignKey(x => x.UcenikId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Ocjena>()
+               .HasOne(x => x.Ucenik)
+               .WithMany()
+               .HasForeignKey(x => x.UcenikId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            //modelBuilder.Entity<UcenikOcjene>()
+            //    .HasOne(x => x.UcenikPredmet)
+            //    .WithMany()
+            //    .HasForeignKey(x => x.UcenikPredmetId)
+            //    .OnDelete(DeleteBehavior.Restrict);
     ***REMOVED***
 ***REMOVED***
 ***REMOVED***

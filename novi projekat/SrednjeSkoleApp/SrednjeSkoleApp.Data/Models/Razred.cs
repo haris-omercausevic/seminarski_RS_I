@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SrednjeSkoleApp.Data.Models
@@ -12,8 +13,15 @@ namespace SrednjeSkoleApp.Data.Models
         public string Oznaka { get; set; ***REMOVED***
         public int SkolskaGodinaId { get; set; ***REMOVED***
         public virtual SkolskaGodina SkolskaGodina { get; set; ***REMOVED***
+        
+        //razrednik
+        [ForeignKey("Nastavnik")]
+        public int RazrednikId { get; set; ***REMOVED***
+        public virtual Nastavnik Razrednik { get; set; ***REMOVED***
 
-        public virtual List<Predaje> Predaje { get; set; ***REMOVED***
-        public virtual List<UcenikRazredi> UcenikRazredi { get; set; ***REMOVED***
+        public int SmjerId { get; set; ***REMOVED***
+        public Smjer Smjer { get; set; ***REMOVED***
+
+
 ***REMOVED***
 ***REMOVED***

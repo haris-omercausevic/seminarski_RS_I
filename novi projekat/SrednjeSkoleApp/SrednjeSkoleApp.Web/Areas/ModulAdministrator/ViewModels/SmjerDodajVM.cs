@@ -20,6 +20,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
         public string Opis { get; set; ***REMOVED***
         public int skolskaGodinaId { get; set; ***REMOVED***
         public List<SelectListItem> skolskeGodine { get; set; ***REMOVED***
+        [Required]
         public List<CheckBoxVM> predmeti { get; set; ***REMOVED***
 
         //public SmjerDodajVM()

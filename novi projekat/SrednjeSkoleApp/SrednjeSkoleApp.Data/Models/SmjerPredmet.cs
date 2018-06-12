@@ -8,7 +8,6 @@ namespace SrednjeSkoleApp.Data.Models
     {
         public int SmjerPredmetId { get; set; ***REMOVED***
         public int BrojCasova { get; set; ***REMOVED***
-        public double? ProsjecnaOcjena { get; set; ***REMOVED***
         public int PredmetId { get; set; ***REMOVED***
         public int SmjerId { get; set; ***REMOVED***
 

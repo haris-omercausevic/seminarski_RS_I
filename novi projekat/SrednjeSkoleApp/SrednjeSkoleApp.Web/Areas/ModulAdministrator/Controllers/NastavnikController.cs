@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 using SrednjeSkoleApp.Data.EF;
@@ -129,8 +130,15 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             o2.Kontakt.Grad = input.Grad;
             o2.Kontakt.Opstina = input.Opstina;
 
-            _context.SaveChanges();
-            
+            _context.KorisniciUloge.Add(new KorisniciUloge()
+                {
+                    Korisnik = o2,
+                    UlogaID = _context.Uloge.Where(x => x.Naziv == "Nastavnik").Select(x => x.UlogaId).SingleOrDefault()
+            ***REMOVED***);
+
+           _context.SaveChanges();
+
+                       
 
             return RedirectToAction("Index", "Nastavnik", new {area ="ModulAdministrator"***REMOVED***);
     ***REMOVED***
@@ -141,6 +149,31 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             _context.Nastavnici.Remove(p1);
             _context.SaveChanges();
             return RedirectToAction("Index", "Nastavnik", new { area = "ModulAdministrator" ***REMOVED***);
+    ***REMOVED***
+
+        public IActionResult DodajPredmete()
+        {
+
+            var model = new NastavnikPredajeVM()
+            {
+                skolskeGodine = _context.SkolskaGodina
+                    .Select(x => new SelectListItem
+                    {
+                        Value = x.SkolskaGodinaId.ToString(),
+                        Text = x.Naziv
+                ***REMOVED***)
+                    .ToList(),
+                predmeti = _context.Predmet
+                    .Select(x => new CheckBoxVM
+                    {
+                        Id = x.PredmetId,
+                        Name = x.Naziv,
+                        Selected = false
+                ***REMOVED***)
+                    .ToList()
+        ***REMOVED***;
+
+            return View("Dodaj", model);
     ***REMOVED***
 
 ***REMOVED***

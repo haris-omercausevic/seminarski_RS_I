@@ -29,12 +29,13 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
         {
             var model = new RazredIndexVM
             {
-                rows = _context.Razred.Select(x => new RazredIndexVM.Row
+                rows = _context.Razred.Include(x => x.Razrednik).Select(x => new RazredIndexVM.Row
                 {
                     RazredId = x.RazredId,
                     Razred = x.Oznaka,
-                    Razrednik = _context.Predaje.Where(y => y.Razrednik && y.RazredId == x.RazredId).Include(y => y.Nastavnik).Select(y => y.Nastavnik.Ime).FirstOrDefault(),
-                    SkolskaGodina = x.SkolskaGodina.Naziv
+                    //Razrednik = _context.Predaje.Where(y => y.Razrednik && y.RazredId == x.RazredId).Include(y => y.Nastavnik).Select(y => y.Nastavnik.Ime).FirstOrDefault(),
+                    SkolskaGodina = x.SkolskaGodina.Naziv,
+                    Razrednik = x.Razrednik.Ime + " " + x.Razrednik.Prezime
             ***REMOVED***).ToList()
 
         ***REMOVED***;
@@ -48,7 +49,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             var model = new RazredDodajVM()
             {
                 nastavnici = _context.Predaje
-                                .Where(y => y.Razrednik == false).Include(y => y.Nastavnik)
+                                .Include(y => y.Nastavnik)
                                 .Select(x => new SelectListItem
                                 {
                                     Value = x.NastavnikId.ToString(),
@@ -66,17 +67,11 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 
             return View("Dodaj", model);
     ***REMOVED***
+       
 
         public IActionResult Detalji(int id)
         {
-            Razred o1 = _context.Razred.Where(x => x.RazredId == id).Include(x => x.SkolskaGodina).FirstOrDefault();
-            Nastavnik n1 = _context.Predaje.Where(x => x.RazredId == id && x.Razrednik).Select(x => x.Nastavnik).FirstOrDefault();
-            string razrednik = null;
-            if (n1 != null)
-            {
-                 razrednik = n1.Ime + " " + n1.Prezime;
-        ***REMOVED***
-
+            Razred o1 = _context.Razred.Where(x => x.RazredId == id).Include(x => x.Razrednik).Include(x => x.SkolskaGodina).FirstOrDefault();
             var model = new RazredDetaljiVM
             {
                 id = id,
@@ -84,7 +79,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 oznaka = o1.Oznaka,
                 odjeljenje = o1.Odjeljenje,
                 skolskaGodina = o1.SkolskaGodina.Naziv,
-                nastavnik = razrednik
+                nastavnik = o1.Razrednik.Ime + " " + o1.Razrednik.Prezime
         ***REMOVED***;
 
 
@@ -102,15 +97,17 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                        Text = x.Naziv
                ***REMOVED***)
                    .ToList();
-
-                input.nastavnici = _context.Nastavnici
-                                .Where(y => y.Id != (_context.Predaje.FirstOrDefault(q => q.NastavnikId == y.Id && q.Razrednik == true).NastavnikId))
-                                .Select(x => new SelectListItem
-                                {
-                                    Value = x.Id.ToString(),
-                                    Text = x.Ime + " " + x.Prezime
-                            ***REMOVED***)
-                    .ToList();               
+                
+                //PROMJENA
+                //input.nastavnici = _context.Nastavnici
+                //                .Where(y => y.Id != (_context.Predaje.FirstOrDefault(q => q.NastavnikId == y.Id && q.Razrednik == true).NastavnikId))
+                //                .Select(x => new SelectListItem
+                //                {
+                //                    Value = x.Id.ToString(),
+                //                    Text = x.Ime + " " + x.Prezime
+                //            ***REMOVED***)
+                //    .ToList();   
+                //END-PROMJENA
 
                 return View("Dodaj", input);
         ***REMOVED***
@@ -126,17 +123,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             o1.RazredBrojcano = input.razredBrojcano;
             o1.SkolskaGodinaId = input.skolskaGodinaId;
             o1.Odjeljenje = input.odjeljenje;
-
-            Predaje o2 = _context.Predaje.FirstOrDefault(x => x.NastavnikId == input.nastavnikId);
-            if(o2 == null)
-            {
-                o2 = new Predaje();
-        ***REMOVED***
-            else
-            {
-                o2.Razrednik = false;
-        ***REMOVED***
-                _context.Predaje.Add(o2);
+            //o1.Razrednik = input. ovde ide ID iz selectListItema koji je odabran
 
             _context.SaveChanges();
 
@@ -149,10 +136,6 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
         public IActionResult Obrisi(int id)
         {
             Razred r1 = _context.Razred.FirstOrDefault(x => x.RazredId == id);
-            foreach (var item in _context.Predaje.Where(x => x.RazredId == id).ToList())
-            {
-                _context.Predaje.Remove(item);
-        ***REMOVED***
 
             foreach (var item in _context.UceniciRazredi.Where(x => x.RazredId == id).ToList())
             {
