@@ -91,7 +91,10 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Dodaj",input);
+                if (input.Id == null)
+                    return View("Dodaj", input);
+                else
+                    return View("Detalji", input);
         ***REMOVED***
 
             Nastavnik o2 = _context.Nastavnici.Where(x => x.Id == input.Id).Include(x => x.Kontakt).FirstOrDefault();
@@ -103,8 +106,17 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                     Kontakt = new KorisnikKontakt()
             ***REMOVED***;
                 _context.Nastavnici.Add(o2);
+                _context.KorisniciUloge.Add(new KorisniciUloge()
+                {
+                    Korisnik = o2,
+                    UlogaID = _context.Uloge.Where(x => x.Naziv == "Nastavnik").Select(x => x.UlogaId).SingleOrDefault()
+            ***REMOVED***);
         ***REMOVED***
-            
+            else
+            {
+                _context.Nastavnici.Update(o2);
+        ***REMOVED***
+
             o2.Ime = input.Ime;
             o2.Prezime = input.Prezime;
             o2.KorisnickoIme = input.KorisnickoIme;
@@ -130,16 +142,9 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             o2.Kontakt.Grad = input.Grad;
             o2.Kontakt.Opstina = input.Opstina;
 
-            _context.KorisniciUloge.Add(new KorisniciUloge()
-                {
-                    Korisnik = o2,
-                    UlogaID = _context.Uloge.Where(x => x.Naziv == "Nastavnik").Select(x => x.UlogaId).SingleOrDefault()
-            ***REMOVED***);
-
+            
            _context.SaveChanges();
-
-                       
-
+            
             return RedirectToAction("Index", "Nastavnik", new {area ="ModulAdministrator"***REMOVED***);
     ***REMOVED***
 
