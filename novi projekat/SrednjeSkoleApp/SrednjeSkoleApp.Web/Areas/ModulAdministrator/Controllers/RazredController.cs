@@ -29,12 +29,13 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
         {
             var model = new RazredIndexVM
             {
-                rows = _context.Razred.Include(x => x.Razrednik).Select(x => new RazredIndexVM.Row
+                rows = _context.Razred.Include(x => x.Razrednik).Include(x => x.Smjer).Select(x => new RazredIndexVM.Row
                 {
                     RazredId = x.RazredId,
                     Razred = x.Oznaka,
                     SkolskaGodina = x.SkolskaGodina.Naziv,
-                    Razrednik = x.Razrednik.Ime + " " + x.Razrednik.Prezime                    
+                    Razrednik = x.Razrednik.Ime + " " + x.Razrednik.Prezime,
+                    Smjer = x.Smjer.Naziv
             ***REMOVED***).ToList()
 
         ***REMOVED***;
@@ -109,10 +110,11 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                                     Value = x.Id.ToString(),
                                     Text = x.Ime + " " + x.Prezime
                             ***REMOVED***)
-                    .ToList();   
+                    .ToList();
                 //END-PROMJENA
 
-                return View("Dodaj", input);
+
+                        return View("Dodaj", input);
         ***REMOVED***
 
 

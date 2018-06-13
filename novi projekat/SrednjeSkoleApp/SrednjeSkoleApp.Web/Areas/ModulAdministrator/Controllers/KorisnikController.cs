@@ -79,6 +79,14 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
     ***REMOVED***
         public IActionResult Snimi(KorisnikDodajVM input)
         {
+            if (!ModelState.IsValid)
+            {
+                if (input.Id == null)
+                    return View("Dodaj", input);
+                else
+                    return View("Detalji", input);
+        ***REMOVED***
+
             Korisnik k = new Korisnik
             {
                 Ime = input.Ime,
@@ -101,7 +109,6 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             return RedirectToAction("Index");
     ***REMOVED***
 
-        //testirati, napravit view, obratiti paznju na ulogaId jel dobija vrijednost sa viewa
         public IActionResult Trazi(string ime, string prezime, string email, int ulogaId)
         {
             if (!String.IsNullOrEmpty(ime))

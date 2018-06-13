@@ -12,7 +12,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels
 {
     public class RazredDodajVM
     {
-        public int id { get; set; ***REMOVED***
+        public int? id { get; set; ***REMOVED***
         [Range(1,4)]
         public int razredBrojcano { get; set; ***REMOVED***
         [Required]
