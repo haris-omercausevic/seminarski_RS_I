@@ -51,6 +51,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             Korisnik korisnik = _context.Korisnici.Where(x => x.Id == id).FirstOrDefault();
             var model = new KorisnikDodajVM()
             {
+                SelectedUloga = _context.KorisniciUloge.Where(x => x.KorisnikID == id).Select(x => x.UlogaID).FirstOrDefault(),
                 uloge = _context.Uloge.Select(x => new RoleVm
                 {
                     Id = x.UlogaId,
@@ -58,8 +59,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             ***REMOVED***).ToList(),
                 Ime = korisnik.Ime,
                 Prezime = korisnik.Prezime,
-                KorisnickoIme = korisnik.Prezime,
-                Lozinka = ""
+                KorisnickoIme = korisnik.Prezime                
         ***REMOVED***;
 
             return View(model);
@@ -87,24 +87,47 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                     return View("Detalji", input);
         ***REMOVED***
 
-            Korisnik k = new Korisnik
+            Korisnik k = _context.Korisnici.Find(input.Id);
+            if (k == null)
             {
-                Ime = input.Ime,
-                Prezime = input.Prezime,
-                KorisnickoIme = input.KorisnickoIme
-        ***REMOVED***;
-            k.LozinkaSalt = MyMvc.GenerateSalt();
-            k.LozinkaHash = MyMvc.GenerateHash(k.LozinkaSalt, input.Lozinka);
+                k = new Korisnik
+                {
+                    Ime = input.Ime,
+                    Prezime = input.Prezime,
+                    KorisnickoIme = input.KorisnickoIme
+            ***REMOVED***;
+                k.LozinkaSalt = MyMvc.GenerateSalt();
+                k.LozinkaHash = MyMvc.GenerateHash(k.LozinkaSalt, input.Lozinka);
 
-            _context.Korisnici.Add(k);
-            _context.KorisniciUloge.Add(new KorisniciUloge
+                _context.Korisnici.Add(k);
+                _context.KorisniciUloge.Add(new KorisniciUloge
+                {
+                    KorisnikID = k.Id,
+                    UlogaID = input.SelectedUloga
+            ***REMOVED***);
+        ***REMOVED***
+            else
             {
-                KorisnikID = k.Id,
-                UlogaID = input.SelectedUloga
-        ***REMOVED***);
+                k.Ime = input.Ime;
+                k.Prezime = input.Prezime;
+                k.KorisnickoIme = input.KorisnickoIme;
+                _context.Korisnici.Update(k);
 
+                KorisniciUloge ku = _context.KorisniciUloge.Where(x => x.KorisnikID == k.Id).FirstOrDefault();
+                _context.KorisniciUloge.Update(ku);
+                ku.UlogaID = input.SelectedUloga;
 
+        ***REMOVED***
+            
             _context.SaveChanges();
+
+            return RedirectToAction("Index");
+    ***REMOVED***
+
+        public IActionResult Obrisi(int id)
+        {
+            Korisnik korisnik = _context.Korisnici.Find(id);
+            _context.Korisnici.Remove(korisnik);
 
             return RedirectToAction("Index");
     ***REMOVED***

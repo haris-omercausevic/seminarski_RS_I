@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://192.168.1.10:8080",
+      "sslPort": 0
+***REMOVED***,
     "iisExpress": {
       "applicationUrl": "http://192.168.1.10:61745/",
       "sslPort": 0

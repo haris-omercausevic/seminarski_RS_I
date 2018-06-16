@@ -52,3 +52,6 @@ INSERT INTO [dbo].[Smjerovi]
            ('Matematika-Informatika', 'Matematičko informatički smjer', 1),
            ('Informatika', 'Informatički smjer', 2)
 GO
+
+SELECT * FROM Smjerovi
+
