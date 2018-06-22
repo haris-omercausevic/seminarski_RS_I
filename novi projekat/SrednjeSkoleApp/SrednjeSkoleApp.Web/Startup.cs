@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SrednjeSkoleApp.Data.EF;
+using SrednjeSkoleApp.Web.Helper;
 
 namespace SrednjeSkoleApp.Web
 {
@@ -25,6 +26,15 @@ namespace SrednjeSkoleApp.Web
         {
             services.AddDbContext<MyContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("lokalni")));
+
+            services.AddScoped<IAzureBlobStorage>(factory =>
+            {
+                return new AzureBlobStorage(new AzureBlobSetings(
+                    storageAccount: Configuration["Blob_StorageAccount"],
+                    storageKey: Configuration["Blob_StorageKey"],
+                    containerName: Configuration["Blob_ContainerName"]));
+        ***REMOVED***);
+
             services.AddMvc();
 
 

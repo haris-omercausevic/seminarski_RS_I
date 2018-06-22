@@ -8,7 +8,16 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels
 {
     public class MaterijaliIndexVM
     {
-        public int Id { get; set; ***REMOVED***
-        public IFormFile MyProperty { get; set; ***REMOVED***
+        public class FileDetails
+        {
+            public string Name { get; set; ***REMOVED***
+            public string BlobName { get; set; ***REMOVED***
+    ***REMOVED***
+
+        public class FilesViewModel
+        {
+            public List<FileDetails> Files { get; set; ***REMOVED***
+                = new List<FileDetails>();
+    ***REMOVED***
 ***REMOVED***
 ***REMOVED***

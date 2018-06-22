@@ -10,10 +10,10 @@ namespace SrednjeSkoleApp.Data.Models
         public int MaterijalId { get; set; ***REMOVED***
         public string Naziv { get; set; ***REMOVED***
         public string Napomena { get; set; ***REMOVED***
-        public byte[] Fajl { get; set; ***REMOVED***
+        public string Url { get; set; ***REMOVED***
+        public DateTime DateCreated { get; set; ***REMOVED***
         public int SkolskaGodinaId { get; set; ***REMOVED***
         public SkolskaGodina SkolskaGodina { get; set; ***REMOVED***
-
         public int NastavnikId{ get; set; ***REMOVED***
         public virtual Nastavnik Nastavnik{ get; set; ***REMOVED***
 ***REMOVED***
