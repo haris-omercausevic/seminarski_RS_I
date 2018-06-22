@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SQLitePCL;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
@@ -18,9 +21,13 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
     public class NastavnikController : Controller
     {
         private MyContext _context;
-        public NastavnikController(MyContext context)
+        private IConfiguration _config;
+
+        public NastavnikController(MyContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
+
     ***REMOVED***
 
         public IActionResult Index()
@@ -141,10 +148,31 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             o2.Kontakt.Adresa = input.Adresa;
             o2.Kontakt.Grad = input.Grad;
             o2.Kontakt.Opstina = input.Opstina;
-
-            
+                       
            _context.SaveChanges();
-            
+
+            string mail = _config["Mail"];
+            string mailpass = _config["MailPass"];
+            string mailTo = o2.Kontakt.Email;
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential(mail, mailpass);
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress(mail);
+            mailMessage.To.Add(mailTo);
+            mailMessage.Body = $"<h3>Poštovani,</h3>" +
+                               $"vaši pristupni podaci su: " +
+                               $"<p>Korisničko ime: {input.KorisnickoIme***REMOVED***</p>" +
+                               $"<p>Lozinka: {input.Lozinka***REMOVED***</p>" +
+                               $"<p>========================</p>" +
+                               $"<p>SrednjeSkoleApp</p>";
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Subject = "SrednjeSkoleApp";
+            client.Send(mailMessage);
+
             return RedirectToAction("Index", "Nastavnik", new {area ="ModulAdministrator"***REMOVED***);
     ***REMOVED***
 

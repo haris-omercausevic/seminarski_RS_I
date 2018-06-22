@@ -7,7 +7,7 @@
       "sslPort": 0
 ***REMOVED***,
     "iisExpress": {
-      "applicationUrl": "http://192.168.1.10:61745/",
+      "applicationUrl": "http://127.0.0.1:61746/",
       "sslPort": 0
 ***REMOVED***
 ***REMOVED***
@@ -25,7 +25,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
   ***REMOVED***,
-      "applicationUrl": "http://192.168.1.10:61747/"
+      "applicationUrl": "http://127.0.0.1:61747/"
 ***REMOVED***
   ***REMOVED***
 ***REMOVED***

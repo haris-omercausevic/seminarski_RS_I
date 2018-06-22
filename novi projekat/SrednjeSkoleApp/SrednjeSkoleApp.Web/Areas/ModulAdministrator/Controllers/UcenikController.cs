@@ -1,12 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
 using SrednjeSkoleApp.Web.Areas.ModulAdministrator.ViewModels;
 using SrednjeSkoleApp.Web.Helper;
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 
 namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
 {
@@ -15,10 +18,12 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
     public class UcenikController : Controller
     {
         private MyContext _context;
+        private IConfiguration _config;
 
-        public UcenikController(MyContext context)
+        public UcenikController(MyContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
     ***REMOVED***
 
         public IActionResult Index()
@@ -43,7 +48,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             var model = new UcenikDodajVM
             {
                 Grad = "Mostar",
-                Prebivaliste = "Mostar, Zalik",
+                Prebivaliste = "Mostar",
                 Aktivan = true,
                 GodinaUpisa = DateTime.Now.Year,
                 NazivOsnovneSkole = "Osnovna škola \"Zalik\", Mostar"
@@ -183,6 +188,31 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 o3.SkolskaGodina = o2.Smjer.SkolskaGodina.Naziv;
 
             _context.SaveChanges();
+
+
+            string mail = _config["Mail"];
+            string mailpass = _config["MailPass"];
+
+            string mailTo = o2.Kontakt.Email;
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential(mail, mailpass);
+
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress(mail);
+            mailMessage.To.Add(mailTo);
+            mailMessage.Body = $"<h3>Poštovani,</h3>" +
+                               $"vaši pristupni podaci su: " +
+                               $"<p>Korisničko ime: {input.KorisnickoIme***REMOVED***</p>" +
+                               $"<p>Lozinka: {input.Lozinka***REMOVED***</p>" +
+                               $"<p>========================</p>" +
+                               $"<p>SrednjeSkoleApp</p>";
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Subject = "SrednjeSkoleApp";
+            client.Send(mailMessage);
+
 
 
             return RedirectToAction("Index", "Ucenik", new { area = "ModulAdministrator" ***REMOVED***);

@@ -117,9 +117,9 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 _context.KorisniciUloge.Update(ku);
                 ku.UlogaID = input.SelectedUloga;
 
-        ***REMOVED***
-            
+        ***REMOVED***            
             _context.SaveChanges();
+
 
             return RedirectToAction("Index");
     ***REMOVED***

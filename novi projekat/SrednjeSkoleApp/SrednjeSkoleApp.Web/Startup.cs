@@ -30,7 +30,6 @@ namespace SrednjeSkoleApp.Web
 
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
-
     ***REMOVED***
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
