@@ -79,9 +79,9 @@ namespace SrednjeSkoleApp.Data.EF
             //    .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Materijal>()
-                .HasOne(x => x.SkolskaGodina)
+                .HasOne(x => x.Predmet)
                 .WithMany()
-                .HasForeignKey(x => x.SkolskaGodinaId)
+                .HasForeignKey(x => x.PredmetId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             //nakon promjena baze

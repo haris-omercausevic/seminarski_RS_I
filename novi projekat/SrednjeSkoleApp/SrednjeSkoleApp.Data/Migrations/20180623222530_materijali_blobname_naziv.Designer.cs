@@ -12,8 +12,8 @@ using System;
 namespace SrednjeSkoleApp.Data.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20180612193245_12jun")]
-    partial class _12jun
+    [Migration("20180623222530_materijali_blobname_naziv")]
+    partial class materijali_blobname_naziv
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -114,11 +114,14 @@ namespace SrednjeSkoleApp.Data.Migrations
                     b.Property<string>("Discriminator")
                         .IsRequired();
 
-                    b.Property<string>("Ime");
+                    b.Property<string>("Ime")
+                        .IsRequired();
 
-                    b.Property<string>("JMBG");
+                    b.Property<string>("JMBG")
+                        .HasMaxLength(13);
 
-                    b.Property<string>("KorisnickoIme");
+                    b.Property<string>("KorisnickoIme")
+                        .IsRequired();
 
                     b.Property<string>("LozinkaHash");
 
@@ -128,7 +131,8 @@ namespace SrednjeSkoleApp.Data.Migrations
 
                     b.Property<string>("Prebivaliste");
 
-                    b.Property<string>("Prezime");
+                    b.Property<string>("Prezime")
+                        .IsRequired();
 
                     b.Property<string>("Spol");
 
@@ -163,21 +167,23 @@ namespace SrednjeSkoleApp.Data.Migrations
                     b.Property<int>("MaterijalId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<byte[]>("Fajl");
+                    b.Property<string>("BlobName");
 
-                    b.Property<string>("Napomena");
+                    b.Property<DateTime>("DateCreated");
 
                     b.Property<int>("NastavnikId");
 
                     b.Property<string>("Naziv");
 
-                    b.Property<int>("SkolskaGodinaId");
+                    b.Property<int>("PredmetId");
+
+                    b.Property<string>("Url");
 
                     b.HasKey("MaterijalId");
 
                     b.HasIndex("NastavnikId");
 
-                    b.HasIndex("SkolskaGodinaId");
+                    b.HasIndex("PredmetId");
 
                     b.ToTable("Materijali");
             ***REMOVED***);
@@ -501,9 +507,9 @@ namespace SrednjeSkoleApp.Data.Migrations
                         .HasForeignKey("NastavnikId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("SrednjeSkoleApp.Data.Models.SkolskaGodina", "SkolskaGodina")
+                    b.HasOne("SrednjeSkoleApp.Data.Models.Predmet", "Predmet")
                         .WithMany()
-                        .HasForeignKey("SkolskaGodinaId")
+                        .HasForeignKey("PredmetId")
                         .OnDelete(DeleteBehavior.Restrict);
             ***REMOVED***);
 

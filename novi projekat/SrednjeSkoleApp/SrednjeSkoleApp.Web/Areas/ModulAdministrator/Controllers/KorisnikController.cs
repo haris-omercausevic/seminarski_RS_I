@@ -39,7 +39,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                     id = x.Id,
                     imePrezime = x.Ime + " " + x.Prezime,
                     email = x.Kontakt.Email,
-                    uloga = _context.KorisniciUloge.Where(q => q.KorisnikID == x.Id).Include(q => q.Uloga).Select(q => q.Uloga.Naziv).SingleOrDefault()
+                    uloga = _context.KorisniciUloge.Where(q => q.KorisnikID == x.Id).Include(q => q.Uloga).Select(q => q.Uloga.Naziv).SingleOrDefault()                    
             ***REMOVED***).ToList()
         ***REMOVED***;
 
@@ -59,7 +59,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
             ***REMOVED***).ToList(),
                 Ime = korisnik.Ime,
                 Prezime = korisnik.Prezime,
-                KorisnickoIme = korisnik.Prezime                
+                KorisnickoIme = korisnik.KorisnickoIme                
         ***REMOVED***;
 
             return View(model);

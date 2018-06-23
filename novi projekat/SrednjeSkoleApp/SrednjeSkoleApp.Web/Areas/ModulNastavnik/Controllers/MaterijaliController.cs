@@ -27,21 +27,9 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             _context = context;
             _blobStorage = blobStorage;
     ***REMOVED***
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            //var model = new MaterijaliIndexVM();
-            
-            //foreach (var item in await _blobStorage.ListAsync())
-            //{
-            //    model.Files.Add(
-            //        new FileDetails { Name = item.Name, BlobName = item.BlobName ***REMOVED***);
-            //***REMOVED***
-            return View();
-    ***REMOVED***
-
-        public IActionResult Trazi(int predmetId)
-        {
-            var model = new MaterijaliIndexVM
+            var model = new MaterijaliIndexVM()
             {
                 predmeti = _context.Predmet.Select(x => new SelectListItem
                 {
@@ -50,12 +38,46 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             ***REMOVED***).ToList()
         ***REMOVED***;
 
-            List<Materijal> materijali = _context.Materijali.Where(x => x.PredmetId == predmetId && x.NastavnikId == HttpContext.GetLogiraniKorisnik().Id).ToList();
+            return View(model);
+    ***REMOVED***
+        //public async Task<IActionResult> Index()
+        //{
+        //    var model = new MaterijaliIndexVM()
+        //    {
+        //        predmeti = _context.Predmet.Select(x => new SelectListItem
+        //        {
+        //            Value = x.PredmetId.ToString(),
+        //            Text = x.Naziv
+        //    ***REMOVED***).ToList()
+        //***REMOVED***;
+        //    foreach (var item in await _blobStorage.ListAsync())
+        //    {
+        //        model.Files.Add(
+        //            new FileDetails { Name = item.Name, BlobName = item.BlobName ***REMOVED***);
+        //***REMOVED***
+        //    return View(model);
+
+        //***REMOVED***
+
+        public IActionResult Trazi(int predmetId)
+        {
+            var model = new MaterijaliIndexVM
+            {
+                predmetId = predmetId,
+                predmeti = _context.Predmet.Select(x => new SelectListItem
+                {
+                    Value = x.PredmetId.ToString(),
+                    Text = x.Naziv
+            ***REMOVED***).ToList()
+        ***REMOVED***;
+            //&& x.NastavnikId == 
+            int nasid = HttpContext.GetLogiraniKorisnik().Id;
+            List<Materijal> materijali = _context.Materijali.Where(x => x.PredmetId == predmetId && x.NastavnikId == nasid).ToList();
 
             foreach (var item in materijali)
             {
                 model.Files.Add(
-                    new FileDetails { Name = item.Naziv, BlobName = item.Url ***REMOVED***);
+                    new FileDetails { Name = item.Naziv, BlobName = item.BlobName ***REMOVED***);
         ***REMOVED***
 
             return View("Index", model);
@@ -64,35 +86,42 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> UploadFile(int predmetId,FileInputModel inputModel)
+        public async Task<IActionResult> UploadFile(int predmetId, FileInputModel inputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Index", new MaterijaliIndexVM());
+        ***REMOVED***
             if (inputModel == null)
                 return Content("Argument null");
 
             if (inputModel.File == null || inputModel.File.Length == 0)
                 return Content("file not selected");
 
-            var blobName = inputModel.File.GetFilename();
-            var fileStream = await inputModel.File.GetFileStream();
+            if (predmetId == 0)
+                return Content("Predmet not selected");
 
-            if (!string.IsNullOrEmpty(inputModel.Folder))
-                blobName = string.Format(@"{0***REMOVED***\{1***REMOVED***", inputModel.Folder, blobName);
+            var naziv = inputModel.File.GetFilename();
+            var blobName = Guid.NewGuid().ToString();
+            var fileStream = await inputModel.File.GetFileStream();
+                       
 
             await _blobStorage.UploadAsync(blobName, fileStream);
 
-            var blobUri = await _blobStorage.GetBlobUriByName(blobName);
+            var blobUri = await _blobStorage.GetBlobByName(blobName);
 
-            Korisnik korisnik = HttpContext.GetLogiraniKorisnik();
             Materijal m = new Materijal()
             {
                 DateCreated = DateTime.Now,
                 Url = blobUri,
-                Naziv = blobName,
-                NastavnikId = korisnik.Id,
-                PredmetId =  predmetId                
+                BlobName = blobName,
+                Naziv = naziv,
+                NastavnikId = HttpContext.GetLogiraniKorisnik().Id,
+                PredmetId = predmetId                
         ***REMOVED***;
 
             _context.Materijali.Add(m);
+            _context.SaveChanges();
 
             return RedirectToAction("Index");
     ***REMOVED***
@@ -111,6 +140,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
                 return Content("Blob Name not present");
 
             await _blobStorage.DeleteAsync(blobName);
+            _context.Materijali.Remove(_context.Materijali.Where(x => x.BlobName == blobName).FirstOrDefault());
 
             return RedirectToAction("Index");
     ***REMOVED***

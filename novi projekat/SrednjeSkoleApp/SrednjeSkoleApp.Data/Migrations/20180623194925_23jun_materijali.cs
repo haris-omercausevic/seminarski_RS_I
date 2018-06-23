@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SrednjeSkoleApp.Data.Migrations
 {
-    public partial class _12jun : Migration
+    public partial class _23jun_materijali : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -84,14 +84,14 @@ namespace SrednjeSkoleApp.Data.Migrations
                     Aktivan = table.Column<bool>(nullable: false),
                     DatumRodjenja = table.Column<DateTime>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
-                    Ime = table.Column<string>(nullable: true),
-                    JMBG = table.Column<string>(nullable: true),
-                    KorisnickoIme = table.Column<string>(nullable: true),
+                    Ime = table.Column<string>(nullable: false),
+                    JMBG = table.Column<string>(maxLength: 13, nullable: true),
+                    KorisnickoIme = table.Column<string>(nullable: false),
                     LozinkaHash = table.Column<string>(nullable: true),
                     LozinkaSalt = table.Column<string>(nullable: true),
                     MjestoRodjenja = table.Column<string>(nullable: true),
                     Prebivaliste = table.Column<string>(nullable: true),
-                    Prezime = table.Column<string>(nullable: true),
+                    Prezime = table.Column<string>(nullable: false),
                     Spol = table.Column<string>(nullable: true),
                     DatumIzboraUZvanje = table.Column<DateTime>(nullable: true),
                     GodinaZaposlenja = table.Column<int>(nullable: true),
@@ -239,11 +239,11 @@ namespace SrednjeSkoleApp.Data.Migrations
                 {
                     MaterijalId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Fajl = table.Column<byte[]>(nullable: true),
-                    Napomena = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false),
                     NastavnikId = table.Column<int>(nullable: false),
                     Naziv = table.Column<string>(nullable: true),
-                    SkolskaGodinaId = table.Column<int>(nullable: false)
+                    PredmetId = table.Column<int>(nullable: false),
+                    Url = table.Column<string>(nullable: true)
             ***REMOVED***,
                 constraints: table =>
                 {
@@ -255,10 +255,10 @@ namespace SrednjeSkoleApp.Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Materijali_SkolskaGodina_SkolskaGodinaId",
-                        column: x => x.SkolskaGodinaId,
-                        principalTable: "SkolskaGodina",
-                        principalColumn: "SkolskaGodinaId",
+                        name: "FK_Materijali_Predmet_PredmetId",
+                        column: x => x.PredmetId,
+                        principalTable: "Predmet",
+                        principalColumn: "PredmetId",
                         onDelete: ReferentialAction.Restrict);
             ***REMOVED***);
 
@@ -506,9 +506,9 @@ namespace SrednjeSkoleApp.Data.Migrations
                 column: "NastavnikId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Materijali_SkolskaGodinaId",
+                name: "IX_Materijali_PredmetId",
                 table: "Materijali",
-                column: "SkolskaGodinaId");
+                column: "PredmetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Obavijesti_KorisnikId",

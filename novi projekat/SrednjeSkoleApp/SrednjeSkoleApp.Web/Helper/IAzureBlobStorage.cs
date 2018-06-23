@@ -15,7 +15,7 @@ namespace SrednjeSkoleApp.Web.Helper
         Task<MemoryStream> DownloadAsync(string blobName);
         Task DownloadAsync(string blobName, string path);
         Task<List<AzureBlobItem>> ListAsync();
-        Task<string> GetBlobUriByName(string blobName);
+        Task<string> GetBlobByName(string blobName);
         Task DeleteAsync(string blobName);
 ***REMOVED***
 ***REMOVED***
