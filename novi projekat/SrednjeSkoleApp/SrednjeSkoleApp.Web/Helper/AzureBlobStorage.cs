@@ -79,15 +79,12 @@ namespace SrednjeSkoleApp.Web.Helper
         {
             return await GetBlobListAsync();
     ***REMOVED***
-        public async Task<string> GetBlobUri(string blobName)
+        public async Task<string> GetBlobByName(string blobName)
         {
             CloudBlobContainer blobContainer = await GetContainerAsync();                        
-            //Blob
-            //CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(blobName);
             return blobContainer.GetBlockBlobReference(blobName).StorageUri.PrimaryUri.AbsoluteUri;
-    ***REMOVED***
-
-#endregion
+    ***REMOVED***      
+        #endregion
 
         private async Task<CloudBlobContainer> GetContainerAsync()
         {

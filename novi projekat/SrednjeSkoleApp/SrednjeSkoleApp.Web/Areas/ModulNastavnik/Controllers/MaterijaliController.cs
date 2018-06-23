@@ -5,8 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SrednjeSkoleApp.Data.EF;
 using SrednjeSkoleApp.Data.Models;
+using SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels;
 using SrednjeSkoleApp.Web.Helper;
 using SrednjeSkoleApp.Web.Helper.Files;
 using static SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.MaterijaliIndexVM;
@@ -27,17 +29,42 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
     ***REMOVED***
         public async Task<IActionResult> Index()
         {
-            var model = new FilesViewModel();
-            foreach (var item in await _blobStorage.ListAsync())
-            {
-                model.Files.Add(
-                    new FileDetails { Name = item.Name, BlobName = item.BlobName ***REMOVED***);
-        ***REMOVED***
-            return View(model);
+            //var model = new MaterijaliIndexVM();
+            
+            //foreach (var item in await _blobStorage.ListAsync())
+            //{
+            //    model.Files.Add(
+            //        new FileDetails { Name = item.Name, BlobName = item.BlobName ***REMOVED***);
+            //***REMOVED***
+            return View();
     ***REMOVED***
 
+        public IActionResult Trazi(int predmetId)
+        {
+            var model = new MaterijaliIndexVM
+            {
+                predmeti = _context.Predmet.Select(x => new SelectListItem
+                {
+                    Value = x.PredmetId.ToString(),
+                    Text = x.Naziv
+            ***REMOVED***).ToList()
+        ***REMOVED***;
+
+            List<Materijal> materijali = _context.Materijali.Where(x => x.PredmetId == predmetId && x.NastavnikId == HttpContext.GetLogiraniKorisnik().Id).ToList();
+
+            foreach (var item in materijali)
+            {
+                model.Files.Add(
+                    new FileDetails { Name = item.Naziv, BlobName = item.Url ***REMOVED***);
+        ***REMOVED***
+
+            return View("Index", model);
+    ***REMOVED***
+
+
+
         [HttpPost]
-        public async Task<IActionResult> UploadFile(FileInputModel inputModel)
+        public async Task<IActionResult> UploadFile(int predmetId,FileInputModel inputModel)
         {
             if (inputModel == null)
                 return Content("Argument null");
@@ -53,7 +80,8 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
 
             await _blobStorage.UploadAsync(blobName, fileStream);
 
-            var blobUri = await _blobStorage.GetBlobUri(blobName);
+            var blobUri = await _blobStorage.GetBlobUriByName(blobName);
+
             Korisnik korisnik = HttpContext.GetLogiraniKorisnik();
             Materijal m = new Materijal()
             {
@@ -61,13 +89,10 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
                 Url = blobUri,
                 Naziv = blobName,
                 NastavnikId = korisnik.Id,
-                
+                PredmetId =  predmetId                
         ***REMOVED***;
 
-            _context.Materijali.Add(new Materijal()
-            {
-                DateCreated = DateTime.Now                
-        ***REMOVED***);
+            _context.Materijali.Add(m);
 
             return RedirectToAction("Index");
     ***REMOVED***

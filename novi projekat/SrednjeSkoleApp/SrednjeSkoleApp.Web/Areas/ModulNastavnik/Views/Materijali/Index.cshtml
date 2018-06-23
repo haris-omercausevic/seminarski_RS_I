@@ -1,31 +1,48 @@
-﻿@model SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.MaterijaliIndexVM.FilesViewModel
+﻿@model SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.MaterijaliIndexVM
 @{
     ViewData["Title"] = "Index";
 ***REMOVED***
-
-<form asp-controller="Materijali" asp-area="ModulNastavnik" asp-action="UploadFile" method="post"
-      enctype="multipart/form-data">
-
+<h3>
+    Dodaj materijal
+</h3>
+<form asp-controller="Materijali" asp-area="ModulNastavnik" asp-action="UploadFile" method="post" enctype="multipart/form-data">
     <input type="text" name="folder" placeholder="Folder" />
-    <input type="file" name="file" />
-    <button type="submit">Upload File</button>
+    <input type="file" name="file"/>
+    <button type="submit" class="btn btn-success">Snimi</button>
 </form>
 
-<p>Materijali</p>
+<form asp-action="Trazi" asp-area="ModulNastavnik" asp-route-predmetId="@Model.predmetId" method="get">
+    <div class="form-group">
+        <label>Predmet: </label>
+        <div>
+            <select asp-for="predmetId" asp-items="@Model.predmeti" class="form-control">
+                <option value="0">(odaberite predmet)</option>
+            </select>
+        </div>
+    </div>
+</form>
 
-<ul>
-    @foreach (var item in Model.Files)
-    {
-        <li>
-            <a asp-action="Download"
-               asp-route-blobName="@item.BlobName" asp-route-name="@item.Name">
-                Download
-            </a>
-            <a asp-action="Delete"
-               asp-route-blobName="@item.BlobName">
-                Delete
-            </a>
-            @item.Name
-        </li>
-***REMOVED***
-</ul>
+
+    <h3>Materijali</h3>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Naziv</th>
+                <th>Akcija</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Files)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>
+                        <a asp-action="Download" asp-route-blobName="@item.BlobName" asp-route-name="@item.Name" class="btn btn-primary">Download</a>
+                        <a asp-action="Delete" asp-route-blobName="@item.BlobName" class="btn btn-danger">Delete</a>
+                    </td>
+
+                </tr>
+        ***REMOVED***
+        </tbody>
+    </table>
