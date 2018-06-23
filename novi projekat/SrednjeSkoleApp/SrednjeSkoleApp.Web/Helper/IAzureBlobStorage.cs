@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.WindowsAzure.Storage.Blob;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace SrednjeSkoleApp.Web.Helper
         Task<MemoryStream> DownloadAsync(string blobName);
         Task DownloadAsync(string blobName, string path);
         Task<List<AzureBlobItem>> ListAsync();
+        Task<string> GetBlobUri(string blobName);
         Task DeleteAsync(string blobName);
 ***REMOVED***
 ***REMOVED***

@@ -1,6 +1,7 @@
 ﻿using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
+using SrednjeSkoleApp.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +18,8 @@ namespace SrednjeSkoleApp.Web.Helper
         {
             this.settings = settings;
     ***REMOVED***
-             
+
+        #region public
 
         public async Task UploadAsync(string blobName, string filePath)
         {
@@ -36,7 +38,7 @@ namespace SrednjeSkoleApp.Web.Helper
         {
             //Blob
             CloudBlockBlob blockBlob = await GetBlockBlobAsync(blobName);
-
+                        
             //Upload
             stream.Position = 0;
             await blockBlob.UploadFromStreamAsync(stream);
@@ -71,12 +73,21 @@ namespace SrednjeSkoleApp.Web.Helper
 
             //Delete
             await blockBlob.DeleteAsync();
-    ***REMOVED***
+    ***REMOVED***       
 
         public async Task<List<AzureBlobItem>> ListAsync()
         {
             return await GetBlobListAsync();
     ***REMOVED***
+        public async Task<string> GetBlobUri(string blobName)
+        {
+            CloudBlobContainer blobContainer = await GetContainerAsync();                        
+            //Blob
+            //CloudBlockBlob blockBlob = blobContainer.GetBlockBlobReference(blobName);
+            return blobContainer.GetBlockBlobReference(blobName).StorageUri.PrimaryUri.AbsoluteUri;
+    ***REMOVED***
+
+#endregion
 
         private async Task<CloudBlobContainer> GetContainerAsync()
         {
@@ -127,8 +138,6 @@ namespace SrednjeSkoleApp.Web.Helper
         ***REMOVED*** while (token != null);
 
             return list.OrderBy(i => i.Folder).ThenBy(i => i.Name).ToList();
-    ***REMOVED***
-
-       
+    ***REMOVED***        
 ***REMOVED***
 ***REMOVED***

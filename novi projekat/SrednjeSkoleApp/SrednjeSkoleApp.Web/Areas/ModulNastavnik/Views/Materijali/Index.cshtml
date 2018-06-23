@@ -3,7 +3,7 @@
     ViewData["Title"] = "Index";
 ***REMOVED***
 
-<form asp-controller="Home" asp-action="UploadFile" method="post"
+<form asp-controller="Materijali" asp-area="ModulNastavnik" asp-action="UploadFile" method="post"
       enctype="multipart/form-data">
 
     <input type="text" name="folder" placeholder="Folder" />
@@ -11,7 +11,7 @@
     <button type="submit">Upload File</button>
 </form>
 
-<p>List of Blobs</p>
+<p>Materijali</p>
 
 <ul>
     @foreach (var item in Model.Files)

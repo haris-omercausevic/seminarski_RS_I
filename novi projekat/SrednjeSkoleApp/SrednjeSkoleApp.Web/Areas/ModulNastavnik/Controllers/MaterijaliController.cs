@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SrednjeSkoleApp.Data.EF;
+using SrednjeSkoleApp.Data.Models;
 using SrednjeSkoleApp.Web.Helper;
 using SrednjeSkoleApp.Web.Helper.Files;
 using static SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.MaterijaliIndexVM;
@@ -51,6 +52,22 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
                 blobName = string.Format(@"{0***REMOVED***\{1***REMOVED***", inputModel.Folder, blobName);
 
             await _blobStorage.UploadAsync(blobName, fileStream);
+
+            var blobUri = await _blobStorage.GetBlobUri(blobName);
+            Korisnik korisnik = HttpContext.GetLogiraniKorisnik();
+            Materijal m = new Materijal()
+            {
+                DateCreated = DateTime.Now,
+                Url = blobUri,
+                Naziv = blobName,
+                NastavnikId = korisnik.Id,
+                
+        ***REMOVED***;
+
+            _context.Materijali.Add(new Materijal()
+            {
+                DateCreated = DateTime.Now                
+        ***REMOVED***);
 
             return RedirectToAction("Index");
     ***REMOVED***
