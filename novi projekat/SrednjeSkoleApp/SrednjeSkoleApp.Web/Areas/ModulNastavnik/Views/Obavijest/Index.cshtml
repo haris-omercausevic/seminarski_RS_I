@@ -27,7 +27,15 @@
         <tr>
             <td>
                 <h3>@x.Naslov</h3> <br />
-                <p>@x.Tekst.Substring(0, Math.Min(x.Tekst.Length, 50)) ...</p>
+                @if (x.Tekst.Length > 50)
+                {
+                   <p>@x.Tekst.Substring(0, Math.Min(x.Tekst.Length, 50)) ...</p>                 
+            ***REMOVED***
+                else
+                {
+                    <p>@x.Tekst</p>
+            ***REMOVED***
+
             </td>
             <td>@x.Korisnik</td>
             <td>@x.Datum</td>

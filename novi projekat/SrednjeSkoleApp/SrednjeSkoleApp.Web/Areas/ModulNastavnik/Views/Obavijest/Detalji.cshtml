@@ -1,0 +1,12 @@
+﻿@model SrednjeSkoleApp.Web.Areas.ModulNastavnik.ViewModels.ObavijestDodajVM
+
+@{
+    ViewData["Title"] = "Detalji";
+***REMOVED***
+
+<h2>@Model.Naslov</h2>
+<p>Objavio: @Model.Korisnik @(Model.Datum.ToShortDateString() + " " + @Model.Datum.ToShortTimeString())</p>
+<div class="form-group">
+    <p>@Model.Tekst</p>
+</div>
+

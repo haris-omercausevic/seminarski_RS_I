@@ -47,6 +47,21 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             
             return View(model);
     ***REMOVED***
+        public IActionResult Detalji(int id)
+        {
+            Obavijest o1 = _context.Obavijesti.Where(x => x.ObavijestId == id).Include(x => x.Korisnik).FirstOrDefault();
+            var model = new ObavijestDodajVM()
+            {
+                ObavijestId = o1.ObavijestId,
+                Datum = o1.Datum,
+                Naslov = o1.Naslov,
+                Tekst = o1.Tekst,
+                Korisnik = o1.Korisnik.Ime + " " + o1.Korisnik.Prezime,
+                KorisnikId = o1.KorisnikId                
+        ***REMOVED***;
+
+            return View("Detalji", model);
+    ***REMOVED***
 
         public IActionResult Snimi(ObavijestDodajVM input)
         {
