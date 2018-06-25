@@ -39,25 +39,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
         ***REMOVED***;
 
             return View(model);
-    ***REMOVED***
-        //public async Task<IActionResult> Index()
-        //{
-        //    var model = new MaterijaliIndexVM()
-        //    {
-        //        predmeti = _context.Predmet.Select(x => new SelectListItem
-        //        {
-        //            Value = x.PredmetId.ToString(),
-        //            Text = x.Naziv
-        //    ***REMOVED***).ToList()
-        //***REMOVED***;
-        //    foreach (var item in await _blobStorage.ListAsync())
-        //    {
-        //        model.Files.Add(
-        //            new FileDetails { Name = item.Name, BlobName = item.BlobName ***REMOVED***);
-        //***REMOVED***
-        //    return View(model);
-
-        //***REMOVED***
+    ***REMOVED***  
 
         public IActionResult Trazi(int predmetId)
         {

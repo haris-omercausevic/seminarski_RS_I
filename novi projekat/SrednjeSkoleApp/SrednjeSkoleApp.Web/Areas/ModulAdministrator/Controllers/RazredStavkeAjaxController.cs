@@ -29,7 +29,7 @@ namespace SrednjeSkoleApp.Web.Areas.ModulAdministrator.Controllers
                 rows = _context.UceniciRazredi.Where(o => o.RazredId == id).Include(o => o.Ucenik).Select(x => new RazredStavkeAjaxIndexVM.Row
                 {
                     RedniBroj = x.RedniBroj,
-                    Ucenik = x.Ucenik.Ime + x.Ucenik.Prezime,
+                    Ucenik = x.Ucenik.Ime + " " + x.Ucenik.Prezime,
                     UcenikRazredId = x.UcenikRazrediId,
                     UcenikId = x.UcenikId
             ***REMOVED***).OrderBy(x => x.Ucenik).ToList()

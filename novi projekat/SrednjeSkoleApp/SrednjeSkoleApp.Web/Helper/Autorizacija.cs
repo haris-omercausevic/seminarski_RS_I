@@ -94,10 +94,10 @@ namespace SrednjeSkoleApp.Web.Helper
                 {
                     c1.TempData["error_poruka"] = "Nemate pravo pristupa";
             ***REMOVED***
-            filterContext.Result = new RedirectToActionResult("Index", "Home", new { @area = "" ***REMOVED***);
-        ***REMOVED***
+            filterContext.Result = new RedirectToActionResult("Index", "Autentifikacija", new { @area = "" ***REMOVED***);
+    ***REMOVED***
 
-            public void OnActionExecuted(ActionExecutedContext context)
+        public void OnActionExecuted(ActionExecutedContext context)
 {
     // throw new NotImplementedException();
 ***REMOVED***

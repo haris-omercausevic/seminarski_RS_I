@@ -141,86 +141,84 @@ namespace SrednjeSkoleApp.Web.Areas.ModulNastavnik.Controllers
             return View("Index", model);
     ***REMOVED***
 
-        public IActionResult Obrisi(int id)
-        {
-            Ucenik p1 = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
-            UcenikRazredi p2 = _context.UceniciRazredi.FirstOrDefault(x => x.UcenikId == id);
+        //public IActionResult Obrisi(int id)
+        //{
+        //    Ucenik p1 = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
+        //    UcenikRazredi p2 = _context.UceniciRazredi.FirstOrDefault(x => x.UcenikId == id);
 
-            //PROMJENA
-            //foreach (var up in _context.UceniciPredmeti.Where(x => x.UcenikId == id))
-            //{
-            //    foreach (var item in _context.UceniciOcjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId))
-            //    {
-            //        _context.Ocjene.Remove(item.Ocjena);
-            //        _context.UceniciOcjene.Remove(item);
-            //***REMOVED***
-            //    _context.UceniciPredmeti.Remove(up);
-            //***REMOVED***
-            //END-PROMJENA
+        //    //PROMJENA
+        //    //foreach (var up in _context.UceniciPredmeti.Where(x => x.UcenikId == id))
+        //    //{
+        //    //    foreach (var item in _context.UceniciOcjene.Where(x => x.UcenikPredmetId == up.UcenikPredmetId))
+        //    //    {
+        //    //        _context.Ocjene.Remove(item.Ocjena);
+        //    //        _context.UceniciOcjene.Remove(item);
+        //    //***REMOVED***
+        //    //    _context.UceniciPredmeti.Remove(up);
+        //    //***REMOVED***
+        //    //END-PROMJENA
 
-            if (p2 != null)
-                _context.UceniciRazredi.Remove(p2);
-            if (p1 != null)
-                _context.Ucenici.Remove(p1);
+        //    if (p2 != null)
+        //        _context.UceniciRazredi.Remove(p2);
+        //    if (p1 != null)
+        //        _context.Ucenici.Remove(p1);
 
+        //    _context.SaveChanges();
+        //    return RedirectToAction("Index", "Ucenik", new { area = "ModulAdministrator" ***REMOVED***);
+        //***REMOVED***
 
+        //public IActionResult Dodaj(int id, int nastavnikId) //ucenik id, nastavnikId preuzeti iz konteksta
+        //{
 
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Ucenik", new { area = "ModulAdministrator" ***REMOVED***);
-    ***REMOVED***
+        //    Ucenik u = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
+        //    //PROMJENA
+        //    var model = new UcenikDodajVM();
+        //    //var model = new UcenikDodajVM()
+        //    //{
+        //    //    Datum = DateTime.Now,
+        //    //    ImePrezime = u.Ime + " " + u.Prezime,
+        //    //    Razred = _context.UceniciRazredi.Where(x => x.UcenikId == id).Include(x => x.Razred).Select(x => x.Razred.Oznaka).ToString(),
+        //    //    predmeti = _context.UceniciPredmeti.Where(x => x.UcenikId == id && x.NastavnikId == nastavnikId)
+        //    //    .Include(x => x.Predmet).Select(x => new SelectListItem
+        //    //    {
+        //    //        Value = x.PredmetId.ToString(),
+        //    //        Text = x.Predmet.Naziv
+        //    //***REMOVED***).ToList(),
+        //    //    PredmetId = 0
+        //    //***REMOVED***;
+        //    //END PROMJENA
+        //    return View(model);
+        //***REMOVED***
 
-        public IActionResult Dodaj(int id, int nastavnikId) //ucenik id, nastavnikId preuzeti iz konteksta
-        {
+        //public IActionResult Snimi(UcenikDodajVM input)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return View("Dodaj", input);
+        //***REMOVED***
+        //    //PROMJENA
+        //    //UcenikPredmet up = _context.UceniciPredmeti.Where(x => x.NastavnikId == input.Id && x.PredmetId == input.PredmetId && x.UcenikId == input.Id).FirstOrDefault();
+        //    //if (up != null)
+        //    //{
+        //    //    UcenikOcjene uo = new UcenikOcjene()
+        //    //    {
+        //    //        UcenikPredmetId = up.UcenikPredmetId,
+        //    //        Ocjena = new Ocjena()
+        //    //        {
+        //    //            Datum = input.Datum,
+        //    //            Napomena = input.Napomena,
+        //    //            TipOcjene = input.TipOcjene,
+        //    //            Vrijednost = input.Vrijednost
+        //    //    ***REMOVED***
+        //    //***REMOVED***;
+        //    //END-PROMJENA
 
-            Ucenik u = _context.Ucenici.Where(x => x.Id == id).Include(x => x.Kontakt).FirstOrDefault();
-            //PROMJENA
-            var model = new UcenikDodajVM();
-            //var model = new UcenikDodajVM()
-            //{
-            //    Datum = DateTime.Now,
-            //    ImePrezime = u.Ime + " " + u.Prezime,
-            //    Razred = _context.UceniciRazredi.Where(x => x.UcenikId == id).Include(x => x.Razred).Select(x => x.Razred.Oznaka).ToString(),
-            //    predmeti = _context.UceniciPredmeti.Where(x => x.UcenikId == id && x.NastavnikId == nastavnikId)
-            //    .Include(x => x.Predmet).Select(x => new SelectListItem
-            //    {
-            //        Value = x.PredmetId.ToString(),
-            //        Text = x.Predmet.Naziv
-            //***REMOVED***).ToList(),
-            //    PredmetId = 0
-            //***REMOVED***;
-            //END PROMJENA
-            return View(model);
-    ***REMOVED***
+        //    //    _context.Ocjene.Add(uo.Ocjena);
+        //    //    //_context.UceniciOcjene.Add(uo);
 
-        public IActionResult Snimi(UcenikDodajVM input)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View("Dodaj", input);
-        ***REMOVED***
-            //PROMJENA
-            //UcenikPredmet up = _context.UceniciPredmeti.Where(x => x.NastavnikId == input.Id && x.PredmetId == input.PredmetId && x.UcenikId == input.Id).FirstOrDefault();
-            //if (up != null)
-            //{
-            //    UcenikOcjene uo = new UcenikOcjene()
-            //    {
-            //        UcenikPredmetId = up.UcenikPredmetId,
-            //        Ocjena = new Ocjena()
-            //        {
-            //            Datum = input.Datum,
-            //            Napomena = input.Napomena,
-            //            TipOcjene = input.TipOcjene,
-            //            Vrijednost = input.Vrijednost
-            //    ***REMOVED***
-            //***REMOVED***;
-            //END-PROMJENA
+        //        _context.SaveChanges();
 
-            //    _context.Ocjene.Add(uo.Ocjena);
-            //    //_context.UceniciOcjene.Add(uo);
-
-                _context.SaveChanges();
-
-            return RedirectToAction("Index", "Ucenik", new { area = "ModulNastavnik" ***REMOVED***);
-    ***REMOVED***
+        //    return RedirectToAction("Index", "Ucenik", new { area = "ModulNastavnik" ***REMOVED***);
+        //***REMOVED***
 ***REMOVED***
 ***REMOVED***

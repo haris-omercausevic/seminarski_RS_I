@@ -57,7 +57,7 @@
             <th>Email</th>
             <th>Razred</th>
             <th>Smjer</th>
-            <th>Akcija</th>
+            @*<th>Akcija</th>*@
         </tr>
     </thead>
     <tbody>
@@ -68,10 +68,10 @@
                 <td>@x.email</td>
                 <td>@x.razred</td>
                 <td>@x.smjer</td>
-                <td>
+                @*<td>
                     <a asp-area="ModulNastavnik" asp-action="Detalji" asp-route-id="@x.id" class="btn btn-primary">Detalji</a>
                     <a asp-area="ModulNastavnik" asp-action="Dodaj" asp-route-id="@x.id" asp-route-nastavnikId="@Context.GetLogiraniKorisnik().Id" class="btn btn-danger">Dodaj ocjenu</a>
-                </td>
+                </td>*@
             </tr>
     ***REMOVED***
     </tbody>

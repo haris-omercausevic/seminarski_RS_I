@@ -55,8 +55,6 @@ namespace SrednjeSkoleApp.Web
                 app.UseExceptionHandler("/Home/Error");
         ***REMOVED***
             app.UseSession();
-
-
             app.UseStaticFiles();
 
             app.UseMvc(routes =>
@@ -67,7 +65,7 @@ namespace SrednjeSkoleApp.Web
                 );
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home***REMOVED***/{action=Index***REMOVED***/{id?***REMOVED***");
+                    template: "{controller=Autentifikacija***REMOVED***/{action=Index***REMOVED***/{id?***REMOVED***");
         ***REMOVED***);
     ***REMOVED***
 ***REMOVED***

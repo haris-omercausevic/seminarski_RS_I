@@ -6,7 +6,7 @@
     ViewData["Title"] = "Index";
 ***REMOVED***
 
-<h2>Razred stavke</h2>
+<h2>Učenici u razredu</h2>
 
 <table class="table table-striped">
     <thead>
@@ -26,15 +26,11 @@
             <td>@item.ProsjecnaOcjena</td>
             <td>
                 <a asp-action="Detalji" asp-route-id="@item.UcenikId" asp-controller="Ucenik" asp-area="ModulNastavnik" class="btn btn-primary">Detalji</a>
-                <a asp-action="Dodaj" asp-route-id="@item.UcenikRazredId" ajax-poziv="da" ajax-rezultat="nekiID" class="btn btn-success">Dodaj ocjenu</a>
             </td>
         </tr>
 ***REMOVED***
     </tbody>
 </table>
-
-<a class="btn btn-success" ajax-poziv="da" ajax-rezultat="nekiID" asp-action="Dodaj" asp-area="ModulNastavnik" asp-route-id="@Model.RazredId">Dodaj</a>
-
 
 
 
