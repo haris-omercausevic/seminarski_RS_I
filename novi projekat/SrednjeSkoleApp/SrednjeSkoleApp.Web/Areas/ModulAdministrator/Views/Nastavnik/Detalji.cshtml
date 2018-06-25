@@ -5,7 +5,7 @@
     ViewBag.Title = "title";
 ***REMOVED***
 
-<h2>Detalji</h2>
+<h2>@(Model.Ime + " " + Model.Prezime)</h2>
 
 <form asp-area="ModulAdministrator" asp-action="Snimi" asp-controller="Nastavnik">
 
@@ -14,7 +14,6 @@
     <input type="hidden" asp-for="KorisnikKontaktId" />
 
     <div class="container">
-        <h2>Dodaj nastavnika</h2>
         <div class="panel-group" id="accordion">
             <div class="panel panel-default">
                 <div class="panel-heading">
